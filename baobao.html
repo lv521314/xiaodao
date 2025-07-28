@@ -8,21 +8,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #5cb85c; /* 改为浅绿色 */
-            --primary-dark: #4cae4c;
-            --success: #5cb85c;
-            --warning: #f0ad4e;
-            --danger: #d9534f;
-            --dark: #2c3e50;
-            --darker: #1a252f;
-            --light: #f8f9fa;
-            --gray: #95a5a6;
-            --panel-bg: rgba(44, 62, 80, 0.95);
-            --card-bg: rgba(52, 73, 94, 0.8);
+            --primary: #4CAF50;
+            --primary-dark: #3d8b40;
+            --success: #00C9A7;
+            --warning: #FFB86C;
+            --danger: #FF6B6B;
+            --dark: #1E1F2B;
+            --darker: #161722;
+            --light: #F8F9FC;
+            --gray: #8A8D9F;
+            --panel-bg: rgba(30, 31, 43, 0.95);
+            --card-bg: rgba(37, 40, 54, 0.8);
             --border-radius: 16px;
             --box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            --gradient: linear-gradient(135deg, var(--primary), #27ae60);
+            --gradient: linear-gradient(135deg, var(--primary), #2E7D32);
         }
         
         * {
@@ -39,8 +39,8 @@
             padding: 20px;
             min-height: 100vh;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(92, 184, 92, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(39, 174, 96, 0.1) 0%, transparent 20%);
+                radial-gradient(circle at 10% 20%, rgba(76, 175, 80, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 201, 167, 0.1) 0%, transparent 20%);
         }
         
         .container {
@@ -69,7 +69,7 @@
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.08);
             background-image: 
-                linear-gradient(to right, rgba(92, 184, 92, 0.15), transparent);
+                linear-gradient(to right, rgba(76, 175, 80, 0.15), transparent);
         }
         
         header::before {
@@ -195,7 +195,7 @@
         .form-control:focus {
             border-color: var(--primary);
             outline: none;
-            box-shadow: 0 0 0 4px rgba(92, 184, 92, 0.2);
+            box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.2);
         }
         
         .form-row {
@@ -213,7 +213,7 @@
         
         .keyword-card {
             padding: 16px;
-            background: rgba(92, 184, 92, 0.1);
+            background: rgba(76, 175, 80, 0.1);
             border-radius: 12px;
             text-align: center;
             cursor: pointer;
@@ -224,20 +224,20 @@
         }
         
         .keyword-card:hover {
-            background: rgba(92, 184, 92, 0.2);
+            background: rgba(76, 175, 80, 0.2);
             transform: translateY(-3px);
-            border-color: rgba(92, 184, 92, 0.3);
+            border-color: rgba(76, 175, 80, 0.3);
         }
         
         .keyword-card.selected {
-            background: rgba(39, 174, 96, 0.15);
+            background: rgba(0, 201, 167, 0.15);
             border-color: var(--success);
             transform: translateY(-3px);
         }
         
         .keyword-card.selected .key {
             background: var(--success);
-            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 201, 167, 0.4);
         }
         
         .key {
@@ -252,7 +252,7 @@
             margin-bottom: 10px;
             font-weight: 700;
             font-size: 1rem;
-            box-shadow: 0 4px 12px rgba(92, 184, 92, 0.3);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
             transition: var(--transition);
         }
         
@@ -291,7 +291,7 @@
         
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(92, 184, 92, 0.4);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
         }
         
         .btn:hover::after {
@@ -307,8 +307,8 @@
         }
         
         .btn-success:hover {
-            background: #4cae4c;
-            box-shadow: 0 8px 20px rgba(76, 174, 76, 0.4);
+            background: #00BFA5;
+            box-shadow: 0 8px 20px rgba(0, 191, 165, 0.4);
         }
         
         .btn-warning {
@@ -316,8 +316,8 @@
         }
         
         .btn-warning:hover {
-            background: #eea236;
-            box-shadow: 0 8px 20px rgba(238, 162, 54, 0.4);
+            background: #FFA94D;
+            box-shadow: 0 8px 20px rgba(255, 169, 77, 0.4);
         }
         
         .btn-danger {
@@ -325,13 +325,13 @@
         }
         
         .btn-danger:hover {
-            background: #c9302c;
-            box-shadow: 0 8px 20px rgba(201, 48, 44, 0.4);
+            background: #FF5252;
+            box-shadow: 0 8px 20px rgba(255, 82, 82, 0.4);
         }
         
         .logs {
-            background: linear-gradient(to bottom right, #2c3e50, #34495e);
-            color: #ecf0f1;
+            background: linear-gradient(to bottom right, #1E1F2B, #252836);
+            color: #e2e4eb;
             border-radius: var(--border-radius);
             padding: 20px;
             height: 500px;
@@ -350,7 +350,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.9));
+            background: linear-gradient(rgba(30, 31, 43, 0.8), rgba(30, 31, 43, 0.9));
             pointer-events: none;
             border-radius: var(--border-radius);
         }
@@ -359,7 +359,7 @@
             padding: 12px 15px;
             margin: 8px 0;
             border-radius: 8px;
-            background: rgba(44, 62, 80, 0.4);
+            background: rgba(30, 31, 43, 0.4);
             animation: fadeIn 0.3s ease forwards;
             border-left: 3px solid var(--primary);
         }
@@ -393,7 +393,7 @@
         }
         
         .highlight {
-            background: rgba(92, 184, 92, 0.2);
+            background: rgba(76, 175, 80, 0.2);
             padding: 4px 10px;
             border-radius: 6px;
             font-weight: bold;
@@ -402,18 +402,18 @@
         .stats {
             display: flex;
             justify-content: space-around;
-            background: rgba(44, 62, 80, 0.7);
+            margin-bottom: 20px;
+            background: rgba(30, 31, 43, 0.7);
             padding: 15px;
             border-radius: var(--border-radius);
             border: 1px solid rgba(255, 255, 255, 0.1);
             gap: 15px;
-            margin-bottom: 20px;
         }
         
         .stat-box {
             text-align: center;
             padding: 16px;
-            background: rgba(52, 73, 94, 0.8);
+            background: rgba(37, 40, 54, 0.8);
             border-radius: var(--border-radius);
             flex: 1;
             transition: var(--transition);
@@ -422,7 +422,7 @@
         
         .stat-box:hover {
             transform: translateY(-3px);
-            background: rgba(52, 73, 94, 1);
+            background: rgba(37, 40, 54, 1);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
         }
         
@@ -452,7 +452,7 @@
             margin: 25px 0;
             font-weight: 600;
             font-size: 1.2rem;
-            background: rgba(44, 62, 80, 0.7);
+            background: rgba(30, 31, 43, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
@@ -487,7 +487,7 @@
         }
         
         .order-list::-webkit-scrollbar-track {
-            background: rgba(44, 62, 80, 0.5);
+            background: rgba(30, 31, 43, 0.5);
             border-radius: 3px;
         }
         
@@ -499,7 +499,7 @@
         .order-item {
             padding: 20px;
             margin-bottom: 18px;
-            background: rgba(52, 73, 94, 0.8);
+            background: rgba(37, 40, 54, 0.8);
             border-radius: var(--border-radius);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
             border-left: 4px solid var(--primary);
@@ -533,18 +533,18 @@
         }
         
         .status-available {
-            background: rgba(92, 184, 92, 0.15);
+            background: rgba(0, 201, 167, 0.15);
             color: var(--success);
         }
         
         .status-taken {
-            background: rgba(217, 83, 79, 0.15);
+            background: rgba(255, 107, 107, 0.15);
             color: var(--danger);
         }
         
         .status-blacklisted {
-            background: rgba(155, 89, 182, 0.15);
-            color: #9b59b6;
+            background: rgba(106, 90, 205, 0.15);
+            color: #6a5acd;
         }
         
         .order-price {
@@ -589,20 +589,131 @@
             cursor: not-allowed;
         }
         
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--gray);
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--success);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+        
+        footer {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: var(--gray);
+            padding: 25px;
+            margin-top: 20px;
+            font-size: 1rem;
+            background: var(--panel-bg);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+        
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 12px;
+            background: var(--dark);
+            color: white;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            width: 250px;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 201, 167, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 201, 167, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 201, 167, 0); }
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
         .auto-stop-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 12px 15px;
-            background: rgba(44, 62, 80, 0.5);
+            background: rgba(30, 31, 43, 0.5);
             border-radius: 12px;
             margin-top: 15px;
         }
         
         .blacklist-section {
-            margin-top: 20px;
+            margin-bottom: 20px;
             padding: 15px;
-            background: rgba(44, 62, 80, 0.6);
+            background: rgba(30, 31, 43, 0.6);
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
@@ -629,7 +740,7 @@
             max-height: 120px;
             overflow-y: auto;
             padding: 10px;
-            background: rgba(26, 37, 47, 0.5);
+            background: rgba(20, 21, 33, 0.5);
             border-radius: 8px;
             font-family: 'Courier New', monospace;
             font-size: 0.9rem;
@@ -644,40 +755,17 @@
             border-bottom: none;
         }
         
-        .pulse {
-            animation: pulse 2s infinite;
+        .password-container {
+            position: relative;
         }
         
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(92, 184, 92, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(92, 184, 92, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(92, 184, 92, 0); }
-        }
-        
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--primary);
-            animation: spin 1s ease-in-out infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        footer {
-            grid-column: 1 / -1;
-            text-align: center;
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
             color: var(--gray);
-            padding: 25px;
-            margin-top: 20px;
-            font-size: 1rem;
-            background: var(--panel-bg);
-            border-radius: var(--border-radius);
-            border: 1px solid rgba(255, 255, 255, 0.08);
         }
     </style>
 </head>
@@ -696,12 +784,29 @@
             
             <div class="form-group">
                 <label for="memberId"><i class="fas fa-id-card"></i> 会员ID (memberId)</label>
-                <input type="password" id="memberId" class="form-control" placeholder="请输入您的 memberId">
+                <div class="password-container">
+                    <input type="password" id="memberId" class="form-control" placeholder="请输入您的 memberId">
+                    <i class="fas fa-eye toggle-password" id="toggleMemberId"></i>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="ids"><i class="fas fa-fingerprint"></i> 打手ID (ids)</label>
+                    <input type="text" id="ids" class="form-control" placeholder="请输入您的 ids">
+                </div>
+                <div class="form-group">
+                    <label for="nickname"><i class="fas fa-user"></i> 昵称 (nickname)</label>
+                    <input type="text" id="nickname" class="form-control" placeholder="请输入您的昵称">
+                </div>
             </div>
             
             <div class="form-group">
                 <label for="token"><i class="fas fa-key"></i> 访问令牌 (token)</label>
-                <input type="password" id="token" class="form-control" placeholder="请输入您的 token">
+                <div class="password-container">
+                    <input type="password" id="token" class="form-control" placeholder="请输入您的 token">
+                    <i class="fas fa-eye toggle-password" id="toggleToken"></i>
+                </div>
             </div>
             
             <div class="form-group">
@@ -713,7 +818,7 @@
                 </select>
             </div>
             
-            
+      
             
             
             <div class="form-group">
@@ -743,10 +848,7 @@
                         <div class="key">6</div>
                         <div>冰河禁区专属</div>
                     </div>
-                    <div class="keyword-card" data-key="7">
-                        <div class="key">7</div>
-                        <div>至尊护航单</div>
-                    </div>
+                    
                     <div class="keyword-card" data-key="8">
                         <div class="key">8</div>
                         <div>钻石加强单</div>
@@ -759,8 +861,10 @@
                         <div class="key">10</div>
                         <div>保底BOSS金光单</div>
                     </div>
-                    
-                      
+                      <div class="keyword-card" data-key="11">
+                        <div class="key">11</div>
+                        <div>大神护航单</div>
+                    </div>
                       <div class="keyword-card" data-key="12">
                         <div class="key">12</div>
                         <div>苏尔南钻石单</div>
@@ -786,6 +890,7 @@
                     
                 </div>
             </div>
+            
             
             <div class="form-row">
                 <div class="form-group">
@@ -820,16 +925,6 @@
                 <button class="btn btn-danger" id="stopBtn" disabled>
                     <i class="fas fa-stop"></i> 停止抢单
                 </button>
-            </div>
-            
-            <div class="blacklist-section">
-                <div class="blacklist-title">
-                    <i class="fas fa-ban"></i> 订单黑名单
-                    <span class="blacklist-count" id="blacklistCount">0</span>
-                </div>
-                <div class="blacklist-list" id="blacklistList">
-                    当前无黑名单订单
-                </div>
             </div>
         </div>
         
@@ -867,9 +962,58 @@
                     <span class="log-time">[新功能]</span>
                     <span class="success">已添加"订单黑名单"功能</span>
                 </div>
-                <div class="log-entry">
-                    <span class="log-time">[新功能]</span>
-                    <span class="success">已被抢订单将自动加入黑名单</span>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="blacklist-section">
+                <div class="blacklist-title">
+                    <i class="fas fa-ban"></i> 订单黑名单
+                    <span class="blacklist-count" id="blacklistCount">0</span>
+                </div>
+                <div class="blacklist-list" id="blacklistList">
+                    当前无黑名单订单
+                </div>
+            </div>
+            
+            <div class="order-list" id="orderList">
+                <div class="order-item">
+                    <div class="order-header">
+                        <div class="order-id">#93452</div>
+                        <div class="order-status status-available">可抢</div>
+                    </div>
+                    <div class="order-price">¥120.00</div>
+                    <div class="order-area">Q区 微信区</div>
+                    <div class="order-time">发布时间: 2023-07-15 11:23:45</div>
+                    <button class="grab-btn">
+                        <i class="fas fa-hand-paper"></i> 手动抢单
+                    </button>
+                </div>
+                
+                <div class="order-item">
+                    <div class="order-header">
+                        <div class="order-id">#93127</div>
+                        <div class="order-status status-taken">已被抢</div>
+                    </div>
+                    <div class="order-price">¥85.00</div>
+                    <div class="order-area">V区 QQ区</div>
+                    <div class="order-time">发布时间: 2023-07-15 10:15:32</div>
+                    <button class="grab-btn" disabled>
+                        <i class="fas fa-lock"></i> 订单已被抢
+                    </button>
+                </div>
+                
+                <div class="order-item">
+                    <div class="order-header">
+                        <div class="order-id">#92789</div>
+                        <div class="order-status status-available">可抢</div>
+                    </div>
+                    <div class="order-price">¥150.00</div>
+                    <div class="order-area">Q区 微信区</div>
+                    <div class="order-time">发布时间: 2023-07-14 16:45:21</div>
+                    <button class="grab-btn">
+                        <i class="fas fa-hand-paper"></i> 手动抢单
+                    </button>
                 </div>
             </div>
         </div>
@@ -883,7 +1027,7 @@
             <div class="form-group">
                 <h3>配置指南</h3>
                 <ul style="padding-left: 22px; margin: 15px 0 25px;">
-                    <li>填写正确的 <span class="highlight">memberId</span> 和 <span class="highlight">token</span></li>
+                    <li>填写正确的 <span class="highlight">memberId</span>、<span class="highlight">ids</span>、<span class="highlight">nickname</span> 和 <span class="highlight">token</span></li>
                     <li>选择您要关注的订单区域（Q区或V区）</li>
                     <li>选择订单关键词以过滤特定类型的订单</li>
                     <li>设置合适的抢单延迟（100-1000ms）和刷新频率（0.5-5秒）</li>
@@ -897,7 +1041,6 @@
                     <li>一旦订单被抢走，系统会将其加入黑名单</li>
                     <li>黑名单订单将不再出现在订单列表中</li>
                     <li>系统不会尝试抢黑名单中的订单</li>
-                    <li>黑名单订单不会出现在抢单日志中</li>
                     <li>黑名单在页面刷新后会重置</li>
                 </ul>
             </div>
@@ -915,6 +1058,7 @@
         const ORDER_LIST_URL = `${BASE_URL}/order/list?pageSize=10&pageNum=1&categoryId=0`;
         const TAKE_ORDER_URL = `${BASE_URL}/order/takeOrder`;
         const ORDER_DETAIL_URL = `${BASE_URL}/order/getInfo`;
+        const SUCCESS_SOUND_URL = "https://ripe-lavender-i8tpiiw5xw.edgeone.app/0.mp3";
         
         // DOM元素
         const logContainer = document.getElementById('logContainer');
@@ -929,6 +1073,10 @@
         const autoStopSwitch = document.getElementById('autoStop');
         const blacklistList = document.getElementById('blacklistList');
         const blacklistCount = document.getElementById('blacklistCount');
+        const toggleMemberId = document.getElementById('toggleMemberId');
+        const toggleToken = document.getElementById('toggleToken');
+        const memberIdInput = document.getElementById('memberId');
+        const tokenInput = document.getElementById('token');
         
         // 状态变量
         let isRunning = false;
@@ -940,6 +1088,8 @@
         };
         let config = {
             memberId: '',
+            ids: '',
+            nickname: '',
             token: '',
             areaFilter: 'all',
             keywords: [],
@@ -950,6 +1100,24 @@
         
         // 订单黑名单
         let orderBlacklist = [];
+        
+        // 音频对象
+        const successSound = new Audio(SUCCESS_SOUND_URL);
+        
+        // 切换密码可见性
+        toggleMemberId.addEventListener('click', () => {
+            const type = memberIdInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            memberIdInput.setAttribute('type', type);
+            toggleMemberId.classList.toggle('fa-eye');
+            toggleMemberId.classList.toggle('fa-eye-slash');
+        });
+        
+        toggleToken.addEventListener('click', () => {
+            const type = tokenInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            tokenInput.setAttribute('type', type);
+            toggleToken.classList.toggle('fa-eye');
+            toggleToken.classList.toggle('fa-eye-slash');
+        });
         
         // 更新黑名单显示
         function updateBlacklistDisplay() {
@@ -972,11 +1140,10 @@
             blacklistList.innerHTML = html;
         }
         
-        // 添加日志（过滤黑名单订单相关日志）
+        // 添加日志（过滤黑名单订单）
         function addLog(message, type = 'info', orderId = null) {
-            // 如果日志与黑名单订单相关，则不记录
             if (orderId && orderBlacklist.includes(orderId)) {
-                return;
+                return; // 不显示黑名单订单的日志
             }
             
             const now = new Date();
@@ -1029,6 +1196,18 @@
             });
         });
         
+        // 播放成功音效
+        function playSuccessSound() {
+            successSound.currentTime = 0;
+            successSound.play();
+            
+            // 播放第二次
+            setTimeout(() => {
+                successSound.currentTime = 0;
+                successSound.play();
+            }, 1000);
+        }
+        
         // 获取可用订单
         async function getAvailableOrders() {
             const token = config.token;
@@ -1059,13 +1238,8 @@
                 stats.orders = data.rows.length;
                 updateStats();
                 
-                // 过滤订单 - 排除黑名单订单
+                // 过滤订单
                 let filteredOrders = data.rows.filter(order => {
-                    // 黑名单过滤
-                    if (orderBlacklist.includes(order.taskId)) {
-                        return false;
-                    }
-                    
                     const categoryName = order.categoryName.toLowerCase();
                     
                     // 区域筛选
@@ -1127,6 +1301,7 @@
                         isTaken: detail ? detail.isTaken : true
                     };
                 } catch (error) {
+                    addLog(`获取订单 #${order.taskId} 详情失败: ${error.message}`, 'warning');
                     return {
                         ...order,
                         isTaken: true
@@ -1135,7 +1310,7 @@
             }));
             
             // 过滤已被抢订单和黑名单订单
-            let displayOrders = orderDetails.filter(order => !order.isTaken);
+            let displayOrders = orderDetails.filter(order => !order.blacklisted);
             
             if (displayOrders.length === 0) {
                 orderList.innerHTML = '<div style="text-align: center; padding: 30px; color: var(--gray);">暂无可用订单</div>';
@@ -1194,7 +1369,7 @@
             updateStats();
             
             const delay = config.delay;
-            addLog(`发现新订单 #${taskId}，等待 ${delay}ms 后抢单...`, 'info', taskId);
+            addLog(`发现新订单 #${taskId}，等待 ${delay}ms 后抢单...`, 'info');
             
             // 模拟延迟
             await new Promise(resolve => setTimeout(resolve, delay));
@@ -1208,7 +1383,10 @@
                     },
                     body: JSON.stringify({
                         taskId: taskId,
-                        memberId: config.memberId
+                        memberId: config.memberId,
+                        ids: [config.ids],
+                        nickname: config.nickname,
+                        avatar: "https://xiaolatiao.oss-cn-beijing.aliyuncs.com/uploadImg-test/wYp4xWmXfR.jpg"
                     })
                 });
                 
@@ -1227,6 +1405,9 @@
                     addLog(`订单类型: ${result.data?.taskName || '未知'}`, 'success');
                     addLog(`金额: ¥${result.data?.receivePrice?.toFixed(2) || '0.00'}`, 'success');
                     
+                    // 播放成功音效
+                    playSuccessSound();
+                    
                     // 如果开启了自动停止功能
                     if (config.autoStop) {
                         addLog('已启用"抢到一单后自动停止"功能，停止抢单', 'info');
@@ -1237,12 +1418,15 @@
                 } else {
                     // 检查是否是因为订单已被抢
                     if (result.msg && result.msg.includes('已被抢')) {
+                        addLog(`订单 #${taskId} 已被抢走，加入黑名单`, 'warning');
+                        
                         // 将订单加入黑名单
                         if (!orderBlacklist.includes(taskId)) {
                             orderBlacklist.push(taskId);
                             updateBlacklistDisplay();
                         }
-                        // 注意：这里不添加日志，因为黑名单订单不应出现在日志中
+                    } else {
+                        addLog(`抢单失败: ${result.msg || '未知错误'}`, 'error');
                     }
                     return false;
                 }
@@ -1254,7 +1438,7 @@
         
         // 手动抢单
         async function manualTakeOrder(taskId) {
-            if (!config.token || !config.memberId) {
+            if (!config.token || !config.memberId || !config.ids || !config.nickname) {
                 addLog('请先配置所有用户信息', 'warning');
                 return;
             }
@@ -1301,7 +1485,7 @@
                     };
                 }
             } catch (error) {
-                console.error(`获取订单详情失败: ${error.message}`);
+                addLog(`获取订单详情失败: ${error.message}`, 'warning', taskId);
             }
             
             return null;
@@ -1314,6 +1498,8 @@
             // 获取配置
             config = {
                 memberId: document.getElementById('memberId').value,
+                ids: document.getElementById('ids').value,
+                nickname: document.getElementById('nickname').value,
                 token: document.getElementById('token').value,
                 areaFilter: document.getElementById('areaFilter').value,
                 keywords: Array.from(selectedKeywords).map(k => {
@@ -1326,7 +1512,7 @@
             };
             
             // 验证配置
-            if (!config.memberId || !config.token) {
+            if (!config.memberId || !config.ids || !config.nickname || !config.token) {
                 addLog('请填写所有必要的配置信息', 'warning');
                 return;
             }
@@ -1366,7 +1552,7 @@
                         
                         // 检查订单是否在黑名单中
                         if (orderBlacklist.includes(order.taskId)) {
-                            continue; // 跳过黑名单订单
+                            continue;
                         }
                         
                         // 检查订单是否已被抢
@@ -1380,7 +1566,7 @@
                             continue;
                         }
                         
-                        addLog(`发现新订单 → ${order.taskName}（ID：${order.taskId}）`, 'info', order.taskId);
+                        addLog(`发现新订单 → ${order.taskName}（ID：${order.taskId}）`, 'info');
                         const success = await takeOrder(order.taskId);
                         
                         if (success) {
