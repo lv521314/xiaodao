@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小岛自动抢单工具</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --primary-dark: #564FD8;
+            --success: #00C9A7;
+            --warning: #FFB86C;
+            --danger: #FF6B6B;
+            --dark: #1E1F2B;
+            --darker: #161722;
+            --light: #F8F9FC;
+            --gray: #8A8D9F;
+            --panel-bg: rgba(30, 31, 43, 0.95);
+            --card-bg: rgba(37, 40, 54, 0.8);
+            --border-radius: 16px;
+            --box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --gradient: linear-gradient(135deg, var(--primary), #9D50BB);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(108, 99, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 201, 167, 0.1) 0%, transparent 20%);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        
+        @media (max-width: 1000px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: var(--panel-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 20px;
+            grid-column: 1 / -1;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background-image: 
+                linear-gradient(to right, rgba(108, 99, 255, 0.15), transparent);
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+        }
+        
+        header h1 {
+            color: var(--light);
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+        
+        header h1 i {
+            font-size: 2.5rem;
+        }
+        
+        header p {
+            color: var(--gray);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.8;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            height: fit-content;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+        }
+        
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--light);
+        }
+        
+        .card-title i {
+            font-size: 1.8rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .card-title h2 {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--light);
+        }
+        
+        .form-group {
+            margin-bottom: 22px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--light);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .form-group label i {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(30, 31, 43, 0.7);
+            color: var(--light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-size: 1.05rem;
+            transition: var(--transition);
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.2);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .keywords-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .keyword-card {
+            padding: 16px;
+            background: rgba(108, 99, 255, 0.1);
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .keyword-card:hover {
+            background: rgba(108, 99, 255, 0.2);
+            transform: translateY(-3px);
+            border-color: rgba(108, 99, 255, 0.3);
+        }
+        
+        .keyword-card.selected {
+            background: rgba(0, 201, 167, 0.15);
+            border-color: var(--success);
+            transform: translateY(-3px);
+        }
+        
+        .keyword-card.selected .key {
+            background: var(--success);
+            box-shadow: 0 4px 15px rgba(0, 201, 167, 0.4);
+        }
+        
+        .key {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
+            transition: var(--transition);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 25px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            width: 100%;
+            font-family: 'Noto Sans SC', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 20px;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(25deg);
+            transition: all 0.5s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.4);
+        }
+        
+        .btn:hover::after {
+            left: 120%;
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-success {
+            background: var(--success);
+        }
+        
+        .btn-success:hover {
+            background: #00BFA5;
+            box-shadow: 0 8px 20px rgba(0, 191, 165, 0.4);
+        }
+        
+        .btn-warning {
+            background: var(--warning);
+        }
+        
+        .btn-warning:hover {
+            background: #FFA94D;
+            box-shadow: 0 8px 20px rgba(255, 169, 77, 0.4);
+        }
+        
+        .btn-danger {
+            background: var(--danger);
+        }
+        
+        .btn-danger:hover {
+            background: #FF5252;
+            box-shadow: 0 8px 20px rgba(255, 82, 82, 0.4);
+        }
+        
+        .logs {
+            background: linear-gradient(to bottom right, #1E1F2B, #252836);
+            color: #e2e4eb;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            height: 500px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.6;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+        }
+        
+        .logs::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(30, 31, 43, 0.8), rgba(30, 31, 43, 0.9));
+            pointer-events: none;
+            border-radius: var(--border-radius);
+        }
+        
+        .log-entry {
+            padding: 12px 15px;
+            margin: 8px 0;
+            border-radius: 8px;
+            background: rgba(30, 31, 43, 0.4);
+            animation: fadeIn 0.3s ease forwards;
+            border-left: 3px solid var(--primary);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .log-time {
+            color: #b5bd68;
+            margin-right: 10px;
+            font-weight: 600;
+        }
+        
+        .success {
+            color: var(--success);
+            font-weight: 600;
+        }
+        
+        .info {
+            color: #5dade2;
+        }
+        
+        .warning {
+            color: var(--warning);
+        }
+        
+        .error {
+            color: var(--danger);
+        }
+        
+        .highlight {
+            background: rgba(108, 99, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 25px;
+            background: rgba(30, 31, 43, 0.7);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 15px;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 16px;
+            background: rgba(37, 40, 54, 0.8);
+            border-radius: var(--border-radius);
+            flex: 1;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-3px);
+            background: rgba(37, 40, 54, 1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .stat-label {
+            font-size: 0.95rem;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 14px;
+            border-radius: 50px;
+            margin: 25px 0;
+            font-weight: 600;
+            font-size: 1.2rem;
+            background: rgba(30, 31, 43, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .indicator-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--gray);
+            transition: var(--transition);
+            box-shadow: 0 0 15px currentColor;
+        }
+        
+        .indicator-dot.active {
+            background: var(--success);
+            box-shadow: 0 0 15px var(--success);
+        }
+        
+        .indicator-dot.paused {
+            background: var(--warning);
+            box-shadow: 0 0 15px var(--warning);
+        }
+        
+        .order-list {
+            margin-top: 15px;
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+        
+        .order-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .order-list::-webkit-scrollbar-track {
+            background: rgba(30, 31, 43, 0.5);
+            border-radius: 3px;
+        }
+        
+        .order-list::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+        
+        .order-item {
+            padding: 20px;
+            margin-bottom: 18px;
+            background: rgba(37, 40, 54, 0.8);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            border-left: 4px solid var(--primary);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .order-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        
+        .order-id {
+            font-weight: 700;
+            color: var(--light);
+            font-size: 1.1rem;
+        }
+        
+        .order-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .status-available {
+            background: rgba(0, 201, 167, 0.15);
+            color: var(--success);
+        }
+        
+        .status-taken {
+            background: rgba(255, 107, 107, 0.15);
+            color: var(--danger);
+        }
+        
+        .order-price {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--success);
+            margin: 12px 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .order-area {
+            color: var(--gray);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .order-time {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .grab-btn {
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        
+        .grab-btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        .grab-btn:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+        }
+        
+        .filter-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background: rgba(30, 31, 43, 0.7);
+            padding: 15px;
+            border-radius: 12px;
+        }
+        
+        .filter-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--gray);
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--success);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+        
+        footer {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: var(--gray);
+            padding: 25px;
+            margin-top: 20px;
+            font-size: 1rem;
+            background: var(--panel-bg);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+        
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 12px;
+            background: var(--dark);
+            color: white;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            width: 250px;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 201, 167, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 201, 167, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 201, 167, 0); }
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-bolt"></i> 小岛自动抢单工具</h1>
+            <p>高效、智能、自动化 —— 实时监控并抢先获取优质订单</p>
+        </header>
+        
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-cog"></i>
+                <h2>配置设置</h2>
+            </div>
+            
+            <div class="form-group">
+                <label for="memberId"><i class="fas fa-id-card"></i> 会员ID (memberId)</label>
+                <input type="text" id="memberId" class="form-control" placeholder="请输入您的 memberId">
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="ids"><i class="fas fa-fingerprint"></i> 打手ID (ids)</label>
+                    <input type="text" id="ids" class="form-control" placeholder="请输入您的 ids">
+                </div>
+                <div class="form-group">
+                    <label for="nickname"><i class="fas fa-user"></i> 昵称 (nickname)</label>
+                    <input type="text" id="nickname" class="form-control" placeholder="请输入您的昵称">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="token"><i class="fas fa-key"></i> 访问令牌 (token)</label>
+                <input type="text" id="token" class="form-control" placeholder="请输入您的 token">
+            </div>
+            
+            <div class="form-group">
+                <label for="areaFilter"><i class="fas fa-map-marker-alt"></i> 区域筛选</label>
+                <select id="areaFilter" class="form-control">
+                    <option value="all">全选</option>
+                    <option value="q">Q区</option>
+                    <option value="v">V区</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-tags"></i> 关键词选择</label>
+                <div class="keywords-grid">
+                    <div class="keyword-card" data-key="1">
+                        <div class="key">1</div>
+                        <div>开荒单</div>
+                    </div>
+                    <div class="keyword-card" data-key="2">
+                        <div class="key">2</div>
+                        <div>护航加强单</div>
+                    </div>
+                    <div class="keyword-card" data-key="3">
+                        <div class="key">3</div>
+                        <div>暑假快乐单</div>
+                    </div>
+                    <div class="keyword-card" data-key="4">
+                        <div class="key">4</div>
+                        <div>实验基地专属</div>
+                    </div>
+                    <div class="keyword-card" data-key="5">
+                        <div class="key">5</div>
+                        <div>烽火荣都专属</div>
+                    </div>
+                    <div class="keyword-card" data-key="6">
+                        <div class="key">6</div>
+                        <div>至尊护航单</div>
+                    </div>
+                    <div class="keyword-card" data-key="7">
+                        <div class="key">7</div>
+                        <div>狙击俱乐部单</div>
+                    </div>
+                    <div class="keyword-card" data-key="8">
+                        <div class="key">8</div>
+                        <div>大神护航单</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="delay"><i class="fas fa-hourglass-half"></i> 抢单延迟 (毫秒)</label>
+                    <input type="number" id="delay" class="form-control" value="300" min="100" max="1000">
+                </div>
+                <div class="form-group">
+                    <label for="refreshRate"><i class="fas fa-sync-alt"></i> 刷新频率 (秒)</label>
+                    <input type="number" id="refreshRate" class="form-control" value="1.0" step="0.1" min="0.5" max="5">
+                </div>
+            </div>
+            
+            <div class="status-indicator">
+                <div class="indicator-dot pulse" id="statusDot"></div>
+                <span id="statusText">准备就绪</span>
+            </div>
+            
+            <div class="form-row">
+                <button class="btn btn-success" id="startBtn">
+                    <i class="fas fa-play"></i> 开始抢单
+                </button>
+                <button class="btn btn-danger" id="stopBtn" disabled>
+                    <i class="fas fa-stop"></i> 停止抢单
+                </button>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-list"></i>
+                <h2>抢单日志</h2>
+            </div>
+            
+            <div class="logs" id="logContainer">
+                <div class="log-entry">
+                    <span class="log-time">[系统初始化]</span>
+                    <span class="info">小岛自动抢单工具已加载</span>
+                </div>
+                <div class="log-entry">
+                    <span class="log-time">[系统提示]</span>
+                    <span class="info">请配置您的账户信息并点击"开始抢单"按钮</span>
+                </div>
+                <div class="log-entry">
+                    <span class="log-time">[新功能]</span>
+                    <span class="success">已添加"过滤已抢订单"功能</span>
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-value" id="successCount">0</div>
+                    <div class="stat-label">成功次数</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="attemptCount">0</div>
+                    <div class="stat-label">尝试次数</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="orderCount">0</div>
+                    <div class="stat-label">订单总数</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="filter-row">
+                <h3><i class="fas fa-filter"></i> 订单筛选</h3>
+                <div class="filter-control">
+                    <span>过滤已抢订单：</span>
+                    <label class="switch">
+                        <input type="checkbox" id="filterTakenOrders" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="order-list" id="orderList">
+                <div class="order-item">
+                    <div class="order-header">
+                        <div class="order-id">#93452</div>
+                        <div class="order-status status-available">可抢</div>
+                    </div>
+                    <div class="order-price">¥120.00</div>
+                    <div class="order-area">Q区 微信区</div>
+                    <div class="order-time">发布时间: 2023-07-15 11:23:45</div>
+                    <button class="grab-btn">
+                        <i class="fas fa-hand-paper"></i> 手动抢单
+                    </button>
+                </div>
+                
+                <div class="order-item">
+                    <div class="order-header">
+                        <div class="order-id">#93127</div>
+                        <div class="order-status status-taken">已被抢</div>
+                    </div>
+                    <div class="order-price">¥85.00</div>
+                    <div class="order-area">V区 QQ区</div>
+                    <div class="order-time">发布时间: 2023-07-15 10:15:32</div>
+                    <button class="grab-btn" disabled>
+                        <i class="fas fa-lock"></i> 订单已被抢
+                    </button>
+                </div>
+                
+                <div class="order-item">
+                    <div class="order-header">
+                        <div class="order-id">#92789</div>
+                        <div class="order-status status-available">可抢</div>
+                    </div>
+                    <div class="order-price">¥150.00</div>
+                    <div class="order-area">Q区 微信区</div>
+                    <div class="order-time">发布时间: 2023-07-14 16:45:21</div>
+                    <button class="grab-btn">
+                        <i class="fas fa-hand-paper"></i> 手动抢单
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-info-circle"></i>
+                <h2>使用说明</h2>
+            </div>
+            
+            <div class="form-group">
+                <h3>配置指南</h3>
+                <ul style="padding-left: 22px; margin: 15px 0 25px;">
+                    <li>填写正确的 <span class="highlight">memberId</span>、<span class="highlight">ids</span>、<span class="highlight">nickname</span> 和 <span class="highlight">token</span></li>
+                    <li>选择您要关注的订单区域（Q区或V区）</li>
+                    <li>选择订单关键词以过滤特定类型的订单</li>
+                    <li>设置合适的抢单延迟（100-1000ms）和刷新频率（0.5-5秒）</li>
+                    <li>启用"过滤已抢订单"功能，避免无效尝试</li>
+                    <li>点击"开始抢单"按钮启动自动化程序</li>
+                </ul>
+                
+                <h3>关键词说明</h3>
+                <ul style="padding-left: 22px; margin-top: 15px;">
+                    <li><span class="highlight">开荒单</span>: 新用户首次下单优惠</li>
+                    <li><span class="highlight">护航加强单</span>: 高级别护送服务</li>
+                    <li><span class="highlight">暑假快乐单</span>: 暑期特别优惠活动</li>
+                    <li><span class="highlight">实验基地专属</span>: 特定区域专用订单</li>
+                    <li><span class="highlight">烽火荣都专属</span>: 特定区域专用订单</li>
+                    <li><span class="highlight">至尊护航单</span>: 最高级别护送服务</li>
+                </ul>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 小岛自动抢单工具 | 版本 2.0.0 | 技术支持: support@xiaodao.com</p>
+            <p><i class="fas fa-exclamation-circle"></i> 注意：本工具仅用于演示目的，实际使用需遵守平台规则</p>
+        </footer>
+    </div>
+
+    <script>
+        // API配置
+        const BASE_URL = "https://paidan.xlt666.club/yxdl/api";
+        const ORDER_LIST_URL = `${BASE_URL}/order/list?pageSize=10&pageNum=1&categoryId=0`;
+        const TAKE_ORDER_URL = `${BASE_URL}/order/takeOrder`;
+        const ORDER_DETAIL_URL = `${BASE_URL}/order/getInfo`;
+        
+        // DOM元素
+        const logContainer = document.getElementById('logContainer');
+        const successCount = document.getElementById('successCount');
+        const attemptCount = document.getElementById('attemptCount');
+        const orderCount = document.getElementById('orderCount');
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const orderList = document.getElementById('orderList');
+        const filterTakenOrders = document.getElementById('filterTakenOrders');
+        
+        // 状态变量
+        let isRunning = false;
+        let intervalId = null;
+        let stats = {
+            success: 0,
+            attempts: 0,
+            orders: 0
+        };
+        let config = {
+            memberId: '',
+            ids: '',
+            nickname: '',
+            token: '',
+            areaFilter: 'all',
+            keywords: [],
+            delay: 300,
+            refreshRate: 1.0,
+            filterTaken: true
+        };
+        
+        // 添加日志
+        function addLog(message, type = 'info') {
+            const now = new Date();
+            const timeString = `[${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}]`;
+            
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            
+            const typeClass = type === 'success' ? 'success' : 
+                             type === 'warning' ? 'warning' : 
+                             type === 'error' ? 'error' : 'info';
+            
+            logEntry.innerHTML = `
+                <span class="log-time">${timeString}</span>
+                <span class="${typeClass}">${message}</span>
+            `;
+            
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+        
+        // 更新统计
+        function updateStats() {
+            successCount.textContent = stats.success;
+            attemptCount.textContent = stats.attempts;
+            orderCount.textContent = stats.orders;
+        }
+        
+        // 关键词选择
+        const keywordCards = document.querySelectorAll('.keyword-card');
+        const selectedKeywords = new Set();
+        
+        keywordCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const key = card.dataset.key;
+                
+                if (selectedKeywords.has(key)) {
+                    selectedKeywords.delete(key);
+                    card.classList.remove('selected');
+                } else {
+                    selectedKeywords.add(key);
+                    card.classList.add('selected');
+                }
+                
+                // 更新配置
+                config.keywords = Array.from(selectedKeywords).map(k => {
+                    const card = document.querySelector(`.keyword-card[data-key="${k}"]`);
+                    return card.querySelector('div:last-child').textContent;
+                });
+            });
+        });
+        
+        // 获取可用订单
+        async function getAvailableOrders() {
+            const token = config.token;
+            
+            if (!token) {
+                addLog('Token未配置，无法获取订单', 'error');
+                return [];
+            }
+            
+            try {
+                addLog('正在获取订单列表...', 'info');
+                
+                const response = await fetch(ORDER_LIST_URL, {
+                    headers: { 'token': token }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP错误! 状态: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.code !== 200) {
+                    addLog(`获取订单失败: ${data.msg || '未知错误'}`, 'error');
+                    return [];
+                }
+                
+                stats.orders = data.rows.length;
+                updateStats();
+                
+                // 过滤订单
+                let filteredOrders = data.rows.filter(order => {
+                    const categoryName = order.categoryName.toLowerCase();
+                    
+                    // 区域筛选
+                    if (config.areaFilter === 'q' && !categoryName.includes('q区')) {
+                        return false;
+                    }
+                    if (config.areaFilter === 'v' && !categoryName.includes('v区')) {
+                        return false;
+                    }
+                    
+                    // 关键词筛选
+                    if (config.keywords.length > 0) {
+                        const taskName = order.taskName.toLowerCase();
+                        const description = order.description.toLowerCase();
+                        
+                        return config.keywords.some(keyword => {
+                            const kw = keyword.toLowerCase();
+                            return taskName.includes(kw) || description.includes(kw);
+                        });
+                    }
+                    
+                    return true;
+                });
+                
+                // 更新界面上的订单列表
+                updateOrderList(filteredOrders);
+                
+                return filteredOrders;
+            } catch (error) {
+                addLog(`获取订单出错: ${error.message}`, 'error');
+                return [];
+            }
+        }
+        
+        // 更新订单列表显示
+        async function updateOrderList(orders) {
+            orderList.innerHTML = '';
+            
+            if (orders.length === 0) {
+                orderList.innerHTML = '<div style="text-align: center; padding: 30px; color: var(--gray);">暂无可用订单</div>';
+                return;
+            }
+            
+            // 获取每个订单的详情以确定是否已被抢
+            const orderDetails = await Promise.all(orders.map(async order => {
+                try {
+                    const detail = await getOrderDetail(order.taskId);
+                    return {
+                        ...order,
+                        isTaken: detail ? detail.isTaken : false
+                    };
+                } catch (error) {
+                    addLog(`获取订单 #${order.taskId} 详情失败: ${error.message}`, 'warning');
+                    return {
+                        ...order,
+                        isTaken: false
+                    };
+                }
+            }));
+            
+            // 过滤已被抢订单
+            let displayOrders = orderDetails;
+            if (config.filterTaken) {
+                displayOrders = orderDetails.filter(order => !order.isTaken);
+            }
+            
+            if (displayOrders.length === 0) {
+                orderList.innerHTML = '<div style="text-align: center; padding: 30px; color: var(--gray);">暂无可用订单</div>';
+                return;
+            }
+            
+            displayOrders.forEach(order => {
+                const orderElement = document.createElement('div');
+                orderElement.className = 'order-item';
+                
+                orderElement.innerHTML = `
+                    <div class="order-header">
+                        <div class="order-id">#${order.taskId}</div>
+                        <div class="order-status ${order.isTaken ? 'status-taken' : 'status-available'}">
+                            ${order.isTaken ? '已被抢' : '可抢'}
+                        </div>
+                    </div>
+                    <div class="order-price">¥${order.receivePrice.toFixed(2)}</div>
+                    <div class="order-area">${order.categoryName}</div>
+                    <div class="order-time">发布时间: ${formatDateTime(order.createTime)}</div>
+                    <button class="grab-btn" data-id="${order.taskId}" ${order.isTaken ? 'disabled' : ''}>
+                        <i class="fas ${order.isTaken ? 'fa-lock' : 'fa-hand-paper'}"></i> ${order.isTaken ? '订单已被抢' : '手动抢单'}
+                    </button>
+                `;
+                
+                orderList.appendChild(orderElement);
+                
+                // 添加手动抢单事件
+                if (!order.isTaken) {
+                    const btn = orderElement.querySelector('.grab-btn');
+                    btn.addEventListener('click', () => {
+                        manualTakeOrder(order.taskId);
+                    });
+                }
+            });
+        }
+        
+        // 格式化日期时间
+        function formatDateTime(timestamp) {
+            if (!timestamp) return '未知时间';
+            
+            const date = new Date(timestamp);
+            return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+        }
+        
+        // 抢单功能
+        async function takeOrder(taskId) {
+            stats.attempts++;
+            updateStats();
+            
+            const delay = config.delay;
+            addLog(`发现新订单 #${taskId}，等待 ${delay}ms 后抢单...`, 'info');
+            
+            // 模拟延迟
+            await new Promise(resolve => setTimeout(resolve, delay));
+            
+            try {
+                const response = await fetch(TAKE_ORDER_URL, {
+                    method: 'POST',
+                    headers: {
+                        'token': config.token,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        taskId: taskId,
+                        memberId: config.memberId,
+                        ids: [config.ids],
+                        nickname: config.nickname,
+                        avatar: "https://xiaolatiao.oss-cn-beijing.aliyuncs.com/uploadImg-test/wYp4xWmXfR.jpg"
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP错误! 状态: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.code === 200) {
+                    stats.success++;
+                    updateStats();
+                    
+                    addLog('抢单成功！', 'success');
+                    addLog(`订单ID: ${taskId}`, 'success');
+                    addLog(`订单类型: ${result.data?.taskName || '未知'}`, 'success');
+                    addLog(`金额: ¥${result.data?.receivePrice?.toFixed(2) || '0.00'}`, 'success');
+                    
+                    return true;
+                } else {
+                    addLog(`抢单失败: ${result.msg || '未知错误'}`, 'error');
+                    return false;
+                }
+            } catch (error) {
+                addLog(`抢单过程中出错: ${error.message}`, 'error');
+                return false;
+            }
+        }
+        
+        // 手动抢单
+        async function manualTakeOrder(taskId) {
+            if (!config.token || !config.memberId || !config.ids || !config.nickname) {
+                addLog('请先配置所有用户信息', 'warning');
+                return;
+            }
+            
+            // 停止自动抢单（如果正在运行）
+            if (isRunning) {
+                stopAutoGrab();
+            }
+            
+            const success = await takeOrder(taskId);
+            if (success) {
+                // 成功后刷新订单列表
+                getAvailableOrders();
+            }
+        }
+        
+        // 获取订单详情
+        async function getOrderDetail(taskId) {
+            const detailUrl = `${ORDER_DETAIL_URL}?taskId=${taskId}`;
+            
+            try {
+                const response = await fetch(detailUrl, {
+                    headers: { 'token': config.token }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP错误! 状态: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.code === 200 && result.data) {
+                    // 判断订单是否已被抢
+                    const isTaken = result.data.isTake === 1;
+                    
+                    return {
+                        isTaken: isTaken,
+                        area: result.data.categoryName || '未知区域',
+                        order_type: result.data.taskName || '未知类型',
+                        ddh: result.data.orderNo || '未知单号',
+                        tmd: result.data.receivePrice || '未知发单金额',
+                        amount: result.data.outPrice || '未知到手金额',
+                        send_time: result.data.createTime || '未知发单时间'
+                    };
+                }
+            } catch (error) {
+                addLog(`获取订单详情失败: ${error.message}`, 'warning');
+            }
+            
+            return null;
+        }
+        
+        // 开始自动抢单
+        async function startAutoGrab() {
+            if (isRunning) return;
+            
+            // 获取配置
+            config = {
+                memberId: document.getElementById('memberId').value,
+                ids: document.getElementById('ids').value,
+                nickname: document.getElementById('nickname').value,
+                token: document.getElementById('token').value,
+                areaFilter: document.getElementById('areaFilter').value,
+                keywords: Array.from(selectedKeywords).map(k => {
+                    const card = document.querySelector(`.keyword-card[data-key="${k}"]`);
+                    return card.querySelector('div:last-child').textContent;
+                }),
+                delay: parseInt(document.getElementById('delay').value) || 300,
+                refreshRate: parseFloat(document.getElementById('refreshRate').value) || 1.0,
+                filterTaken: filterTakenOrders.checked
+            };
+            
+            // 验证配置
+            if (!config.memberId || !config.ids || !config.nickname || !config.token) {
+                addLog('请填写所有必要的配置信息', 'warning');
+                return;
+            }
+            
+            isRunning = true;
+            statusDot.classList.add('active');
+            statusText.textContent = '运行中...';
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+            
+            addLog('自动抢单程序已启动', 'success');
+            addLog(`区域筛选: ${config.areaFilter === 'all' ? '全选' : config.areaFilter === 'q' ? 'Q区' : 'V区'}`);
+            
+            if (config.keywords.length > 0) {
+                addLog(`关键词: ${config.keywords.join(', ')}`);
+            } else {
+                addLog('关键词: 无（全选）');
+            }
+            
+            addLog(`抢单延迟: ${config.delay}ms`);
+            addLog(`刷新频率: ${config.refreshRate}秒`);
+            addLog(`过滤已抢订单: ${config.filterTaken ? '开启' : '关闭'}`);
+            
+            // 自动抢单循环
+            intervalId = setInterval(async () => {
+                try {
+                    const orders = await getAvailableOrders();
+                    
+                    if (orders.length === 0) {
+                        addLog('暂无符合条件的订单，继续扫描...', 'info');
+                        return;
+                    }
+                    
+                    // 尝试抢单每个符合条件的订单
+                    for (const order of orders) {
+                        if (!isRunning) break; // 如果已停止则退出
+                        
+                        // 检查订单是否已被抢
+                        const detail = await getOrderDetail(order.taskId);
+                        if (detail && detail.isTaken) {
+                            addLog(`订单 #${order.taskId} 已被抢，跳过`, 'warning');
+                            continue;
+                        }
+                        
+                        addLog(`发现新订单 → ${order.taskName}（ID：${order.taskId}）`, 'info');
+                        const success = await takeOrder(order.taskId);
+                        
+                        if (success) {
+                            // 成功后暂停一下
+                            await new Promise(resolve => setTimeout(resolve, 2000));
+                            
+                            // 重新开始获取可用订单列表
+                            break;
+                        }
+                    }
+                } catch (error) {
+                    addLog(`自动抢单过程中出错: ${error.message}`, 'error');
+                }
+            }, config.refreshRate * 1000);
+        }
+        
+        // 停止自动抢单
+        function stopAutoGrab() {
+            if (!isRunning) return;
+            
+            clearInterval(intervalId);
+            isRunning = false;
+            statusDot.classList.remove('active');
+            statusDot.classList.add('paused');
+            statusText.textContent = '已停止';
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+            
+            addLog('抢单程序已停止', 'warning');
+        }
+        
+        // 初始化
+        function init() {
+            // 绑定按钮事件
+            startBtn.addEventListener('click', startAutoGrab);
+            stopBtn.addEventListener('click', stopAutoGrab);
+            
+            // 设置默认配置
+            document.getElementById('delay').value = config.delay;
+            document.getElementById('refreshRate').value = config.refreshRate;
+            
+            // 过滤开关事件
+            filterTakenOrders.addEventListener('change', function() {
+                config.filterTaken = this.checked;
+                if (isRunning) {
+                    addLog(`过滤已抢订单: ${this.checked ? '开启' : '关闭'}`);
+                }
+            });
+            
+            // 添加初始日志
+            addLog('系统初始化完成，准备就绪', 'info');
+        }
+        
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
