@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小岛自动抢单工具 - 优化版</title>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --success: #4cc9f0;
+            --warning: #f8961e;
+            --danger: #f94144;
+            --dark: #2b2d42;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --border: #dee2e6;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary), var(--success));
+        }
+        
+        h1 {
+            text-align: center;
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-weight: 700;
+            font-size: 32px;
+            background: linear-gradient(90deg, var(--primary), var(--success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--success));
+            border-radius: 4px;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 25px;
+        }
+        
+        .tab-button {
+            padding: 14px 28px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--gray);
+            position: relative;
+            transition: all 0.3s ease-out;
+        }
+        
+        .tab-button:hover {
+            color: var(--primary);
+        }
+        
+        .tab-button.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px 3px 0 0;
+            animation: tabUnderline 0.3s ease-out;
+        }
+        
+        @keyframes tabUnderline {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        .section-title i {
+            margin-right: 12px;
+            color: var(--primary);
+            font-size: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s ease-out;
+        }
+        
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-3px) translateZ(0);
+            box-shadow: 0 6px 12px rgba(67, 97, 238, 0.2);
+        }
+        
+        .btn:active {
+            transform: translateY(1px) translateZ(0);
+            transition: all 0.1s ease-out;
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+        }
+        
+        .btn-success:hover {
+            background-color: #3aa8d8;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+        }
+        
+        .btn-danger:hover {
+            background-color: #e82a2d;
+        }
+        
+        .keyword-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .keyword-btn {
+            padding: 10px 18px;
+            background-color: var(--light);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-size: 14px;
+            font-weight: 500;
+            transform: translateZ(0);
+            will-change: transform;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .keyword-btn:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+            transform: translateY(-2px) translateZ(0);
+        }
+        
+        .keyword-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(0) translateZ(0);
+            animation: keywordSelect 0.3s ease-out;
+        }
+        
+        @keyframes keywordSelect {
+            0% { transform: scale(1) translateZ(0); }
+            50% { transform: scale(1.05) translateZ(0); }
+            100% { transform: scale(1) translateZ(0); }
+        }
+        
+        .keyword-btn:active {
+            transform: scale(0.98) translateZ(0);
+            transition: all 0.1s ease-out;
+        }
+        
+        .log-panel {
+            height: 400px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            overflow-y: auto;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .log-item {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            font-size: 14px;
+            transition: all 0.2s ease-out;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .log-time {
+            color: var(--gray);
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        .log-content {
+            flex-grow: 1;
+            word-break: break-all;
+        }
+        
+        .log-item:last-child {
+            border-bottom: none;
+        }
+        
+        .log-item.info {
+            color: var(--dark);
+        }
+        
+        .log-item.success {
+            color: var(--success);
+        }
+        
+        .log-item.warning {
+            color: var(--warning);
+        }
+        
+        .log-item.error {
+            color: var(--danger);
+        }
+        
+        .log-item.highlight {
+            background-color: rgba(76, 201, 240, 0.1);
+            border-left: 3px solid var(--success);
+            padding-left: 10px;
+        }
+        
+        .log-item.refresh {
+            background-color: rgba(248, 150, 30, 0.1);
+            border-left: 3px solid var(--warning);
+            padding-left: 10px;
+        }
+        
+        .log-item.order {
+            background-color: rgba(67, 97, 238, 0.1);
+            border-left: 3px solid var(--primary);
+            padding-left: 10px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .log-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .log-controls .btn {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+        
+        /* 新增样式 */
+        .compact-log-panel {
+            height: 200px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            overflow-y: auto;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin-top: 15px;
+            border: 1px solid var(--border);
+            display: none;
+        }
+        
+        .compact-log-item {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            font-size: 13px;
+            display: flex;
+            align-items: flex-start;
+            line-height: 1.4;
+        }
+        
+        .compact-log-time {
+            color: var(--gray);
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+        
+        .compact-log-content {
+            flex-grow: 1;
+            word-break: break-all;
+        }
+        
+        .compact-log-item:last-child {
+            border-bottom: none;
+        }
+        
+        .compact-log-item.info {
+            color: var(--dark);
+        }
+        
+        .compact-log-item.success {
+            color: var(--success);
+        }
+        
+        .compact-log-item.warning {
+            color: var(--warning);
+        }
+        
+        .compact-log-item.error {
+            color: var(--danger);
+        }
+        
+        .compact-log-item.highlight {
+            background-color: rgba(76, 201, 240, 0.1);
+        }
+        
+        .compact-log-item.refresh {
+            background-color: rgba(248, 150, 30, 0.1);
+        }
+        
+        .compact-log-item.order {
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+        
+        .keywords-section {
+            transition: all 0.3s ease-out;
+        }
+        
+        .keywords-section.hidden {
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .tab-button {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .keyword-container {
+                gap: 8px;
+            }
+            
+            .keyword-btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+            
+            .log-item {
+                flex-direction: column;
+            }
+            
+            .log-time {
+                margin-bottom: 5px;
+            }
+            
+            .compact-log-item {
+                flex-direction: column;
+            }
+            
+            .compact-log-time {
+                margin-bottom: 3px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>小岛自动抢单工具</h1>
+        
+        <div class="tab-buttons">
+            <button class="tab-button active" data-tab="order">订单设置</button>
+            <button class="tab-button" data-tab="logs">抢单日志</button>
+            <button class="tab-button" data-tab="user">用户配置</button>
+        </div>
+        
+        <!-- 订单设置标签页 -->
+        <div id="order-tab" class="tab-content active">
+            <div class="section">
+                <div class="form-group">
+                    <label for="delayMs">抢单延迟 (毫秒)</label>
+                    <input type="number" id="delayMs" min="100" max="1000" value="300">
+                    <small>建议值: 100-600ms</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="areaFilter">区域筛选</label>
+                    <select id="areaFilter">
+                        <option value="-1">全部区域</option>
+                        <option value="1">Q区</option>
+                        <option value="0">V区</option>
+                    </select>
+                </div>
+                
+                <!-- 新增的精简日志面板 -->
+                <div class="compact-log-panel" id="compactLogPanel"></div>
+                
+                <div class="keywords-section" id="keywordsSection">
+                    <div class="form-group">
+                        <label>快捷关键词 (点击选择/取消):</label>
+                        <div class="keyword-container" id="keywordContainer">
+                            <button class="keyword-btn" data-keyword="开荒单">开荒单</button>
+                            <button class="keyword-btn" data-keyword="护航加强单">护航加强单</button>
+                            <button class="keyword-btn" data-keyword="暑假快乐单">暑假快乐单</button>
+                            <button class="keyword-btn" data-keyword="实验基地专属">实验基地专属</button>
+                            <button class="keyword-btn" data-keyword="烽火荣都专属">烽火荣都专属</button>
+                            <button class="keyword-btn" data-keyword="至尊护航单">至尊护航单</button>
+                            <button class="keyword-btn" data-keyword="狙击俱乐部单">狙击俱乐部单</button>
+                            <button class="keyword-btn" data-keyword="大神护航单">大神护航单</button>
+                            <button class="keyword-btn" data-keyword="赌超级无资箱">赌超级无资箱</button>
+                            <button class="keyword-btn" data-keyword="保底BOSS单">保底BOSS单</button>
+                            <button class="keyword-btn" data-keyword="苏尔南钻石单">苏尔南钻石单</button>
+                            <button class="keyword-btn" data-keyword="鸡腿">鸡腿</button>
+                            <button class="keyword-btn" data-keyword="奶茶">奶茶</button>
+                            <button class="keyword-btn" data-keyword="给打手加汉堡">给打手加汉堡</button>
+                            <button class="keyword-btn" data-keyword="给打手加鸡腿">给打手加鸡腿</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="customKeywords">自定义关键词 (多个关键词用逗号分隔)</label>
+                        <input type="text" id="customKeywords" placeholder="例如: 开荒单,护航单">
+                    </div>
+                </div>
+                
+                <button id="saveOrderBtn" class="btn btn-success btn-block">保存订单配置</button>
+            </div>
+            
+            <div class="form-group">
+                <button id="startBtn" class="btn btn-block">开始抢单</button>
+                <button id="stopBtn" class="btn btn-danger btn-block hidden">停止抢单</button>
+            </div>
+        </div>
+        
+        <!-- 抢单日志标签页 -->
+        <div id="logs-tab" class="tab-content">
+            <div class="section">
+                <div class="log-controls">
+                    <button id="clearLogsBtn" class="btn">清空日志</button>
+                    <button id="exportLogsBtn" class="btn">导出日志</button>
+                </div>
+                <div class="log-panel" id="logPanel">
+                    <div class="log-item info">
+                        <span class="log-time">[系统]</span>
+                        <span class="log-content">等待开始抢单...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 用户配置标签页 -->
+        <div id="user-tab" class="tab-content">
+            <div class="section">
+                <div class="form-group">
+                    <label for="memberId">memberId</label>
+                    <input type="text" id="memberId" placeholder="请输入 memberId">
+                </div>
+                
+                <div class="form-group">
+                    <label for="ids">ids</label>
+                    <input type="text" id="ids" placeholder="请输入 ids">
+                </div>
+                
+                <div class="form-group">
+                    <label for="nickname">nickname</label>
+                    <input type="text" id="nickname" placeholder="请输入 nickname">
+                </div>
+                
+                <div class="form-group">
+                    <label for="token">token</label>
+                    <input type="text" id="token" placeholder="请输入 token">
+                </div>
+                
+                <button id="saveUserBtn" class="btn btn-success btn-block">保存用户配置</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全局配置
+        const config = {
+            memberId: '',
+            ids: '',
+            nickname: '',
+            token: '',
+            delayMs: 300,
+            areaFilter: -1,
+            keywords: [],
+            customKeywords: '',
+            isRunning: false,
+            lastRefreshTime: null,
+            refreshCount: 0,
+            orderCount: 0
+        };
+        
+        // DOM元素
+        const memberIdInput = document.getElementById('memberId');
+        const idsInput = document.getElementById('ids');
+        const nicknameInput = document.getElementById('nickname');
+        const tokenInput = document.getElementById('token');
+        const delayMsInput = document.getElementById('delayMs');
+        const areaFilterSelect = document.getElementById('areaFilter');
+        const customKeywordsInput = document.getElementById('customKeywords');
+        const saveOrderBtn = document.getElementById('saveOrderBtn');
+        const saveUserBtn = document.getElementById('saveUserBtn');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const clearLogsBtn = document.getElementById('clearLogsBtn');
+        const exportLogsBtn = document.getElementById('exportLogsBtn');
+        const logPanel = document.getElementById('logPanel');
+        const compactLogPanel = document.getElementById('compactLogPanel');
+        const keywordContainer = document.getElementById('keywordContainer');
+        const keywordBtns = document.querySelectorAll('.keyword-btn');
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const keywordsSection = document.getElementById('keywordsSection');
+        
+        // 模拟订单数据
+        const mockOrders = [
+            { id: 'ORD001', title: '开荒单-海岛地图', price: '50', keywords: ['开荒单'] },
+            { id: 'ORD002', title: '护航加强单-烽火荣都', price: '80', keywords: ['护航加强单', '烽火荣都专属'] },
+            { id: 'ORD003', title: '暑假快乐单-双人套餐', price: '120', keywords: ['暑假快乐单'] },
+            { id: 'ORD004', title: '实验基地专属-挑战模式', price: '60', keywords: ['实验基地专属'] },
+            { id: 'ORD005', title: '至尊护航单-24小时服务', price: '200', keywords: ['至尊护航单'] }
+        ];
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            loadConfig();
+            setupEventListeners();
+            optimizeKeywordButtons();
+        });
+        
+        // 加载配置
+        function loadConfig() {
+            const savedConfig = localStorage.getItem('orderGrabberConfig');
+            if (savedConfig) {
+                try {
+                    Object.assign(config, JSON.parse(savedConfig));
+                    
+                    // 更新UI
+                    memberIdInput.value = config.memberId;
+                    idsInput.value = config.ids;
+                    nicknameInput.value = config.nickname;
+                    tokenInput.value = config.token;
+                    delayMsInput.value = config.delayMs;
+                    areaFilterSelect.value = config.areaFilter;
+                    customKeywordsInput.value = config.customKeywords;
+                    
+                    // 恢复关键词按钮状态
+                    keywordBtns.forEach(btn => {
+                        if (config.keywords.includes(btn.dataset.keyword)) {
+                            btn.classList.add('active');
+                        }
+                    });
+                    
+                    addLog('配置加载成功', 'success');
+                } catch (e) {
+                    addLog('配置加载失败: ' + e.message, 'error');
+                }
+            } else {
+                addLog('欢迎使用小岛抢单工具，请先配置', 'info');
+            }
+        }
+        
+        // 优化关键词按钮性能
+        function optimizeKeywordButtons() {
+            // 使用事件委托代替单独的事件监听器
+            keywordContainer.addEventListener('click', function(e) {
+                const btn = e.target.closest('.keyword-btn');
+                if (!btn) return;
+                
+                // 添加点击反馈动画
+                btn.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    btn.style.transform = '';
+                }, 100);
+                
+                // 切换选中状态
+                btn.classList.toggle('active');
+                
+                // 保存配置
+                config.keywords = getSelectedKeywords();
+                localStorage.setItem('orderGrabberConfig', JSON.stringify(config));
+            });
+        }
+        
+        // 设置事件监听器
+        function setupEventListeners() {
+            // 保存订单配置
+            saveOrderBtn.addEventListener('click', function() {
+                config.delayMs = parseInt(delayMsInput.value) || 300;
+                config.areaFilter = parseInt(areaFilterSelect.value);
+                config.customKeywords = customKeywordsInput.value.trim();
+                config.keywords = getSelectedKeywords();
+                
+                localStorage.setItem('orderGrabberConfig', JSON.stringify(config));
+                addLog('订单配置已保存', 'success');
+            });
+            
+            // 保存用户配置
+            saveUserBtn.addEventListener('click', function() {
+                config.memberId = memberIdInput.value.trim();
+                config.ids = idsInput.value.trim();
+                config.nickname = nicknameInput.value.trim();
+                config.token = tokenInput.value.trim();
+                
+                if (!config.token) {
+                    addLog('Token不能为空', 'error');
+                    return;
+                }
+                
+                localStorage.setItem('orderGrabberConfig', JSON.stringify(config));
+                addLog('用户配置已保存', 'success');
+            });
+            
+            // 开始抢单
+            startBtn.addEventListener('click', function() {
+                if (!config.token) {
+                    addLog('请先配置Token并保存', 'error');
+                    return;
+                }
+                
+                config.isRunning = true;
+                config.refreshCount = 0;
+                config.orderCount = 0;
+                startBtn.classList.add('hidden');
+                stopBtn.classList.remove('hidden');
+                addLog('开始抢单...', 'success');
+                
+                // 隐藏关键词区域
+                keywordsSection.classList.add('hidden');
+                
+                // 显示精简日志面板
+                compactLogPanel.style.display = 'block';
+                
+                // 模拟抢单过程
+                startOrderGrabber();
+            });
+            
+            // 停止抢单
+            stopBtn.addEventListener('click', function() {
+                config.isRunning = false;
+                startBtn.classList.remove('hidden');
+                stopBtn.classList.add('hidden');
+                addLog(`已停止抢单 - 共刷新 ${config.refreshCount} 次，抢到 ${config.orderCount} 单`, 'warning');
+                
+                // 显示关键词区域
+                keywordsSection.classList.remove('hidden');
+                
+                // 隐藏精简日志面板
+                compactLogPanel.style.display = 'none';
+            });
+            
+            // 清空日志
+            clearLogsBtn.addEventListener('click', function() {
+                logPanel.innerHTML = '<div class="log-item info"><span class="log-time">[系统]</span><span class="log-content">日志已清空</span></div>';
+                compactLogPanel.innerHTML = '';
+                addLog('日志已清空', 'info');
+            });
+            
+            // 导出日志
+            exportLogsBtn.addEventListener('click', function() {
+                exportLogs();
+            });
+            
+            // Tab切换
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // 更新按钮状态
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // 更新内容显示
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === `${tabId}-tab`) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+        }
+        
+        // 模拟抢单过程
+        function startOrderGrabber() {
+            if (!config.isRunning) return;
+            
+            // 模拟刷新订单列表
+            simulateRefreshOrders();
+            
+            // 设置下一次刷新
+            const delay = config.delayMs + Math.random() * 200; // 添加随机延迟
+            setTimeout(startOrderGrabber, delay);
+        }
+        
+        // 模拟刷新订单列表
+        function simulateRefreshOrders() {
+            config.refreshCount++;
+            const now = new Date();
+            config.lastRefreshTime = now;
+            
+            addLog(`刷新订单列表 (第 ${config.refreshCount} 次)...`, 'refresh');
+            
+            // 模拟获取订单
+            const matchedOrders = mockOrders.filter(order => {
+                return order.keywords.some(keyword => 
+                    config.keywords.includes(keyword)
+                );
+            });
+            
+            if (matchedOrders.length > 0) {
+                addLog(`发现 ${matchedOrders.length} 个匹配订单`, 'highlight');
+                
+                // 模拟抢单
+                matchedOrders.forEach(order => {
+                    setTimeout(() => {
+                        const isSuccess = Math.random() > 0.3; // 70%成功率
+                        
+                        if (isSuccess) {
+                            config.orderCount++;
+                            addLog(`成功抢到订单: ${order.title} (¥${order.price})`, 'order');
+                        } else {
+                            addLog(`抢单失败: ${order.title} (已被他人抢走)`, 'warning');
+                        }
+                    }, 100 + Math.random() * 200);
+                });
+            } else {
+                addLog('未找到匹配订单', 'info');
+            }
+        }
+        
+        // 获取选中的关键词
+        function getSelectedKeywords() {
+            const keywords = [];
+            
+            // 从快捷按钮获取
+            document.querySelectorAll('.keyword-btn.active').forEach(btn => {
+                keywords.push(btn.dataset.keyword);
+            });
+            
+            // 从自定义输入获取
+            if (customKeywordsInput.value.trim()) {
+                customKeywordsInput.value.trim().split(',').forEach(kw => {
+                    if (kw.trim()) keywords.push(kw.trim());
+                });
+            }
+            
+            return keywords;
+        }
+        
+        // 添加日志
+        function addLog(message, type = 'info') {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString();
+            
+            // 主日志面板
+            const logItem = document.createElement('div');
+            logItem.className = `log-item ${type}`;
+            
+            const timeSpan = document.createElement('span');
+            timeSpan.className = 'log-time';
+            timeSpan.textContent = `[${timeStr}]`;
+            
+            const contentSpan = document.createElement('span');
+            contentSpan.className = 'log-content';
+            contentSpan.textContent = message;
+            
+            logItem.appendChild(timeSpan);
+            logItem.appendChild(contentSpan);
+            
+            logPanel.appendChild(logItem);
+            logPanel.scrollTop = logPanel.scrollHeight;
+            
+            // 精简日志面板
+            const compactLogItem = document.createElement('div');
+            compactLogItem.className = `compact-log-item ${type}`;
+            
+            const compactTimeSpan = document.createElement('span');
+            compactTimeSpan.className = 'compact-log-time';
+            compactTimeSpan.textContent = `[${timeStr}]`;
+            
+            const compactContentSpan = document.createElement('span');
+            compactContentSpan.className = 'compact-log-content';
+            compactContentSpan.textContent = message;
+            
+            compactLogItem.appendChild(compactTimeSpan);
+            compactLogItem.appendChild(compactContentSpan);
+            
+            compactLogPanel.appendChild(compactLogItem);
+            compactLogPanel.scrollTop = compactLogPanel.scrollHeight;
+            
+            // 限制日志数量，防止内存占用过高
+            if (logPanel.children.length > 200) {
+                logPanel.removeChild(logPanel.children[0]);
+            }
+            if (compactLogPanel.children.length > 50) {
+                compactLogPanel.removeChild(compactLogPanel.children[0]);
+            }
+        }
+        
+        // 导出日志
+        function exportLogs() {
+            let logText = '小岛抢单工具日志\n';
+            logText += `导出时间: ${new Date().toLocaleString()}\n\n`;
+            logText += `会员ID: ${config.memberId || '未设置'}\n`;
+            logText += `昵称: ${config.nickname || '未设置'}\n`;
+            logText += `关键词: ${config.keywords.join(', ') || '无'}\n`;
+            logText += `刷新次数: ${config.refreshCount}\n`;
+            logText += `抢单成功: ${config.orderCount}\n\n`;
+            logText += '详细日志:\n';
+            
+            Array.from(logPanel.children).forEach(logItem => {
+                const time = logItem.querySelector('.log-time').textContent;
+                const content = logItem.querySelector('.log-content').textContent;
+                logText += `${time} ${content}\n`;
+            });
+            
+            const blob = new Blob([logText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `小岛抢单日志_${new Date().toISOString().replace(/[:.]/g, '-')}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            addLog('日志已导出', 'success');
+        }
+    </script>
+</body>
+</html>
