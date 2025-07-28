@@ -776,47 +776,64 @@
             <p>高效、智能、自动化 —— 实时监控并抢先获取优质订单</p>
         </header>
         
+        
+        
         <div class="card">
-            <div class="card-title">
-                <i class="fas fa-cog"></i>
-                <h2>配置设置</h2>
+    <div class="card-title">
+        <i class="fas fa-cog"></i>
+        <h2>配置设置</h2>
+    </div>
+    
+    <div class="form-row">
+        <div class="form-group">
+            <label for="memberId"><i class="fas fa-id-card"></i> 会员ID (memberId)</label>
+            <div class="password-container">
+                <input type="password" id="memberId" class="form-control" placeholder="请输入您的 memberId">
+                <i class="fas fa-eye toggle-password" id="toggleMemberId"></i>
             </div>
-            
-            <div class="form-group">
-                <label for="memberId"><i class="fas fa-id-card"></i> 会员ID (memberId)</label>
-                <div class="password-container">
-                    <input type="password" id="memberId" class="form-control" placeholder="请输入您的 memberId">
-                    <i class="fas fa-eye toggle-password" id="toggleMemberId"></i>
-                </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="ids"><i class="fas fa-fingerprint"></i> 打手ID (ids)</label>
+            <div class="password-container">
+                <input type="password" id="ids" class="form-control" placeholder="请输入您的 ids">
+                <i class="fas fa-eye toggle-password" id="toggleIds"></i>
             </div>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="ids"><i class="fas fa-fingerprint"></i> 打手ID (ids)</label>
-                    <input type="text" id="ids" class="form-control" placeholder="请输入您的 ids">
-                </div>
-                <div class="form-group">
-                    <label for="nickname"><i class="fas fa-user"></i> 昵称 (nickname)</label>
-                    <input type="text" id="nickname" class="form-control" placeholder="请输入您的昵称">
-                </div>
+        </div>
+    </div>
+    
+    <div class="form-row">
+        <div class="form-group">
+            <label for="nickname"><i class="fas fa-user"></i> 昵称 (nickname)</label>
+            <div class="password-container">
+                <input type="password" id="nickname" class="form-control" placeholder="请输入您的昵称">
+                <i class="fas fa-eye toggle-password" id="toggleNickname"></i>
             </div>
-            
-            <div class="form-group">
-                <label for="token"><i class="fas fa-key"></i> 访问令牌 (token)</label>
-                <div class="password-container">
-                    <input type="password" id="token" class="form-control" placeholder="请输入您的 token">
-                    <i class="fas fa-eye toggle-password" id="toggleToken"></i>
-                </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="token"><i class="fas fa-key"></i> 访问令牌 (token)</label>
+            <div class="password-container">
+                <input type="password" id="token" class="form-control" placeholder="请输入您的 token">
+                <i class="fas fa-eye toggle-password" id="toggleToken"></i>
             </div>
-            
-            <div class="form-group">
-                <label for="areaFilter"><i class="fas fa-map-marker-alt"></i> 区域筛选</label>
-                <select id="areaFilter" class="form-control">
-                    <option value="all">全选</option>
-                    <option value="q">Q区</option>
-                    <option value="v">V区</option>
-                </select>
-            </div>
+        </div>
+    </div>
+    
+    <!-- 其他表单元素保持不变 -->
+    <div class="form-group">
+        <label for="areaFilter"><i class="fas fa-map-marker-alt"></i> 区域筛选</label>
+        <select id="areaFilter" class="form-control">
+            <option value="all">全选</option>
+            <option value="q">Q区</option>
+            <option value="v">V区</option>
+        </select>
+    </div>
+    
+    <!-- 其他表单元素保持不变 -->
+</div>
+        
+        
             
       
             
@@ -979,12 +996,12 @@
             <div class="order-list" id="orderList">
                 <div class="order-item">
                     <div class="order-header">
-                        <div class="order-id">#93452</div>
+                        <div class="order-id">#请填写所有必要的配置信息</div>
                         <div class="order-status status-available">可抢</div>
                     </div>
-                    <div class="order-price">¥120.00</div>
-                    <div class="order-area">Q区 微信区</div>
-                    <div class="order-time">发布时间: 2023-07-15 11:23:45</div>
+                    <div class="order-price">¥请填写所有必要的配置信息</div>
+                    <div class="order-area">请填写所有必要的配置信息</div>
+                    <div class="order-time">发布时间: 请填写所有必要的配置信息</div>
                     <button class="grab-btn">
                         <i class="fas fa-hand-paper"></i> 手动抢单
                     </button>
@@ -992,12 +1009,12 @@
                 
                 <div class="order-item">
                     <div class="order-header">
-                        <div class="order-id">#93127</div>
+                        <div class="order-id">#请填写所有必要的配置信息</div>
                         <div class="order-status status-taken">已被抢</div>
                     </div>
-                    <div class="order-price">¥85.00</div>
-                    <div class="order-area">V区 QQ区</div>
-                    <div class="order-time">发布时间: 2023-07-15 10:15:32</div>
+                    <div class="order-price">¥请填写所有必要的配置信息</div>
+                    <div class="order-area">请填写所有必要的配置信息</div>
+                    <div class="order-time">发布时间: 请填写所有必要的配置信息</div>
                     <button class="grab-btn" disabled>
                         <i class="fas fa-lock"></i> 订单已被抢
                     </button>
@@ -1005,12 +1022,12 @@
                 
                 <div class="order-item">
                     <div class="order-header">
-                        <div class="order-id">#92789</div>
+                        <div class="order-id">#请填写所有必要的配置信息</div>
                         <div class="order-status status-available">可抢</div>
                     </div>
-                    <div class="order-price">¥150.00</div>
-                    <div class="order-area">Q区 微信区</div>
-                    <div class="order-time">发布时间: 2023-07-14 16:45:21</div>
+                    <div class="order-price">¥请填写所有必要的配置信息</div>
+                    <div class="order-area">请填写所有必要的配置信息</div>
+                    <div class="order-time">发布时间: 请填写所有必要的配置信息</div>
                     <button class="grab-btn">
                         <i class="fas fa-hand-paper"></i> 手动抢单
                     </button>
