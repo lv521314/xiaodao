@@ -1520,11 +1520,24 @@
                     // 获取订单详情以显示更多信息
                     const detail = await getOrderDetail(taskId);
                     if (detail) {
-                        addLog(`订单类型: ${detail.description}`, 'success');
-                        addLog(`发单金额: ¥${detail.receivePrice}`, 'success');
-                        addLog(`到手金额: ${detail.outPrice}`, 'success');
-                        addLog(`订单号: ${detail.orderNo}`, 'success');
-                        addLog(`下单时间: ${formatDateTime(detail.createTime)}`, 'success');
+                        addLog(`订单类型: ${categoryName}`, 'success');
+                    addLog(`发单金额: ¥${receivePrice}`, 'success');
+                    addLog(`到手金额: ${outPrice}`, 'success');
+                    addLog(`用户 ID: ${gameRoleId}`, 'success');
+                    addLog(`订单号: ${orderNo}`, 'success');
+                    addLog(`下单时间: ${createTime}`, 'success');
+                    addLog(`订单详情ID: ${description}`, 'success');
+                        
+                        
+                        
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                     }
                     
                     // 播放成功音效
@@ -1597,7 +1610,16 @@
                     const isTaken = result.data.isTake === 1;
                     
                     return {
+                    
+                    
+                    
+                    
+                    
                         isTaken: isTaken,
+                        
+                        
+                        
+                        
                         area: result.data.categoryName || '未知区域',
                         description: result.data.taskName || '未知类型',
                         orderNo: result.data.orderNo || '未知单号',
