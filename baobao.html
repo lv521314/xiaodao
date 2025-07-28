@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小岛自动抢单工具</title>
+    <title>小岛小辣条抢单</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -772,7 +772,7 @@
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-bolt"></i> 小岛自动抢单工具</h1>
+            <h1><i class="fas fa-bolt"></i> 小辣条电竞</h1>
             <p>高效、智能、自动化 —— 实时监控并抢先获取优质订单</p>
         </header>
         
@@ -1419,8 +1419,13 @@
                     
                     addLog('抢单成功！', 'success');
                     addLog(`订单ID: ${taskId}`, 'success');
-                    addLog(`订单类型: ${result.data?.taskName || '未知'}`, 'success');
-                    addLog(`金额: ¥${result.data?.receivePrice?.toFixed(2) || '0.00'}`, 'success');
+                    addLog(`订单类型: ${categoryName}`, 'success');
+                    addLog(`发单金额: ¥${receivePrice}`, 'success');
+                    addLog(`到手金额: ${outPrice}`, 'success');
+                    addLog(`用户 ID: ${gameRoleId}`, 'success');
+                    addLog(`订单号: ${orderNo}`, 'success');
+                    addLog(`下单时间: ${createTime}`, 'success');
+                    addLog(`订单详情ID: ${description}`, 'success');
                     
                     // 播放成功音效
                     playSuccessSound();
@@ -1494,11 +1499,11 @@
                     return {
                         isTaken: isTaken,
                         area: result.data.categoryName || '未知区域',
-                        order_type: result.data.taskName || '未知类型',
-                        ddh: result.data.orderNo || '未知单号',
-                        tmd: result.data.receivePrice || '未知发单金额',
-                        amount: result.data.outPrice || '未知到手金额',
-                        send_time: result.data.createTime || '未知发单时间'
+                        description: result.data.taskName || '未知类型',
+                        orderNo: result.data.orderNo || '未知单号',
+                        receivePrice: result.data.receivePrice || '未知发单金额',
+                        outPrice: result.data.outPrice || '未知到手金额',
+                        createTime: result.data.createTime || '未知发单时间'
                     };
                 }
             } catch (error) {
