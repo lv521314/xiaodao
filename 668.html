@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微信扫码登录获取Token</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+            flex-direction: column;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        #wx-qrcode {
+            margin: 20px auto;
+            width: 200px;
+            height: 200px;
+        }
+        .status {
+            margin: 20px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .waiting {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .token-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            word-break: break-all;
+            text-align: left;
+            display: none;
+        }
+        .refresh-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .refresh-btn:hover {
+            background-color: #0069d9;
+        }
+    </style>
+    <!-- 引入微信JS-SDK -->
+    <script src="https://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>微信扫码登录获取Token</h1>
+        <p>请使用微信扫描下方二维码</p>
+        
+        <!-- 微信二维码容器 -->
+        <div id="wx-qrcode"></div>
+        
+        <div id="status" class="status waiting">
+            等待扫码...
+        </div>
+        
+        <div id="tokenInfo" class="token-info">
+            <h3>登录成功</h3>
+            <p><strong>Token:</strong> <span id="tokenValue"></span></p>
+            <p><strong>用户ID:</strong> <span id="userId"></span></p>
+            <p><strong>用户名:</strong> <span id="userName"></span></p>
+        </div>
+        
+        <button id="refreshBtn" class="refresh-btn" style="display: none;">重新生成二维码</button>
+    </div>
+
+    <script>
+        // 微信开放平台配置（需要替换为你自己的）
+        const WX_APP_ID = '你的微信开放平台APPID';
+        const WX_REDIRECT_URI = encodeURIComponent('https://paidan.xlt666.club/yxdl/api');
+        const WX_STATE = 'random_state_' + Math.random().toString(36).substring(2);
+        
+        let pollInterval = null;
+        
+        // 初始化微信扫码登录
+        function initWxLogin() {
+            document.getElementById('status').className = 'status waiting';
+            document.getElementById('status').textContent = '正在生成二维码...';
+            document.getElementById('tokenInfo').style.display = 'none';
+            document.getElementById('refreshBtn').style.display = 'none';
+            
+            // 创建微信扫码登录实例
+            const obj = new WxLogin({
+                self_redirect: false,
+                id: "wx-qrcode", 
+                appid: WX_APP_ID,
+                scope: "snsapi_login",
+                redirect_uri: WX_REDIRECT_URI,
+                state: WX_STATE,
+                style: "black",
+                href: ""
+            });
+            
+            document.getElementById('status').textContent = '等待微信扫码...';
+            
+            // 开始检查登录状态
+            startPollingWxLogin();
+        }
+        
+        // 轮询检查微信登录状态
+        function startPollingWxLogin() {
+            // 先清除已有轮询
+            if (pollInterval) clearInterval(pollInterval);
+            
+            pollInterval = setInterval(() => {
+                // 这里应该是检查后端登录状态的API
+                // 实际项目中，你需要一个后端API来检查微信登录状态
+                // 以下是模拟流程
+                
+                // 假设我们从URL参数获取到了微信返回的code
+                const urlParams = new URLSearchParams(window.location.search);
+                const code = urlParams.get('code');
+                const state = urlParams.get('state');
+                
+                if (code && state === WX_STATE) {
+                    // 获取到微信的code，可以交换token了
+                    clearInterval(pollInterval);
+                    
+                    // 模拟用code获取token的过程
+                    exchangeCodeForToken(code);
+                }
+            }, 2000);
+        }
+        
+        // 使用code交换token（实际需要调用你的后端API）
+        async function exchangeCodeForToken(code) {
+            try {
+                document.getElementById('status').textContent = '正在获取Token...';
+                
+                // 实际项目中，这里应该调用你的后端API
+                // const response = await fetch(`/api/wx/login?code=${code}`);
+                // const data = await response.json();
+                
+                // 以下是模拟响应
+                const mockResponse = {
+                    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.xxxxx.yyyyy",
+                    user_info: {
+                        user_id: "wx_user_" + Math.random().toString(36).substring(2, 8),
+                        name: "微信用户"
+                    }
+                };
+                
+                // 显示结果
+                document.getElementById('status').className = 'status success';
+                document.getElementById('status').textContent = '登录成功!';
+                
+                document.getElementById('tokenValue').textContent = mockResponse.token;
+                document.getElementById('userId').textContent = mockResponse.user_info.user_id;
+                document.getElementById('userName').textContent = mockResponse.user_info.name;
+                document.getElementById('tokenInfo').style.display = 'block';
+                
+            } catch (error) {
+                console.error('获取Token错误:', error);
+                document.getElementById('status').className = 'status error';
+                document.getElementById('status').textContent = `登录失败: ${error.message}`;
+                document.getElementById('refreshBtn').style.display = 'block';
+            }
+        }
+        
+        // 刷新按钮点击事件
+        document.getElementById('refreshBtn').addEventListener('click', function() {
+            initWxLogin();
+        });
+        
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initWxLogin();
+        });
+    </script>
+</body>
+</html>
