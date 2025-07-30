@@ -1088,7 +1088,7 @@
         const ORDER_LIST_URL = `${BASE_URL}/order/list?pageSize=10&pageNum=1&categoryId=0`;
         const TAKE_ORDER_URL = `${BASE_URL}/order/takeOrder`;
         const ORDER_DETAIL_URL = `${BASE_URL}/order/getInfo`;
-        const SUCCESS_SOUND_URL = "https://ripe-lavender-i8tpiiw5xw.edgeone.app/0.mp3";
+        const SUCCESS_SOUND_URL = "https://lv521314.github.io/xiaodao/0.mp3";
         
         // DOM元素
         const logContainer = document.getElementById('logContainer');
