@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小岛小辣条抢单</title>
+    <title>小辣条电竞抢单系统</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -13,16 +13,17 @@
             --success: #00C9A7;
             --warning: #FFB86C;
             --danger: #FF6B6B;
-            --dark: #1E1F2B;
-            --darker: #161722;
+            --dark: #1A1A2E;
+            --darker: #16213E;
             --light: #F8F9FC;
             --gray: #8A8D9F;
-            --panel-bg: rgba(30, 31, 43, 0.95);
-            --card-bg: rgba(37, 40, 54, 0.8);
+            --panel-bg: rgba(26, 26, 46, 0.95);
+            --card-bg: rgba(30, 40, 60, 0.8);
             --border-radius: 16px;
-            --box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+            --box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            --gradient: linear-gradient(135deg, var(--primary), #2E7D32);
+            --gradient: linear-gradient(135deg, #4CAF50, #2E7D32);
+            --glass-bg: rgba(255, 255, 255, 0.05);
         }
         
         * {
@@ -33,14 +34,14 @@
         
         body {
             font-family: 'Noto Sans SC', sans-serif;
-            background: var(--darker);
+            background: linear-gradient(135deg, var(--darker), #0F3460);
             color: var(--light);
             line-height: 1.6;
             padding: 20px;
             min-height: 100vh;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(76, 175, 80, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(0, 201, 167, 0.1) 0%, transparent 20%);
+                radial-gradient(circle at 10% 20%, rgba(76, 175, 80, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(0, 201, 167, 0.15) 0%, transparent 25%);
         }
         
         .container {
@@ -60,16 +61,15 @@
         header {
             text-align: center;
             padding: 30px 0;
-            background: var(--panel-bg);
+            background: linear-gradient(to right, rgba(26, 26, 46, 0.9), rgba(30, 40, 60, 0.9));
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             margin-bottom: 20px;
             grid-column: 1 / -1;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background-image: 
-                linear-gradient(to right, rgba(76, 175, 80, 0.15), transparent);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
         }
         
         header::before {
@@ -95,6 +95,7 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
         
         header h1 i {
@@ -115,10 +116,11 @@
             box-shadow: var(--box-shadow);
             padding: 30px;
             height: fit-content;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: var(--transition);
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(8px);
         }
         
         .card:hover {
@@ -275,27 +277,23 @@
             font-family: 'Noto Sans SC', sans-serif;
             position: relative;
             overflow: hidden;
+            z-index: 1;
         }
         
-        .btn::after {
+        .btn::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -60%;
-            width: 20px;
-            height: 200%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: rotate(25deg);
-            transition: all 0.5s;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+            z-index: -1;
         }
         
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
-        }
-        
-        .btn:hover::after {
-            left: 120%;
+        .btn:hover::before {
+            left: 100%;
         }
         
         .btn:active {
@@ -308,7 +306,6 @@
         
         .btn-success:hover {
             background: #00BFA5;
-            box-shadow: 0 8px 20px rgba(0, 191, 165, 0.4);
         }
         
         .btn-warning {
@@ -318,7 +315,6 @@
         
         .btn-warning:hover {
             background: #e0a800;
-            box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
         }
         
         .btn-info {
@@ -327,7 +323,6 @@
         
         .btn-info:hover {
             background: #138496;
-            box-shadow: 0 8px 20px rgba(23, 162, 184, 0.4);
         }
         
         .btn-danger {
@@ -336,11 +331,10 @@
         
         .btn-danger:hover {
             background: #FF5252;
-            box-shadow: 0 8px 20px rgba(255, 82, 82, 0.4);
         }
         
         .logs {
-            background: linear-gradient(to bottom right, #1E1F2B, #252836);
+            background: linear-gradient(to bottom right, #1A1A2E, #1E2A4A);
             color: #e2e4eb;
             border-radius: var(--border-radius);
             padding: 20px;
@@ -349,7 +343,7 @@
             font-family: 'Courier New', monospace;
             font-size: 1rem;
             line-height: 1.6;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
         }
         
@@ -418,6 +412,7 @@
             border-radius: var(--border-radius);
             border: 1px solid rgba(255, 255, 255, 0.1);
             gap: 15px;
+            backdrop-filter: blur(5px);
         }
         
         .stat-box {
@@ -464,6 +459,7 @@
             font-size: 1.2rem;
             background: rgba(30, 31, 43, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
         }
         
         .indicator-dot {
@@ -509,7 +505,7 @@
         .order-item {
             padding: 20px;
             margin-bottom: 18px;
-            background: rgba(37, 40, 54, 0.8);
+            background: rgba(40, 50, 70, 0.8);
             border-radius: var(--border-radius);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
             border-left: 4px solid var(--primary);
@@ -521,6 +517,7 @@
         .order-item:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            background: rgba(50, 60, 80, 0.9);
         }
         
         .order-header {
@@ -571,6 +568,15 @@
             margin-bottom: 8px;
         }
         
+        .order-desc {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin: 8px 0;
+            padding: 8px;
+            background: rgba(30, 31, 43, 0.5);
+            border-radius: 6px;
+        }
+        
         .order-time {
             color: var(--gray);
             font-size: 0.9rem;
@@ -599,51 +605,6 @@
             cursor: not-allowed;
         }
         
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 26px;
-        }
-        
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: var(--gray);
-            transition: .4s;
-            border-radius: 34px;
-        }
-        
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-        
-        input:checked + .slider {
-            background-color: var(--success);
-        }
-        
-        input:checked + .slider:before {
-            transform: translateX(24px);
-        }
-        
         footer {
             grid-column: 1 / -1;
             text-align: center;
@@ -654,6 +615,7 @@
             background: var(--panel-bg);
             border-radius: var(--border-radius);
             border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(5px);
         }
         
         .tooltip {
@@ -710,22 +672,13 @@
             to { transform: rotate(360deg); }
         }
         
-        .auto-stop-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 15px;
-            background: rgba(30, 31, 43, 0.5);
-            border-radius: 12px;
-            margin-top: 15px;
-        }
-        
         .blacklist-section {
             margin-bottom: 20px;
             padding: 15px;
             background: rgba(30, 31, 43, 0.6);
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
         }
         
         .blacklist-title {
@@ -776,6 +729,21 @@
             transform: translateY(-50%);
             cursor: pointer;
             color: var(--gray);
+        }
+        
+        .no-orders {
+            text-align: center;
+            padding: 40px;
+            color: var(--gray);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .card:hover {
+            animation: float 3s ease-in-out infinite;
         }
     </style>
 </head>
@@ -916,16 +884,6 @@
                 </div>
             </div>
             
-            <div class="auto-stop-row">
-                <div>
-                    <i class="fas fa-stop-circle"></i> 抢到一单后自动停止
-                </div>
-                <label class="switch">
-                    <input type="checkbox" id="autoStop" checked>
-                    <span class="slider"></span>
-                </label>
-            </div>
-            
             <div class="form-row" style="margin-top: 15px;">
                 <button class="btn btn-warning" id="saveConfigBtn">
                     <i class="fas fa-save"></i> 一键保存配置
@@ -936,7 +894,7 @@
             </div>
             
             <div class="status-indicator">
-                <div class="indicator-dot pulse" id="statusDot"></div>
+                <div class="indicator-dot" id="statusDot"></div>
                 <span id="statusText">准备就绪</span>
             </div>
             
@@ -980,10 +938,6 @@
                     <span class="log-time">[系统提示]</span>
                     <span class="info">请配置您的账户信息并点击"开始抢单"按钮</span>
                 </div>
-                <div class="log-entry">
-                    <span class="log-time">[新功能]</span>
-                    <span class="success">已添加"订单黑名单"功能</span>
-                </div>
             </div>
         </div>
         
@@ -999,43 +953,9 @@
             </div>
             
             <div class="order-list" id="orderList">
-                <div class="order-item">
-                    <div class="order-header">
-                        <div class="order-id">#请填写所有必要的配置信息</div>
-                        <div class="order-status status-available">可抢</div>
-                    </div>
-                    <div class="order-price">¥请填写所有必要的配置信息</div>
-                    <div class="order-area">请填写所有必要的配置信息</div>
-                    <div class="order-time">发布时间: 请填写所有必要的配置信息</div>
-                    <button class="grab-btn">
-                        <i class="fas fa-hand-paper"></i> 手动抢单
-                    </button>
-                </div>
-                
-                <div class="order-item">
-                    <div class="order-header">
-                        <div class="order-id">#请填写所有必要的配置信息</div>
-                        <div class="order-status status-taken">已被抢</div>
-                    </div>
-                    <div class="order-price">¥请填写所有必要的配置信息</div>
-                    <div class="order-area">请填写所有必要的配置信息</div>
-                    <div class="order-time">发布时间: 请填写所有必要的配置信息</div>
-                    <button class="grab-btn" disabled>
-                        <i class="fas fa-lock"></i> 订单已被抢
-                    </button>
-                </div>
-                
-                <div class="order-item">
-                    <div class="order-header">
-                        <div class="order-id">#请填写所有必要的配置信息</div>
-                        <div class="order-status status-available">可抢</div>
-                    </div>
-                    <div class="order-price">¥请填写所有必要的配置信息</div>
-                    <div class="order-area">请填写所有必要的配置信息</div>
-                    <div class="order-time">发布时间: 请填写所有必要的配置信息</div>
-                    <button class="grab-btn">
-                        <i class="fas fa-hand-paper"></i> 手动抢单
-                    </button>
+                <div class="no-orders">
+                    <div class="loading" style="margin: 0 auto;"></div>
+                    <p style="margin-top: 15px;">正在加载订单数据...</p>
                 </div>
             </div>
         </div>
@@ -1053,7 +973,6 @@
                     <li>选择您要关注的订单区域（Q区或V区）</li>
                     <li>选择订单关键词以过滤特定类型的订单</li>
                     <li>设置合适的抢单延迟（100-1000ms）和刷新频率（0.5-5秒）</li>
-                    <li>启用"抢到一单后自动停止"功能，避免过度抢单</li>
                     <li>点击"开始抢单"按钮启动自动化程序</li>
                 </ul>
                 
@@ -1077,15 +996,16 @@
         </div>
         
         <footer>
-            <p>© 2023 小岛自动抢单工具 | 版本 3.0.0 | 技术支持: support@xiaodao.com</p>
-            <p><i class="fas fa-exclamation-circle"></i> 注意：本工具仅用于演示目的，实际使用需遵守平台规则</p>
+            <p>© 2023 小岛自动抢单工具 | 版本 3.1.0 | 技术支持: support@xiaodao.com</p>
+            <p><i class="fas fa-exclamation-circle"></i> 注意：每次抢单成功后程序将自动停止</p>
         </footer>
     </div>
 
     <script>
         // API配置
         const BASE_URL = "https://paidan.xlt666.club/yxdl/api";
-        const ORDER_LIST_URL = `${BASE_URL}/order/list?pageSize=10&pageNum=1&categoryId=0`;
+        const Q_ZONE_ORDER_URL = `${BASE_URL}/order/list?pageSize=50&pageNum=1&categoryId=4`; // Q区
+        const V_ZONE_ORDER_URL = `${BASE_URL}/order/list?pageSize=50&pageNum=1&categoryId=5`; // V区
         const TAKE_ORDER_URL = `${BASE_URL}/order/takeOrder`;
         const ORDER_DETAIL_URL = `${BASE_URL}/order/getInfo`;
         const SUCCESS_SOUND_URL = "https://lv521314.github.io/xiaodao/0.mp3";
@@ -1100,7 +1020,6 @@
         const startBtn = document.getElementById('startBtn');
         const stopBtn = document.getElementById('stopBtn');
         const orderList = document.getElementById('orderList');
-        const autoStopSwitch = document.getElementById('autoStop');
         const blacklistList = document.getElementById('blacklistList');
         const blacklistCount = document.getElementById('blacklistCount');
         const toggleMemberId = document.getElementById('toggleMemberId');
@@ -1112,6 +1031,8 @@
         
         // 状态变量
         let isRunning = false;
+        let isGrabbing = false;
+        let currentOrder = null;
         let intervalId = null;
         let stats = {
             success: 0,
@@ -1126,15 +1047,12 @@
             areaFilter: 'all',
             keywords: [],
             delay: 300,
-            refreshRate: 1.0,
-            autoStop: true
+            refreshRate: 1.0
         };
-        
-        // 订单黑名单
         let orderBlacklist = [];
-        
-        // 关键词选择集合
-        const selectedKeywords = new Set();
+        let selectedKeywords = new Set();
+        let orderDetailCache = {};
+        const CACHE_EXPIRE_TIME = 30000; // 30秒缓存
         
         // 音频对象
         const successSound = new Audio(SUCCESS_SOUND_URL);
@@ -1164,17 +1082,14 @@
                 areaFilter: document.getElementById('areaFilter').value,
                 keywords: Array.from(selectedKeywords),
                 delay: document.getElementById('delay').value,
-                refreshRate: document.getElementById('refreshRate').value,
-                autoStop: document.getElementById('autoStop').checked
-                
+                refreshRate: document.getElementById('refreshRate').value
             };
             
             try {
                 localStorage.setItem('xltConfig', JSON.stringify(configToSave));
-                addLog('所有配置已成功保存到本地浏览器！', 'success');
-                addLog(`保存的配置包含：会员ID、打手ID、昵称、令牌、区域筛选(${configToSave.areaFilter})、${configToSave.keywords.length}个关键词、抢单延迟(${configToSave.delay}ms)、刷新频率(${configToSave.refreshRate}秒)、自动停止(${configToSave.autoStop ? '开启' : '关闭'})`, 'info');
+                addLog('✅ 所有配置已成功保存到本地浏览器！', 'success');
             } catch (e) {
-                addLog('保存配置失败：' + e.message, 'error');
+                addLog('❌ 保存配置失败：' + e.message, 'error');
             }
         }
         
@@ -1182,7 +1097,7 @@
         function loadConfigFromLocal() {
             const savedConfig = localStorage.getItem('xltConfig');
             if (!savedConfig) {
-                addLog('没有找到已保存的配置', 'warning');
+                addLog('⚠️ 没有找到已保存的配置', 'warning');
                 return;
             }
             
@@ -1198,9 +1113,6 @@
                 // 恢复数字输入项
                 document.getElementById('delay').value = config.delay || 300;
                 document.getElementById('refreshRate').value = config.refreshRate || 1.0;
-                
-                // 恢复开关状态
-                document.getElementById('autoStop').checked = config.autoStop || false;
                 
                 // 恢复下拉选择
                 if (config.areaFilter) {
@@ -1219,11 +1131,9 @@
                     });
                 }
         
-                addLog('配置已成功从本地浏览器加载！', 'success');
-                addLog(`加载的配置包含：会员ID、打手ID、昵称、令牌、区域筛选(${config.areaFilter})、${config.keywords ? config.keywords.length : 0}个关键词、抢单延迟(${config.delay}ms)、刷新频率(${config.refreshRate}秒)、自动停止(${config.autoStop ? '开启' : '关闭'})`, 'info');
+                addLog('✅ 配置已成功从本地浏览器加载！', 'success');
             } catch (e) {
-                addLog('加载配置失败：' + e.message, 'error');
-                addLog('可能是保存的配置格式不正确，请重新保存', 'warning');
+                addLog('❌ 加载配置失败：' + e.message, 'error');
             }
         }
         
@@ -1256,10 +1166,10 @@
             blacklistList.innerHTML = html;
         }
         
-        // 添加日志（过滤黑名单订单）
+        // 添加日志
         function addLog(message, type = 'info', orderId = null) {
             if (orderId && orderBlacklist.includes(orderId)) {
-                return; // 不显示黑名单订单的日志
+                return;
             }
             
             const now = new Date();
@@ -1303,7 +1213,6 @@
                     card.classList.add('selected');
                 }
                 
-                // 更新配置
                 config.keywords = Array.from(selectedKeywords).map(k => {
                     const card = document.querySelector(`.keyword-card[data-key="${k}"]`);
                     return card.querySelector('div:last-child').textContent;
@@ -1316,7 +1225,6 @@
             successSound.currentTime = 0;
             successSound.play();
             
-            // 播放第二次
             setTimeout(() => {
                 successSound.currentTime = 0;
                 successSound.play();
@@ -1328,145 +1236,181 @@
             const token = config.token;
             
             if (!token) {
-                addLog('Token未配置，无法获取订单', 'error');
+                addLog('❌ Token未配置，无法获取订单', 'error');
                 return [];
             }
             
             try {
-                addLog('正在获取订单列表...', 'info');
+                addLog('🔍 正在获取订单列表...', 'info');
                 
-                const response = await fetch(ORDER_LIST_URL, {
-                    headers: { 'token': token }
-                });
+                // 并行获取Q区和V区订单
+                const [qResponse, vResponse] = await Promise.all([
+                    fetch(Q_ZONE_ORDER_URL, { headers: { 'token': token } }),
+                    fetch(V_ZONE_ORDER_URL, { headers: { 'token': token } })
+                ]);
                 
-                if (!response.ok) {
-                    throw new Error(`HTTP错误! 状态: ${response.status}`);
+                // 检查响应状态
+                if (!qResponse.ok || !vResponse.ok) {
+                    const errors = [];
+                    if (!qResponse.ok) errors.push(`Q区: ${qResponse.status}`);
+                    if (!vResponse.ok) errors.push(`V区: ${vResponse.status}`);
+                    throw new Error(`HTTP错误! ${errors.join(', ')}`);
                 }
                 
-                const data = await response.json();
+                // 解析JSON数据
+                const [qData, vData] = await Promise.all([
+                    qResponse.json(),
+                    vResponse.json()
+                ]);
                 
-                if (data.code !== 200) {
-                    addLog(`获取订单失败: ${data.msg || '未知错误'}`, 'error');
+                // 检查API返回状态
+                if (qData.code !== 200 || vData.code !== 200) {
+                    const errors = [];
+                    if (qData.code !== 200) errors.push(`Q区: ${qData.msg || '未知错误'}`);
+                    if (vData.code !== 200) errors.push(`V区: ${vData.msg || '未知错误'}`);
+                    addLog(`❌ 获取订单失败: ${errors.join(', ')}`, 'error');
                     return [];
                 }
                 
-                stats.orders = data.rows.length;
+                // 合并两个区的订单并添加区域标识
+                const allOrders = [
+                    ...(qData.rows || []).map(order => ({ ...order, area: 'Q区' })),
+                    ...(vData.rows || []).map(order => ({ ...order, area: 'V区' }))
+                ];
+                
+                stats.orders = allOrders.length;
                 updateStats();
                 
                 // 过滤订单
-                let filteredOrders = data.rows.filter(order => {
-                    const categoryName = order.categoryName.toLowerCase();
-                    
-                    // 区域筛选
-                    if (config.areaFilter === 'q' && !categoryName.includes('q区')) {
-                        return false;
-                    }
-                    if (config.areaFilter === 'v' && !categoryName.includes('v区')) {
-                        return false;
-                    }
-                    
-                    // 关键词筛选
-                    if (config.keywords.length > 0) {
-                        const taskName = order.taskName.toLowerCase();
-                        const description = order.description.toLowerCase();
-                        
-                        return config.keywords.some(keyword => {
-                            const kw = keyword.toLowerCase();
-                            return taskName.includes(kw) || description.includes(kw);
-                        });
-                    }
-                    
-                    return true;
-                });
+                const filteredOrders = filterOrders(allOrders);
                 
                 // 更新界面上的订单列表
                 updateOrderList(filteredOrders);
                 
                 return filteredOrders;
             } catch (error) {
-                addLog(`获取订单出错: ${error.message}`, 'error');
+                addLog(`❌ 获取订单出错: ${error.message}`, 'error');
                 return [];
             }
+        }
+
+        // 订单过滤逻辑
+        function filterOrders(orders) {
+            return orders.filter(order => {
+                // 区域筛选
+                if (config.areaFilter === 'q' && order.area !== 'Q区') return false;
+                if (config.areaFilter === 'v' && order.area !== 'V区') return false;
+                
+                // 关键词筛选
+                if (config.keywords.length > 0) {
+                    const content = `${order.taskName || ''} ${order.description || ''}`.toLowerCase();
+                    return config.keywords.some(keyword => 
+                        content.includes(keyword.toLowerCase())
+                    );
+                }
+                
+                return true;
+            });
         }
         
         // 更新订单列表显示
         async function updateOrderList(orders) {
-            orderList.innerHTML = '';
+            const orderListElement = document.getElementById('orderList');
             
-            if (orders.length === 0) {
-                orderList.innerHTML = '<div style="text-align: center; padding: 30px; color: var(--gray);">暂无可用订单</div>';
-                return;
-            }
+            // 显示加载状态
+            orderListElement.innerHTML = `
+                <div class="no-orders">
+                    <div class="loading" style="margin: 0 auto;"></div>
+                    <p style="margin-top: 15px;">正在加载订单数据...</p>
+                </div>
+            `;
             
-            // 获取每个订单的详情以确定是否已被抢
-            const orderDetails = await Promise.all(orders.map(async order => {
-                try {
-                    // 检查订单是否在黑名单中
-                    if (orderBlacklist.includes(order.taskId)) {
-                        return {
-                            ...order,
-                            isTaken: true,
-                            blacklisted: true
-                        };
-                    }
-                    
-                    const detail = await getOrderDetail(order.taskId);
-                    return {
-                        ...order,
-                        isTaken: detail ? detail.isTaken : true
-                    };
-                } catch (error) {
-                    addLog(`获取订单 #${order.taskId} 详情失败: ${error.message}`, 'warning');
-                    return {
-                        ...order,
-                        isTaken: true
-                    };
-                }
-            }));
-            
-            // 过滤已被抢订单和黑名单订单
-            let displayOrders = orderDetails.filter(order => !order.blacklisted);
-            
-            if (displayOrders.length === 0) {
-                orderList.innerHTML = '<div style="text-align: center; padding: 30px; color: var(--gray);">暂无可用订单</div>';
-                return;
-            }
-            
-            displayOrders.forEach(order => {
-                const isBlacklisted = orderBlacklist.includes(order.taskId);
-                const statusClass = isBlacklisted ? 'status-blacklisted' : 
-                                  order.isTaken ? 'status-taken' : 'status-available';
-                const statusText = isBlacklisted ? '黑名单' : 
-                                 order.isTaken ? '已被抢' : '可抢';
-                
-                const orderElement = document.createElement('div');
-                orderElement.className = 'order-item';
-                
-                orderElement.innerHTML = `
-                    <div class="order-header">
-                        <div class="order-id">#${order.taskId}</div>
-                        <div class="order-status ${statusClass}">
-                            ${statusText}
-                        </div>
+            if (!orders || orders.length === 0) {
+                orderListElement.innerHTML = `
+                    <div class="no-orders">
+                        <i class="fas fa-box-open" style="font-size: 2rem;"></i>
+                        <p style="margin-top: 15px;">当前没有可抢订单</p>
                     </div>
-                    <div class="order-price">¥${order.receivePrice.toFixed(2)}</div>
-                    <div class="order-area">${order.categoryName}</div>
-                    <div class="order-time">发布时间: ${formatDateTime(order.createTime)}</div>
-                    <button class="grab-btn" data-id="${order.taskId}" ${order.isTaken || isBlacklisted ? 'disabled' : ''}>
-                        <i class="fas ${order.isTaken || isBlacklisted ? 'fa-lock' : 'fa-hand-paper'}"></i> 
-                        ${isBlacklisted ? '黑名单订单' : order.isTaken ? '订单已被抢' : '手动抢单'}
-                    </button>
                 `;
+                stats.orders = 0;
+                updateStats();
+                return;
+            }
+
+            // 并行获取订单详情（带缓存）
+            const orderDetails = await Promise.all(orders.map(async order => {
+                const isBlacklisted = orderBlacklist.includes(order.taskId);
+                if (isBlacklisted) return { ...order, isBlacklisted, isTaken: true };
                 
-                orderList.appendChild(orderElement);
+                // 检查缓存
+                const cacheKey = `detail_${order.taskId}`;
+                const now = Date.now();
                 
-                // 添加手动抢单事件
-                if (!order.isTaken && !isBlacklisted) {
-                    const btn = orderElement.querySelector('.grab-btn');
-                    btn.addEventListener('click', () => {
-                        manualTakeOrder(order.taskId);
-                    });
+                if (orderDetailCache[cacheKey] && now - orderDetailCache[cacheKey].timestamp < CACHE_EXPIRE_TIME) {
+                    return { ...order, isBlacklisted, ...orderDetailCache[cacheKey].data };
                 }
+                
+                // 获取详情
+                const detail = await getOrderDetail(order.taskId);
+                if (detail) {
+                    orderDetailCache[cacheKey] = {
+                        data: detail,
+                        timestamp: now
+                    };
+                }
+                
+                return { ...order, isBlacklisted, ...detail };
+            }));
+
+            // 构建可抢订单列表
+            const availableOrders = orderDetails.filter(order => 
+                !order.isBlacklisted && !order.isTaken
+            );
+            
+            stats.orders = availableOrders.length;
+            updateStats();
+            
+            if (availableOrders.length === 0) {
+                orderListElement.innerHTML = `
+                    <div class="no-orders">
+                        <i class="fas fa-clock" style="font-size: 2rem;"></i>
+                        <p style="margin-top: 15px;">当前没有可抢订单，请稍后再试</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // 生成订单列表HTML
+            let html = '';
+            availableOrders.forEach(order => {
+                html += `
+                    <div class="order-item">
+                        <div class="order-header">
+                            <div class="order-id">#${order.taskId}</div>
+                            <div class="order-status status-available">可抢</div>
+                        </div>
+                        <div class="order-price">¥${order.receivePrice?.toFixed(2) || '0.00'}</div>
+                        <div class="order-area">${order.area} - ${order.categoryName}</div>
+                        <div class="order-desc">${order.taskName || '无描述信息'}</div>
+                        <div class="order-time">发布时间: ${formatDateTime(order.createTime)}</div>
+                        <button class="grab-btn" data-id="${order.taskId}">
+                            <i class="fas fa-hand-paper"></i> 立即抢单
+                        </button>
+                    </div>
+                `;
+            });
+            
+            orderListElement.innerHTML = html;
+            
+            // 添加抢单事件（带防抖）
+            const debouncedGrab = debounce(async function() {
+                const taskId = this.getAttribute('data-id');
+                const order = orders.find(o => o.taskId == taskId);
+                if (order) await manualTakeOrder(order);
+            }, 500);
+
+            document.querySelectorAll('.grab-btn').forEach(btn => {
+                btn.addEventListener('click', debouncedGrab);
             });
         }
         
@@ -1480,11 +1424,17 @@
         
         // 抢单功能
         async function takeOrder(taskId) {
+            if (isGrabbing) {
+                addLog(`⚠️ 正在处理订单 #${currentOrder?.taskId}，请等待完成`, 'warning');
+                return false;
+            }
+            
+            isGrabbing = true;
             stats.attempts++;
             updateStats();
             
             const delay = config.delay;
-            addLog(`发现新订单 #${taskId}，等待 ${delay}ms 后抢单...`, 'info');
+            addLog(`▶ 开始处理订单 #${taskId}，等待 ${delay}ms 后抢单...`, 'info');
             
             // 模拟延迟
             await new Promise(resolve => setTimeout(resolve, delay));
@@ -1515,46 +1465,29 @@
                     stats.success++;
                     updateStats();
                     
-                    addLog('抢单成功！', 'success');
+                    addLog('✅ 抢单成功！', 'success');
                     addLog(`订单ID: ${taskId}`, 'success');
                     
                     // 获取订单详情以显示更多信息
                     const detail = await getOrderDetail(taskId);
                     if (detail) {
-                        addLog(`订单类型: ${categoryName}`, 'success');
-                    addLog(`发单金额: ¥${receivePrice}`, 'success');
-                    addLog(`到手金额: ${outPrice}`, 'success');
-                    addLog(`用户 ID: ${gameRoleId}`, 'success');
-                    addLog(`订单号: ${orderNo}`, 'success');
-                    addLog(`下单时间: ${createTime}`, 'success');
-                    addLog(`订单详情ID: ${description}`, 'success');
-                        
-                        
-                        
-                    
-                        
-                        
-                        
-                        
-                        
-                        
-                        
+                        addLog(`订单类型: ${detail.description}`, 'success');
+                        addLog(`发单金额: ¥${detail.receivePrice}`, 'success');
+                        addLog(`下单时间: ${detail.createTime}`, 'success');
                     }
                     
                     // 播放成功音效
                     playSuccessSound();
                     
-                    // 如果开启了自动停止功能
-                    if (config.autoStop) {
-                        addLog('已启用"抢到一单后自动停止"功能，停止抢单', 'info');
-                        stopAutoGrab();
-                    }
+                    // 抢单成功后完全停止程序
+                    stopAutoGrab();
+                    addLog('🛑 程序已自动停止，请手动重新启动', 'warning');
                     
                     return true;
                 } else {
                     // 检查是否是因为订单已被抢
                     if (result.msg && result.msg.includes('已被抢')) {
-                        addLog(`订单 #${taskId} 已被抢走，加入黑名单`, 'warning');
+                        addLog(`⚠️ 订单 #${taskId} 已被抢走，加入黑名单`, 'warning');
                         
                         // 将订单加入黑名单
                         if (!orderBlacklist.includes(taskId)) {
@@ -1562,20 +1495,23 @@
                             updateBlacklistDisplay();
                         }
                     } else {
-                        addLog(`抢单失败: ${result.msg || '未知错误'}`, 'error');
+                        addLog(`❌ 抢单失败: ${result.msg || '未知错误'}`, 'error');
                     }
                     return false;
                 }
             } catch (error) {
-                addLog(`抢单过程中出错: ${error.message}`, 'error');
+                addLog(`❗ 抢单过程中出错: ${error.message}`, 'error');
                 return false;
+            } finally {
+                isGrabbing = false;
+                currentOrder = null;
             }
         }
         
         // 手动抢单
         async function manualTakeOrder(taskId) {
             if (!config.token || !config.memberId || !config.ids || !config.nickname) {
-                addLog('请先配置所有用户信息', 'warning');
+                addLog('⚠️ 请先配置所有用户信息', 'warning');
                 return;
             }
             
@@ -1607,33 +1543,19 @@
                 const result = await response.json();
                 
                 if (result.code === 200 && result.data) {
-                    // 判断订单是否已被抢
-                    const isTaken = result.data.isTake === 1;
-                    
                     return {
-                    
-                    
-                    
-                    
-                    
-                        isTaken: isTaken,
-                        
-                        
-                        
-                        
-                        area: result.data.categoryName || '未知区域',
+                        isTaken: result.data.isTake === 1,
                         description: result.data.taskName || '未知类型',
-                        orderNo: result.data.orderNo || '未知单号',
-                        receivePrice: result.data.receivePrice || '未知发单金额',
-                        outPrice: result.data.outPrice || '未知到手金额',
+                        receivePrice: result.data.receivePrice || 0,
                         createTime: result.data.createTime || '未知发单时间'
                     };
+                } else {
+                    throw new Error(result.msg || '获取订单详情失败');
                 }
             } catch (error) {
-                addLog(`获取订单详情失败: ${error.message}`, 'warning', taskId);
+                addLog(`⚠️ 获取订单 #${taskId} 详情失败: ${error.message}`, 'warning', taskId);
+                return null;
             }
-            
-            return null;
         }
         
         // 开始自动抢单
@@ -1652,13 +1574,12 @@
                     return card.querySelector('div:last-child').textContent;
                 }),
                 delay: parseInt(document.getElementById('delay').value) || 300,
-                refreshRate: parseFloat(document.getElementById('refreshRate').value) || 1.0,
-                autoStop: autoStopSwitch.checked
+                refreshRate: parseFloat(document.getElementById('refreshRate').value) || 1.0
             };
             
             // 验证配置
             if (!config.memberId || !config.ids || !config.nickname || !config.token) {
-                addLog('请填写所有必要的配置信息', 'warning');
+                addLog('❌ 请填写所有必要的配置信息', 'warning');
                 return;
             }
             
@@ -1668,7 +1589,7 @@
             startBtn.disabled = true;
             stopBtn.disabled = false;
             
-            addLog('自动抢单程序已启动', 'success');
+            addLog('🚀 自动抢单程序启动', 'success');
             addLog(`区域筛选: ${config.areaFilter === 'all' ? '全选' : config.areaFilter === 'q' ? 'Q区' : 'V区'}`);
             
             if (config.keywords.length > 0) {
@@ -1679,15 +1600,19 @@
             
             addLog(`抢单延迟: ${config.delay}ms`);
             addLog(`刷新频率: ${config.refreshRate}秒`);
-            addLog(`抢到一单后自动停止: ${config.autoStop ? '开启' : '关闭'}`);
             
             // 自动抢单循环
             intervalId = setInterval(async () => {
                 try {
+                    if (isGrabbing) {
+                        addLog('⏳ 当前有订单正在处理中，等待处理完成...', 'info');
+                        return;
+                    }
+                    
                     const orders = await getAvailableOrders();
                     
                     if (orders.length === 0) {
-                        addLog('暂无符合条件的订单，继续扫描...', 'info');
+                        addLog('🔍 暂无符合条件的订单，继续扫描...', 'info');
                         return;
                     }
                     
@@ -1711,19 +1636,16 @@
                             continue;
                         }
                         
-                        addLog(`发现新订单 → ${order.taskName}（ID：${order.taskId}）`, 'info');
+                        addLog(`🎯 发现新订单 → ${order.taskName}（ID：${order.taskId}）`, 'info');
                         const success = await takeOrder(order.taskId);
                         
                         if (success) {
-                            // 成功后暂停一下
-                            await new Promise(resolve => setTimeout(resolve, 2000));
-                            
-                            // 重新开始获取可用订单列表
+                            // 成功后退出循环（程序会自动停止）
                             break;
                         }
                     }
                 } catch (error) {
-                    addLog(`自动抢单过程中出错: ${error.message}`, 'error');
+                    addLog(`⚠️ 自动抢单过程中出错: ${error.message}`, 'error');
                 }
             }, config.refreshRate * 1000);
         }
@@ -1734,13 +1656,24 @@
             
             clearInterval(intervalId);
             isRunning = false;
+            isGrabbing = false;
+            currentOrder = null;
             statusDot.classList.remove('active');
-            statusDot.classList.add('paused');
             statusText.textContent = '已停止';
             startBtn.disabled = false;
             stopBtn.disabled = true;
             
-            addLog('抢单程序已停止', 'warning');
+            addLog('🛑 抢单程序已停止', 'warning');
+        }
+        
+        // 防抖函数
+        function debounce(func, wait) {
+            let timeout;
+            return function() {
+                const context = this, args = arguments;
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(context, args), wait);
+            };
         }
         
         // 初始化
@@ -1748,8 +1681,6 @@
             // 绑定按钮事件
             startBtn.addEventListener('click', startAutoGrab);
             stopBtn.addEventListener('click', stopAutoGrab);
-            
-            // 新增按钮事件绑定
             saveConfigBtn.addEventListener('click', saveConfigToLocal);
             loadConfigBtn.addEventListener('click', loadConfigFromLocal);
             
@@ -1757,27 +1688,14 @@
             document.getElementById('delay').value = config.delay;
             document.getElementById('refreshRate').value = config.refreshRate;
             
-            // 自动停止开关事件
-            autoStopSwitch.addEventListener('change', function() {
-                config.autoStop = this.checked;
-                if (isRunning) {
-                    addLog(`抢到一单后自动停止: ${this.checked ? '开启' : '关闭'}`);
-                }
-            });
-            
             // 更新黑名单显示
             updateBlacklistDisplay();
             
             // 添加初始日志
             addLog('系统初始化完成，准备就绪', 'info');
             
-            // 页面加载时尝试自动加载配置（可选）
-            setTimeout(() => {
-                const autoLoad = confirm('是否要自动加载上次保存的配置？');
-                if (autoLoad) {
-                    loadConfigFromLocal();
-                }
-            }, 1000);
+            // 初始加载订单
+            getAvailableOrders();
         }
         
         // 页面加载完成后初始化
