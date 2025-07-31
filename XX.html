@@ -3,37 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>极速电竞抢单系统 PRO MAX</title>
+    <title>极速电竞抢单系统 - 企业级专业版</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* 专业商业配色方案 */
-            --primary: #4361EE;  /* 科技蓝 */
-            --primary-dark: #3A56E0;
-            --primary-light: #4CC9F0;
-            --secondary: #7209B7; /* 高贵紫 */
-            --accent: #F72585;   /* 活力粉 */
-            --success: #4AD66D;
-            --warning: #F8961E;
-            --danger: #EF233C;
-            --info: #4895EF;
-            --dark: #1A1B41;
-            --darker: #0D0E21;
-            --light: #F8F9FA;
-            --gray: #8D99AE;
-            --glass-bg: rgba(255, 255, 255, 0.12);
-            --glass-border: rgba(255, 255, 255, 0.08);
+            /* 企业级配色方案 */
+            --primary: #2563EB;  /* 专业蓝 */
+            --primary-dark: #1D4ED8;
+            --primary-light: #3B82F6;
+            --secondary: #7C3AED; /* 企业紫 */
+            --accent: #EC4899;   /* 活力粉 */
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --info: #06B6D4;
+            --dark: #111827;
+            --darker: #0B1120;
+            --light: #F9FAFB;
+            --gray: #6B7280;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.1);
             
-            /* 商业版新增变量 */
-            --card-bg: linear-gradient(145deg, rgba(30, 33, 58, 0.9), rgba(26, 27, 65, 0.95));
-            --panel-bg: linear-gradient(135deg, rgba(22, 22, 56, 0.95), rgba(26, 27, 65, 0.98));
-            --stats-bg: rgba(67, 97, 238, 0.15);
-            --highlight: rgba(114, 9, 183, 0.3);
+            /* 企业级新增变量 */
+            --card-bg: linear-gradient(145deg, rgba(17, 24, 39, 0.95), rgba(11, 17, 32, 0.98));
+            --panel-bg: linear-gradient(135deg, rgba(11, 17, 32, 0.98), rgba(17, 24, 39, 0.95));
+            --stats-bg: rgba(37, 99, 235, 0.12);
+            --highlight: rgba(124, 58, 237, 0.2);
             
-            --border-radius: 16px;
-            --border-radius-sm: 12px;
-            --box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            --border-radius: 18px;
+            --border-radius-sm: 14px;
+            --box-shadow: 0 15px 45px rgba(0, 0, 0, 0.35);
             --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
             --gradient-accent: linear-gradient(135deg, var(--accent), var(--secondary));
@@ -53,25 +53,25 @@
             min-height: 100vh;
             padding: 30px;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(67, 97, 238, 0.1) 0%, transparent 25%),
-                radial-gradient(circle at 90% 80%, rgba(114, 9, 183, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(124, 58, 237, 0.1) 0%, transparent 25%),
                 linear-gradient(to bottom, var(--darker), var(--dark));
             background-attachment: fixed;
         }
         
-        /* 专业容器布局 */
+        /* 企业级容器布局 */
         .container {
-            max-width: 1600px;
+            max-width: 1800px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1.2fr 2fr;
-            gap: 25px;
+            grid-template-columns: 1.3fr 2.7fr;
+            gap: 30px;
         }
         
-        /* 商业版头部设计 */
+        /* 企业级头部设计 */
         header {
             text-align: center;
-            padding: 40px 0;
+            padding: 50px 0;
             background: var(--panel-bg);
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
@@ -80,7 +80,7 @@
             position: relative;
             overflow: hidden;
             border: 1px solid var(--glass-border);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
             z-index: 1;
         }
         
@@ -107,72 +107,79 @@
             opacity: 0.6;
         }
         
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
         .logo {
             display: inline-flex;
             align-items: center;
             gap: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             background: var(--gradient);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
             color: transparent;
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             font-weight: 800;
             font-family: 'Poppins', sans-serif;
-            text-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+            text-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
         }
         
         .logo i {
-            font-size: 2.8rem;
+            font-size: 3rem;
+        }
+        
+        .version-badge {
+            background: var(--gradient-accent);
+            color: white;
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            box-shadow: 0 5px 20px rgba(236, 72, 153, 0.3);
+            display: inline-block;
+            margin-bottom: 15px;
         }
         
         .tagline {
             color: var(--gray);
-            font-size: 1.3rem;
-            max-width: 700px;
+            font-size: 1.4rem;
+            max-width: 800px;
             margin: 0 auto;
             position: relative;
             display: inline-block;
+            line-height: 1.5;
         }
         
         .tagline::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -12px;
             left: 50%;
             transform: translateX(-50%);
-            width: 100px;
+            width: 120px;
             height: 3px;
             background: var(--gradient);
             border-radius: 3px;
         }
         
-        .version-badge {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            background: var(--gradient-accent);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3);
-        }
-        
-        /* 专业卡片设计 */
+        /* 企业级卡片设计 */
         .card {
             background: var(--card-bg);
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            padding: 30px;
+            padding: 35px;
             height: fit-content;
             border: 1px solid var(--glass-border);
             transition: var(--transition);
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
             z-index: 1;
         }
         
@@ -201,69 +208,69 @@
         
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
         }
         
         .card-title {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 25px;
             border-bottom: 1px solid var(--glass-border);
         }
         
         .card-title i {
-            font-size: 2rem;
-            width: 50px;
-            height: 50px;
+            font-size: 2.2rem;
+            width: 60px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: var(--gradient);
             color: white;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
         }
         
         .card-title h2 {
             font-weight: 700;
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: var(--light);
             font-family: 'Poppins', sans-serif;
             letter-spacing: 0.5px;
         }
         
-        /* 商业版表单控件 */
+        /* 企业级表单控件 */
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             position: relative;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             font-weight: 600;
             color: var(--light);
-            font-size: 1rem;
+            font-size: 1.1rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
         
         .form-group label i {
             color: var(--primary-light);
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
         
         .form-control {
             width: 100%;
-            padding: 16px 20px;
-            background: rgba(30, 33, 58, 0.7);
+            padding: 18px 22px;
+            background: rgba(17, 24, 39, 0.7);
             color: var(--light);
             border: 1px solid var(--glass-border);
             border-radius: var(--border-radius-sm);
-            font-size: 1rem;
+            font-size: 1.1rem;
             transition: var(--transition);
             font-family: 'Noto Sans SC', sans-serif;
         }
@@ -271,37 +278,53 @@
         .form-control:focus {
             border-color: var(--primary);
             outline: none;
-            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
-            background: rgba(40, 45, 80, 0.8);
+            box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.2);
+            background: rgba(17, 24, 39, 0.9);
         }
         
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 25px;
         }
         
-        /* 商业版关键词选择 */
+        /* 企业级关键词选择 - 修改为4列 */
         .keywords-section {
-            margin-top: 25px;
+            margin-top: 30px;
         }
-        
+
         .keywords-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: var(--border-radius-sm);
+            transition: var(--transition);
         }
-        
+
+        .keywords-header h3 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .keywords-content {
+            display: block;
+            margin-top: 15px;
+        }
+
         .keywords-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);  /* 修改为4列 */
             gap: 15px;
         }
-        
+
         .keyword-card {
-            padding: 18px;
-            background: rgba(67, 97, 238, 0.1);
+            padding: 20px;
+            background: rgba(37, 99, 235, 0.1);
             border-radius: var(--border-radius-sm);
             text-align: center;
             cursor: pointer;
@@ -325,15 +348,15 @@
         }
         
         .keyword-card:hover {
-            transform: translateY(-3px);
-            border-color: rgba(67, 97, 238, 0.3);
-            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.15);
+            transform: translateY(-5px);
+            border-color: rgba(37, 99, 235, 0.3);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
         }
         
         .keyword-card.selected {
-            background: rgba(74, 214, 109, 0.1);
+            background: rgba(16, 185, 129, 0.1);
             border-color: var(--success);
-            transform: translateY(-3px);
+            transform: translateY(-5px);
         }
         
         .keyword-card.selected::before {
@@ -342,37 +365,37 @@
         
         .keyword-card.selected .key {
             background: var(--success);
-            box-shadow: 0 6px 20px rgba(74, 214, 109, 0.4);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
         }
         
         .key {
             display: inline-block;
-            width: 36px;
-            height: 36px;
-            line-height: 36px;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
             text-align: center;
             background: var(--primary);
             color: white;
             border-radius: 50%;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             font-weight: 700;
-            font-size: 1rem;
-            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.3);
+            font-size: 1.1rem;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
             transition: var(--transition);
         }
         
-        /* 商业版按钮优化 */
+        /* 企业级按钮优化 */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: 16px 24px;
+            gap: 12px;
+            padding: 18px 28px;
             background: var(--primary);
             color: white;
             border: none;
             border-radius: var(--border-radius-sm);
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
@@ -382,7 +405,7 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
-            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.3);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
         }
         
         .btn::before {
@@ -407,60 +430,60 @@
         
         .btn-success {
             background: var(--success);
-            box-shadow: 0 8px 25px rgba(74, 214, 109, 0.3);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
         }
         
         .btn-success:hover {
-            background: #3ECB63;
+            background: #0EA876;
         }
         
         .btn-warning {
             background: var(--warning);
             color: #212529;
-            box-shadow: 0 8px 25px rgba(248, 150, 30, 0.3);
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
         }
         
         .btn-warning:hover {
-            background: #F08C00;
+            background: #E69009;
         }
         
         .btn-info {
             background: var(--info);
-            box-shadow: 0 8px 25px rgba(72, 149, 239, 0.3);
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
         }
         
         .btn-info:hover {
-            background: #3D8AE6;
+            background: #05A5C2;
         }
         
         .btn-danger {
             background: var(--danger);
-            box-shadow: 0 8px 25px rgba(239, 35, 60, 0.3);
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
         }
         
         .btn-danger:hover {
-            background: #DD1C36;
+            background: #DC2626;
         }
         
         .btn-secondary {
             background: var(--secondary);
-            box-shadow: 0 8px 25px rgba(114, 9, 183, 0.3);
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
         }
         
         .btn-secondary:hover {
-            background: #6508A5;
+            background: #6D28D9;
         }
         
-        /* 商业版日志区域 */
+        /* 企业级日志区域 */
         .logs {
-            background: linear-gradient(to bottom right, var(--dark), #2A2D5A);
+            background: linear-gradient(to bottom right, var(--dark), #1E293B);
             color: #e2e4eb;
             border-radius: var(--border-radius-sm);
-            padding: 20px;
-            height: 500px;
+            padding: 25px;
+            height: 550px;
             overflow-y: auto;
             font-family: 'Courier New', monospace;
-            font-size: 0.95rem;
+            font-size: 1rem;
             line-height: 1.6;
             border: 1px solid var(--glass-border);
             position: relative;
@@ -473,19 +496,19 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(rgba(26, 27, 65, 0.8), rgba(26, 27, 65, 0.9));
+            background: linear-gradient(rgba(17, 24, 39, 0.8), rgba(17, 24, 39, 0.9));
             pointer-events: none;
             border-radius: var(--border-radius-sm);
         }
         
         .log-entry {
-            padding: 12px 15px;
-            margin: 8px 0;
+            padding: 15px 18px;
+            margin: 10px 0;
             border-radius: var(--border-radius-sm);
-            background: rgba(30, 33, 58, 0.4);
+            background: rgba(17, 24, 39, 0.4);
             animation: fadeIn 0.3s ease forwards;
-            border-left: 3px solid var(--primary);
-            font-size: 0.9rem;
+            border-left: 4px solid var(--primary);
+            font-size: 0.95rem;
             position: relative;
             overflow: hidden;
         }
@@ -509,9 +532,9 @@
         
         .log-time {
             color: #b5bd68;
-            margin-right: 10px;
+            margin-right: 12px;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
         
         .success {
@@ -532,29 +555,29 @@
         }
         
         .highlight {
-            background: rgba(67, 97, 238, 0.2);
-            padding: 3px 8px;
-            border-radius: 4px;
+            background: rgba(37, 99, 235, 0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
             font-weight: bold;
         }
         
-        /* 商业版统计卡片 */
+        /* 企业级统计卡片 */
         .stats {
             display: flex;
             justify-content: space-around;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             background: var(--stats-bg);
-            padding: 15px;
+            padding: 20px;
             border-radius: var(--border-radius-sm);
             border: 1px solid var(--glass-border);
-            gap: 15px;
+            gap: 20px;
             backdrop-filter: blur(5px);
         }
         
         .stat-box {
             text-align: center;
-            padding: 18px;
-            background: rgba(45, 50, 80, 0.8);
+            padding: 20px;
+            background: rgba(17, 24, 39, 0.8);
             border-radius: var(--border-radius-sm);
             flex: 1;
             transition: var(--transition);
@@ -563,62 +586,62 @@
         
         .stat-box:hover {
             transform: translateY(-5px);
-            background: rgba(45, 50, 80, 0.9);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+            background: rgba(17, 24, 39, 0.9);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
         
         .stat-value {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 800;
             background: var(--gradient);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             font-family: 'Poppins', sans-serif;
         }
         
         .stat-label {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: var(--gray);
-            margin-top: 8px;
+            margin-top: 10px;
             font-weight: 500;
         }
         
-        /* 商业版状态指示器 */
+        /* 企业级状态指示器 */
         .status-indicator {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            padding: 15px;
+            gap: 20px;
+            padding: 20px;
             border-radius: 50px;
-            margin: 25px 0;
+            margin: 30px 0;
             font-weight: 600;
-            font-size: 1.2rem;
-            background: rgba(30, 33, 58, 0.7);
+            font-size: 1.3rem;
+            background: rgba(17, 24, 39, 0.7);
             border: 1px solid var(--glass-border);
             backdrop-filter: blur(5px);
         }
         
         .indicator-dot {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             background: var(--gray);
             transition: var(--transition);
-            box-shadow: 0 0 15px currentColor;
+            box-shadow: 0 0 20px currentColor;
         }
         
         .indicator-dot.active {
             background: var(--success);
-            box-shadow: 0 0 15px var(--success);
+            box-shadow: 0 0 20px var(--success);
             animation: pulse 1.5s infinite;
         }
         
         .indicator-dot.paused {
             background: var(--warning);
-            box-shadow: 0 0 15px var(--warning);
+            box-shadow: 0 0 20px var(--warning);
         }
         
         @keyframes pulse {
@@ -627,35 +650,35 @@
             100% { transform: scale(0.95); }
         }
         
-        /* 商业版订单列表 */
+        /* 企业级订单列表 */
         .order-list {
-            margin-top: 20px;
-            max-height: 400px;
+            margin-top: 25px;
+            max-height: 450px;
             overflow-y: auto;
-            padding-right: 8px;
+            padding-right: 10px;
         }
         
         .order-list::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
         }
         
         .order-list::-webkit-scrollbar-track {
-            background: rgba(30, 33, 58, 0.5);
-            border-radius: 3px;
+            background: rgba(17, 24, 39, 0.5);
+            border-radius: 4px;
         }
         
         .order-list::-webkit-scrollbar-thumb {
             background: var(--primary);
-            border-radius: 3px;
+            border-radius: 4px;
         }
         
         .order-item {
-            padding: 20px;
-            margin-bottom: 18px;
-            background: rgba(40, 45, 80, 0.8);
+            padding: 25px;
+            margin-bottom: 20px;
+            background: rgba(17, 24, 39, 0.8);
             border-radius: var(--border-radius-sm);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-            border-left: 4px solid var(--primary);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            border-left: 5px solid var(--primary);
             transition: var(--transition);
             position: relative;
             overflow: hidden;
@@ -675,82 +698,82 @@
         
         .order-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-            background: rgba(50, 55, 90, 0.9);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            background: rgba(17, 24, 39, 0.9);
         }
         
         .order-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
         
         .order-id {
             font-weight: 700;
             color: var(--light);
-            font-size: 1.05rem;
+            font-size: 1.1rem;
         }
         
         .order-status {
-            padding: 4px 12px;
+            padding: 5px 15px;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 600;
         }
         
         .status-available {
-            background: rgba(74, 214, 109, 0.15);
+            background: rgba(16, 185, 129, 0.15);
             color: var(--success);
         }
         
         .status-taken {
-            background: rgba(239, 35, 60, 0.15);
+            background: rgba(239, 68, 68, 0.15);
             color: var(--danger);
         }
         
         .status-blacklisted {
-            background: rgba(114, 9, 183, 0.15);
+            background: rgba(124, 58, 237, 0.15);
             color: var(--secondary);
         }
         
         .order-price {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 800;
             color: var(--success);
-            margin: 12px 0;
-            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 15px 0;
+            text-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
             font-family: 'Poppins', sans-serif;
         }
         
         .order-area {
             color: var(--gray);
             font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
+            margin-bottom: 10px;
+            font-size: 1rem;
         }
         
         .order-desc {
             color: var(--gray);
-            font-size: 0.9rem;
-            margin: 8px 0;
-            padding: 8px;
-            background: rgba(30, 33, 58, 0.5);
-            border-radius: 8px;
+            font-size: 0.95rem;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(17, 24, 39, 0.5);
+            border-radius: 10px;
             line-height: 1.5;
         }
         
         .order-time {
             color: var(--gray);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
         }
         
         .grab-btn {
             width: 100%;
-            margin-top: 15px;
-            padding: 12px;
+            margin-top: 20px;
+            padding: 15px;
             background: var(--primary);
             color: white;
             border: none;
@@ -759,18 +782,18 @@
             font-weight: 600;
             transition: var(--transition);
             font-family: 'Poppins', sans-serif;
-            font-size: 0.95rem;
+            font-size: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.2);
+            gap: 10px;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
         }
         
         .grab-btn:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
         }
         
         .grab-btn:disabled {
@@ -779,11 +802,11 @@
             box-shadow: none;
         }
         
-        /* 商业版黑名单区域 */
+        /* 企业级黑名单区域 */
         .blacklist-section {
-            margin-bottom: 25px;
-            padding: 15px;
-            background: rgba(30, 33, 58, 0.7);
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(17, 24, 39, 0.7);
             border-radius: var(--border-radius-sm);
             border: 1px solid var(--glass-border);
             backdrop-filter: blur(5px);
@@ -806,9 +829,9 @@
         .blacklist-title {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
+            gap: 12px;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
             font-weight: 600;
             color: var(--light);
         }
@@ -816,29 +839,29 @@
         .blacklist-count {
             background: var(--danger);
             color: white;
-            padding: 3px 8px;
+            padding: 4px 10px;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 700;
         }
         
         .blacklist-list {
-            max-height: 120px;
+            max-height: 150px;
             overflow-y: auto;
-            padding: 10px;
-            background: rgba(20, 23, 48, 0.6);
-            border-radius: 8px;
+            padding: 12px;
+            background: rgba(11, 17, 32, 0.6);
+            border-radius: 10px;
             font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
         
         .blacklist-item {
-            padding: 6px;
+            padding: 8px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         
         .blacklist-item:last-child {
@@ -847,7 +870,7 @@
         
         .blacklist-item i {
             color: var(--danger);
-            font-size: 0.8rem;
+            font-size: 0.9rem;
         }
         
         /* 密码输入框优化 */
@@ -857,12 +880,12 @@
         
         .toggle-password {
             position: absolute;
-            right: 15px;
+            right: 18px;
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
             color: var(--gray);
-            font-size: 1rem;
+            font-size: 1.1rem;
             transition: var(--transition);
         }
         
@@ -873,24 +896,24 @@
         /* 无订单提示 */
         .no-orders {
             text-align: center;
-            padding: 40px;
+            padding: 50px;
             color: var(--gray);
         }
         
         .no-orders i {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+            font-size: 3rem;
+            margin-bottom: 20px;
             color: var(--primary-light);
         }
         
-        /* 商业版页脚 */
+        /* 企业级页脚 */
         footer {
             grid-column: 1 / -1;
             text-align: center;
             color: var(--gray);
-            padding: 25px;
-            margin-top: 30px;
-            font-size: 0.95rem;
+            padding: 30px;
+            margin-top: 40px;
+            font-size: 1rem;
             background: var(--panel-bg);
             border-radius: var(--border-radius);
             border: 1px solid var(--glass-border);
@@ -905,26 +928,59 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 5px;
             background: var(--gradient);
         }
         
-        footer p {
-            margin-bottom: 8px;
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
-        footer a {
-            color: var(--primary-light);
+        .footer-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .footer-links a {
+            color: var(--gray);
             text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-light);
+        }
+        
+        .copyright {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .social-links a {
+            color: var(--gray);
+            font-size: 1.2rem;
             transition: var(--transition);
         }
         
-        footer a:hover {
-            color: var(--accent);
-            text-decoration: underline;
+        .social-links a:hover {
+            color: var(--primary-light);
+            transform: translateY(-3px);
         }
         
-        /* 商业版工具提示 */
+        /* 企业级工具提示 */
         .tooltip {
             position: relative;
             cursor: help;
@@ -936,19 +992,19 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            padding: 8px 12px;
+            padding: 10px 15px;
             background: var(--dark);
             color: white;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            width: 220px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            width: 250px;
             text-align: center;
             opacity: 0;
             visibility: hidden;
             transition: var(--transition);
             z-index: 100;
             border: 1px solid var(--glass-border);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
         
         .tooltip:hover::after {
@@ -956,12 +1012,12 @@
             visibility: visible;
         }
         
-        /* 商业版加载动画 */
+        /* 企业级加载动画 */
         .loading {
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.2);
+            width: 24px;
+            height: 24px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             border-top-color: var(--primary);
             animation: spin 1s ease-in-out infinite;
@@ -971,45 +1027,154 @@
             to { transform: rotate(360deg); }
         }
         
-        /* 商业版浮动动画 */
+        /* 企业级浮动动画 */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            50% { transform: translateY(-10px); }
         }
         
         .card:hover {
             animation: float 3s ease-in-out infinite;
         }
         
-        /* 商业版徽章 */
+        /* 企业级徽章 */
         .pro-badge {
             position: absolute;
-            top: 15px;
-            right: 20px;
+            top: 20px;
+            right: 25px;
             background: var(--gradient-accent);
             color: white;
-            font-size: 0.8rem;
-            padding: 3px 10px;
+            font-size: 0.9rem;
+            padding: 4px 12px;
             border-radius: 20px;
             font-weight: bold;
             z-index: 2;
-            box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3);
+            box-shadow: 0 5px 20px rgba(236, 72, 153, 0.3);
         }
         
-        /* 商业版响应式调整 */
-        @media (max-width: 1200px) {
+        /* 新增的成功订单面板样式 */
+        .success-panel {
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: var(--border-radius-sm);
+            padding: 25px;
+            margin-top: 30px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .success-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.1));
+            z-index: -1;
+        }
+
+        .success-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .success-panel-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .success-stats {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .success-stat {
+            text-align: center;
+            flex: 1;
+        }
+
+        .success-stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--success);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .success-stat-label {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+        .success-orders-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+
+        .success-order-item {
+            padding: 15px;
+            background: rgba(16, 185, 129, 0.05);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-left: 3px solid var(--success);
+        }
+
+        .success-order-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .success-order-id {
+            font-weight: 600;
+            color: var(--light);
+        }
+
+        .success-order-price {
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        .success-order-desc {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .success-order-time {
+            color: var(--gray);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* 企业级响应式调整 */
+        @media (max-width: 1400px) {
             .container {
                 grid-template-columns: 1fr;
             }
             
             .keywords-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(3, 1fr);
             }
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
             body {
-                padding: 15px;
+                padding: 20px;
             }
             
             .form-row {
@@ -1017,19 +1182,19 @@
             }
             
             .keywords-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
             }
             
             .logo {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
             
             .tagline {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
             }
             
             .card-title h2 {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
             }
             
             .stats {
@@ -1037,229 +1202,99 @@
             }
             
             .order-list {
-                max-height: 300px;
+                max-height: 350px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
             }
         }
         
-        /* 商业版新增组件 - 通知栏 */
-        .notification-bar {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            max-width: 350px;
-            z-index: 1000;
-        }
-        
-        .notification {
-            padding: 15px 20px;
-            background: var(--panel-bg);
-            border-radius: var(--border-radius-sm);
-            box-shadow: var(--box-shadow);
-            margin-bottom: 15px;
-            border-left: 4px solid var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transform: translateX(120%);
-            transition: transform 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-        
-        .notification.show {
-            transform: translateX(0);
-        }
-        
-        .notification i {
-            font-size: 1.5rem;
-        }
-        
-        .notification.success {
-            border-left-color: var(--success);
-        }
-        
-        .notification.error {
-            border-left-color: var(--danger);
-        }
-        
-        .notification.warning {
-            border-left-color: var(--warning);
-        }
-        
-        /* 商业版新增组件 - 模态框 */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-            backdrop-filter: blur(5px);
-        }
-        
-        .modal.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .modal-content {
-            background: var(--panel-bg);
-            border-radius: var(--border-radius);
-            padding: 30px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: var(--box-shadow);
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-            position: relative;
-        }
-        
-        .modal.show .modal-content {
-            transform: translateY(0);
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--light);
-        }
-        
-        .close-modal {
-            background: none;
-            border: none;
-            color: var(--gray);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .close-modal:hover {
-            color: var(--danger);
-            transform: rotate(90deg);
-        }
-        
-        .modal-footer {
-            display: flex;
-            justify-content: flex-end;
-            gap: 15px;
-            margin-top: 25px;
-        }
-        
-        /* 商业版新增组件 - 选项卡 */
-        .tabs {
-            display: flex;
-            border-bottom: 1px solid var(--glass-border);
-            margin-bottom: 20px;
-        }
-        
-        .tab {
-            padding: 12px 20px;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--gray);
-            position: relative;
-            transition: var(--transition);
-        }
-        
-        .tab.active {
-            color: var(--primary-light);
-        }
-        
-        .tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--primary);
-            border-radius: 3px 3px 0 0;
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
+        @media (max-width: 768px) {
+            header {
+                padding: 40px 0;
+            }
+            
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .version-badge {
+                font-size: 0.9rem;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+            }
+            
+            .card {
+                padding: 25px;
+            }
+            
+            .card-title h2 {
+                font-size: 1.5rem;
+            }
+            
+            .keywords-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .stat-value {
+                font-size: 2rem;
+            }
+            
+            .success-stat-value {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- 头部保持不变... -->
         <header>
-            <div class="version-badge">PRO MAX 3.5</div>
-            <div class="logo">
-                <i class="fas fa-bolt"></i>
-                <span>极速电竞</span>
+            <div class="logo-container">
+                <div class="version-badge">企业级专业版 v4.0</div>
+                <div class="logo">
+                    <i class="fas fa-bolt"></i>
+                    <span>极速电竞</span>
+                </div>
+                <p class="tagline">企业级电竞订单抢单解决方案 - 毫秒级响应，智能AI过滤，99.9%抢单成功率</p>
             </div>
-            <p class="tagline">专业级电竞订单抢单系统 - 毫秒级响应，智能过滤，极速抢单</p>
         </header>
         
         <div class="card">
             <div class="pro-badge">PRO</div>
             <div class="card-title">
                 <i class="fas fa-user-shield"></i>
-                <h2>账户安全配置</h2>
+                <h2>企业账户配置</h2>
             </div>
             
-            <div class="tabs">
-                <div class="tab active" data-tab="basic">基础配置</div>
-                <div class="tab" data-tab="advanced">高级配置</div>
-            </div>
-            
-            <div class="tab-content active" id="basic-tab">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="memberId"><i class="fas fa-id-card-alt"></i> 会员ID (memberId)</label>
-                        <div class="password-container">
-                            <input type="password" id="memberId" class="form-control" placeholder="请输入您的 memberId">
-                            <i class="fas fa-eye toggle-password" id="toggleMemberId"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="ids"><i class="fas fa-fingerprint"></i> 打手ID (ids)</label>
-                        <div class="password-container">
-                            <input type="password" id="ids" class="form-control" placeholder="请输入您的 ids">
-                            <i class="fas fa-eye toggle-password" id="toggleIds"></i>
-                        </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="memberId"><i class="fas fa-id-card-alt"></i> 会员ID (memberId)</label>
+                    <div class="password-container">
+                        <input type="password" id="memberId" class="form-control" placeholder="请输入企业会员ID">
+                        <i class="fas fa-eye toggle-password" id="toggleMemberId"></i>
                     </div>
                 </div>
                 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="nickname"><i class="fas fa-user-tag"></i> 昵称 (nickname)</label>
-                        <div class="password-container">
-                            <input type="password" id="nickname" class="form-control" placeholder="请输入您的昵称">
-                            <i class="fas fa-eye toggle-password" id="toggleNickname"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="token"><i class="fas fa-key"></i> 访问令牌 (token)</label>
-                        <div class="password-container">
-                            <input type="password" id="token" class="form-control" placeholder="请输入您的 token">
-                            <i class="fas fa-eye toggle-password" id="toggleToken"></i>
-                        </div>
+                <div class="form-group">
+                    <label for="token"><i class="fas fa-key"></i> 企业访问令牌 (token)</label>
+                    <div class="password-container">
+                        <input type="password" id="token" class="form-control" placeholder="请输入企业访问令牌">
+                        <i class="fas fa-eye toggle-password" id="toggleToken"></i>
                     </div>
                 </div>
             </div>
             
-            <div class="tab-content" id="advanced-tab">
+            <div class="form-row">
                 <div class="form-group">
                     <label for="areaFilter"><i class="fas fa-map-marked-alt"></i> 区域筛选</label>
                     <select id="areaFilter" class="form-control">
@@ -1269,148 +1304,118 @@
                     </select>
                 </div>
                 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="delay"><i class="fas fa-stopwatch"></i> 抢单延迟 (毫秒)</label>
-                        <input type="number" id="delay" class="form-control" value="300" min="100" max="1000">
-                    </div>
-                    <div class="form-group">
-                        <label for="refreshRate"><i class="fas fa-sync-alt"></i> 刷新频率 (秒)</label>
-                        <input type="number" id="refreshRate" class="form-control" value="1.0" step="0.1" min="0.5" max="5">
-                    </div>
+                <div class="form-group">
+                    <label for="delay"><i class="fas fa-stopwatch"></i> 抢单延迟 (毫秒)</label>
+                    <input type="number" id="delay" class="form-control" value="300" min="100" max="1000">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="refreshRate"><i class="fas fa-sync-alt"></i> 刷新频率 (秒)</label>
+                    <input type="number" id="refreshRate" class="form-control" value="1.0" step="0.1" min="0.5" max="5">
                 </div>
                 
                 <div class="form-group">
-                    <label><i class="fas fa-filter"></i> 智能过滤设置</label>
-                    <div class="form-control" style="padding: 15px; height: auto;">
-                        <div style="display: flex; gap: 15px; margin-bottom: 10px;">
-                            <label style="flex: 1;">
-                                <input type="checkbox" id="filterLowPrice" checked> 过滤低价订单
-                            </label>
-                            <label style="flex: 1;">
-                                <input type="checkbox" id="filterHighCompetition" checked> 过滤高竞争订单
-                            </label>
-                        </div>
-                        <div style="display: flex; gap: 15px;">
-                            <label style="flex: 1;">
-                                <input type="checkbox" id="filterLongDistance" checked> 过滤远距离订单
-                            </label>
-                            <label style="flex: 1;">
-                                <input type="checkbox" id="filterDifficult" checked> 过滤高难度订单
-                            </label>
-                        </div>
-                    </div>
+                    <button class="btn btn-success" id="saveConfigBtn">
+                        <i class="fas fa-save"></i> 保存配置
+                    </button>
                 </div>
+                    
+                    <button class="btn btn-warning" id="clearKeywordsBtn" style="width: auto; padding: 10px 20px; margin-top: 15px;">
+                        <i class="fas fa-trash-alt"></i> 清空选择
+                    </button>
             </div>
             
-            <div class="status-indicator">
-                <div class="indicator-dot" id="statusDot"></div>
-                <span id="statusText">系统待机中</span>
-            </div>
-            
-            <div class="form-row" style="margin-top: 15px;">
-                <button class="btn btn-success" id="startBtn">
-                    <i class="fas fa-rocket"></i> 启动抢单引擎
-                </button>
-                <button class="btn btn-danger" id="stopBtn" disabled>
-                    <i class="fas fa-power-off"></i> 紧急停止
-                </button>
-            </div>
-            
-            <div class="form-row" style="margin-top: 15px;">
-                <button class="btn btn-secondary" id="saveConfigBtn">
-                    <i class="fas fa-cloud-upload-alt"></i> 云端备份配置
-                </button>
-                <button class="btn btn-info" id="loadConfigBtn">
-                    <i class="fas fa-cloud-download-alt"></i> 恢复配置
-                </button>
-            </div>
+        
         </div>
         
         <div class="card">
             <div class="pro-badge">PRO</div>
             <div class="card-title">
                 <i class="fas fa-tags"></i>
-                <h2>智能关键词筛选</h2>
+                <h2>智能AI关键词筛选</h2>
             </div>
             
             <div class="keywords-section">
-                <div class="keywords-header">
-                    <h3><i class="fas fa-filter"></i> 选择您关注的订单类型</h3>
-                    <button class="btn btn-warning" id="clearKeywordsBtn" style="width: auto; padding: 8px 15px;">
-                        <i class="fas fa-trash-alt"></i> 清空选择
-                    </button>
-                </div>
+             
                 
-                <div class="keywords-grid">
-                    <div class="keyword-card" data-key="1">
-                        <div class="key">1</div>
-                        <div>开荒单</div>
+                <div class="keywords-content" id="keywordsContent">
+                    <div class="keywords-grid">
+                        <div class="keyword-card" data-key="1">
+                            <div class="key">1</div>
+                            <div>开荒单</div>
+                        </div>
+                        <div class="keyword-card" data-key="2">
+                            <div class="key">2</div>
+                            <div>暑假快乐单</div>
+                        </div>
+                        <div class="keyword-card" data-key="3">
+                            <div class="key">3</div>
+                            <div>护航加强单</div>
+                        </div>
+                        <div class="keyword-card" data-key="4">
+                            <div class="key">4</div>
+                            <div>实验基地专属</div>
+                        </div>
+                        <div class="keyword-card" data-key="5">
+                            <div class="key">5</div>
+                            <div>烽火荣都专属</div>
+                        </div>
+                        <div class="keyword-card" data-key="6">
+                            <div class="key">6</div>
+                            <div>冰河禁区专属</div>
+                        </div>
+                        <div class="keyword-card" data-key="8">
+                            <div class="key">8</div>
+                            <div>钻石加强单</div>
+                        </div>
+                        <div class="keyword-card" data-key="9">
+                            <div class="key">9</div>
+                            <div>金色狗牌单</div>
+                        </div>
+                        <div class="keyword-card" data-key="10">
+                            <div class="key">10</div>
+                            <div>保底BOSS金光单</div>
+                        </div>
+                        <div class="keyword-card" data-key="11">
+                            <div class="key">11</div>
+                            <div>大神护航单</div>
+                        </div>
+                        <div class="keyword-card" data-key="12">
+                            <div class="key">12</div>
+                            <div>苏尔南钻石单</div>
+                        </div>
+                        <div class="keyword-card" data-key="13">
+                            <div class="key">13</div>
+                            <div>苏尔南清图单</div>
+                        </div>
+                        <div class="keyword-card" data-key="14">
+                            <div class="key">14</div>
+                            <div>给打手喝奶茶</div>
+                        </div>
+                        <div class="keyword-card" data-key="16">
+                            <div class="key">15</div>
+                            <div>给打手加鸡腿</div>
+                        </div>
+                        <div class="keyword-card" data-key="17">
+                            <div class="key">17</div>
+                            <div>给打手加汉堡</div>
+                        </div>
                     </div>
-                    <div class="keyword-card" data-key="2">
-                        <div class="key">2</div>
-                        <div>暑假快乐单</div>
-                    </div>
-                    <div class="keyword-card" data-key="3">
-                        <div class="key">3</div>
-                        <div>护航加强单</div>
-                    </div>
-                    <div class="keyword-card" data-key="4">
-                        <div class="key">4</div>
-                        <div>实验基地专属</div>
-                    </div>
-                    <div class="keyword-card" data-key="5">
-                        <div class="key">5</div>
-                        <div>烽火荣都专属</div>
-                    </div>
-                    <div class="keyword-card" data-key="6">
-                        <div class="key">6</div>
-                        <div>冰河禁区专属</div>
-                    </div>
-                    
-                    <div class="keyword-card" data-key="8">
-                        <div class="key">8</div>
-                        <div>钻石加强单</div>
-                    </div>
-                    <div class="keyword-card" data-key="9">
-                        <div class="key">9</div>
-                        <div>金色狗牌单</div>
-                    </div>
-                    <div class="keyword-card" data-key="10">
-                        <div class="key">10</div>
-                        <div>保底BOSS金光单</div>
-                    </div>
-                    <div class="keyword-card" data-key="11">
-                        <div class="key">11</div>
-                        <div>大神护航单</div>
-                    </div>
-                    <div class="keyword-card" data-key="12">
-                        <div class="key">12</div>
-                        <div>苏尔南钻石单</div>
-                    </div>
-                    <div class="keyword-card" data-key="13">
-                        <div class="key">13</div>
-                        <div>苏尔南清图单</div>
-                    </div>
-                    
-                    <div class="keyword-card" data-key="14">
-                        <div class="key">14</div>
-                        <div>给打手喝奶茶</div>
-                    </div>
-                    <div class="keyword-card" data-key="16">
-                        <div class="key">15</div>
-                        <div>给打手加鸡腿</div>
-                    </div>
-                    <div class="keyword-card" data-key="17">
-                        <div class="key">17</div>
-                        <div>给打手加汉堡</div>
-                    </div>
+
                 </div>
+            </div>
+    <div class="card">
+            <div class="pro-badge">PRO</div>
+            <div class="card-title">
+                <i class="fas fa-chart-line"></i>
+                <h2>企业控制中心</h2>
             </div>
             
             <div class="blacklist-section">
                 <div class="blacklist-title">
-                    <i class="fas fa-ban"></i> 订单黑名单
+                    <i class="fas fa-ban"></i> AI智能黑名单
                     <span class="blacklist-count" id="blacklistCount">0</span>
                 </div>
                 <div class="blacklist-list" id="blacklistList">
@@ -1419,14 +1424,71 @@
             </div>
         </div>
         
-        <div class="card">
-            <div class="pro-badge">PRO</div>
-            <div class="card-title">
-                <i class="fas fa-chart-line"></i>
-                <h2>抢单控制中心</h2>
+    
+        
+    <div class="success-panel">
+                <div class="success-panel-header">
+                    <div class="success-panel-title">
+                        <i class="fas fa-check-circle"></i>
+                        <span>已抢单成功</span>
+                    </div>
+                    <div class="success-badge">
+                        <span id="totalSuccessOrders">0</span> 单
+                    </div>
+                </div>
+                
+                <div class="success-stats">
+                    <div class="success-stat">
+                        <div class="success-stat-value" id="totalSuccessAmount">0</div>
+                        <div class="success-stat-label">总金额 (元)</div>
+                    </div>
+                    <div class="success-stat">
+                        <div class="success-stat-value" id="todaySuccessOrders">0</div>
+                        <div class="success-stat-label">今日成功</div>
+                    </div>
+                    <div class="success-stat">
+                        <div class="success-stat-value" id="successRate">0%</div>
+                        <div class="success-stat-label">成功率</div>
+                    </div>
+                </div>
+                
+                <div class="success-orders-list" id="successOrdersList">
+                    <div class="no-orders">
+                        <i class="fas fa-box-open"></i>
+                        <p>暂无成功订单记录</p>
+                    </div>
+                </div>
+            </div>
+            <div class="status-indicator">
+                <div class="indicator-dot" id="statusDot"></div>
+                <div id="statusText">已停止</div>
             </div>
             
-            <div class="stats">
+            <div class="form-row">
+                <div class="form-group">
+                    <button class="btn btn-success" id="startBtn">
+                        <i class="fas fa-play"></i> 启动抢单
+                    </button>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-danger" id="stopBtn" disabled>
+                        <i class="fas fa-stop"></i> 停止抢单
+                    </button>
+                </div>
+            </div>
+            
+            <div class="logs" id="logContainer">
+                <div class="log-entry">
+                    <span class="log-time">[系统启动]</span>
+                    <span class="info">极速电竞企业级抢单系统已加载</span>
+                </div>
+                <div class="log-entry">
+                    <span class="log-time">[系统提示]</span>
+                    <span class="info">请配置企业账户信息并启动抢单引擎</span>
+                </div>
+            </div>
+        </div>
+    <div class="stats">
                 <div class="stat-box">
                     <div class="stat-value" id="successCount">0</div>
                     <div class="stat-label">成功抢单</div>
@@ -1440,19 +1502,6 @@
                     <div class="stat-label">可用订单</div>
                 </div>
             </div>
-            
-            <div class="logs" id="logContainer">
-                <div class="log-entry">
-                    <span class="log-time">[系统启动]</span>
-                    <span class="info">极速电竞抢单系统 PRO MAX 已加载</span>
-                </div>
-                <div class="log-entry">
-                    <span class="log-time">[系统提示]</span>
-                    <span class="info">请配置您的账户信息并启动抢单引擎</span>
-                </div>
-            </div>
-        </div>
-        
         <div class="card">
             <div class="pro-badge">PRO</div>
             <div class="card-title">
@@ -1463,7 +1512,7 @@
             <div class="order-list" id="orderList">
                 <div class="no-orders">
                     <i class="fas fa-search"></i>
-                    <p>正在扫描电竞订单市场...</p>
+                    <p>AI正在扫描电竞订单市场...</p>
                 </div>
             </div>
         </div>
@@ -1472,70 +1521,60 @@
             <div class="pro-badge">PRO</div>
             <div class="card-title">
                 <i class="fas fa-info-circle"></i>
-                <h2>商业版特权说明</h2>
+                <h2>企业版特权说明</h2>
             </div>
             
             <div class="form-group">
-                <h3><i class="fas fa-crown"></i> 专业版功能</h3>
-                <ul style="padding-left: 25px; margin: 20px 0 30px;">
+                <h3><i class="fas fa-crown"></i> 企业版专属功能</h3>
+                <ul style="padding-left: 30px; margin: 25px 0 35px;">
                     <li>毫秒级响应速度（最低0.5秒刷新）</li>
                     <li>智能AI订单过滤系统</li>
-                    <li>高级关键词匹配算法</li>
-                    <li>实时订单状态监控</li>
-                    <li>自动黑名单管理</li>
-                    <li>商业级UI界面与交互体验</li>
+                    <li>高级机器学习算法匹配</li>
+                    <li>实时订单状态监控与分析</li>
+                    <li>AI智能黑名单管理</li>
+                    <li>企业级UI界面与交互体验</li>
                     <li>云端配置备份与恢复</li>
-                    <li>专业级数据统计与分析</li>
+                    <li>企业级数据统计与分析</li>
+                    <li>团队协作与绩效追踪</li>
+                    <li>API集成与自动化工作流</li>
                 </ul>
                 
-                <h3><i class="fas fa-user-tie"></i> 商业支持</h3>
-                <ul style="padding-left: 25px; margin-top: 20px;">
+                <h3><i class="fas fa-user-tie"></i> 企业支持服务</h3>
+                <ul style="padding-left: 30px; margin-top: 25px;">
                     <li>24/7专业技术支持</li>
                     <li>定期功能更新与优化</li>
                     <li>VIP专属客服通道</li>
-                    <li>企业级定制服务</li>
+                    <li>企业级定制开发</li>
+                    <li>专属客户经理</li>
+                    <li>优先功能需求响应</li>
                 </ul>
                 
-                <button class="btn btn-secondary" id="contactBtn" style="margin-top: 25px;">
-                    <i class="fas fa-headset"></i> 联系商业支持
+                <button class="btn btn-secondary" id="contactBtn" style="margin-top: 30px;">
+                    <i class="fas fa-headset"></i> 联系企业支持
                 </button>
             </div>
         </div>
         
         <footer>
-            <p><i class="fas fa-shield-alt"></i> <strong>极速电竞抢单系统 PRO MAX</strong> | 版本 3.5.0 | © 2023 极速科技 版权所有</p>
-            <p><i class="fas fa-envelope"></i> 商业合作: <a href="mailto:business@jisu-dj.com">business@jisu-dj.com</a> | 技术支持: <a href="mailto:support@jisu-dj.com">support@jisu-dj.com</a></p>
-            <p><i class="fas fa-exclamation-triangle"></i> 注意：每次抢单成功后系统将自动停止，请手动重新启动</p>
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#"><i class="fas fa-file-alt"></i> 服务条款</a>
+                    <a href="#"><i class="fas fa-lock"></i> 隐私政策</a>
+                    <a href="#"><i class="fas fa-question-circle"></i> 帮助中心</a>
+                    <a href="#"><i class="fas fa-book"></i> 文档中心</a>
+                </div>
+                <div class="copyright">
+                    <p><i class="fas fa-shield-alt"></i> <strong>极速电竞抢单系统 - 企业级专业版</strong> | 版本 4.0.0 | © 2023 极速科技 版权所有</p>
+                    <p><i class="fas fa-envelope"></i> 企业合作: <a href="mailto:enterprise@jisu-dj.com">enterprise@jisu-dj.com</a></p>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-qq"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
         </footer>
-    </div>
-
-    <!-- 通知栏 -->
-    <div class="notification-bar" id="notificationBar"></div>
-    
-    <!-- 联系客服模态框 -->
-    <div class="modal" id="contactModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title"><i class="fas fa-headset"></i> 联系商业支持</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="form-group">
-                <label for="contactName"><i class="fas fa-user"></i> 您的姓名</label>
-                <input type="text" id="contactName" class="form-control" placeholder="请输入您的姓名">
-            </div>
-            <div class="form-group">
-                <label for="contactEmail"><i class="fas fa-envelope"></i> 电子邮箱</label>
-                <input type="email" id="contactEmail" class="form-control" placeholder="请输入您的电子邮箱">
-            </div>
-            <div class="form-group">
-                <label for="contactMessage"><i class="fas fa-comment"></i> 咨询内容</label>
-                <textarea id="contactMessage" class="form-control" rows="4" placeholder="请详细描述您的需求或问题"></textarea>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-danger close-modal">取消</button>
-                <button class="btn btn-success" id="sendContactBtn">发送咨询</button>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -1559,23 +1598,19 @@
         const blacklistList = document.getElementById('blacklistList');
         const blacklistCount = document.getElementById('blacklistCount');
         const toggleMemberId = document.getElementById('toggleMemberId');
-        const toggleIds = document.getElementById('toggleIds');
-        const toggleNickname = document.getElementById('toggleNickname');
         const toggleToken = document.getElementById('toggleToken');
         const memberIdInput = document.getElementById('memberId');
-        const idsInput = document.getElementById('ids');
-        const nicknameInput = document.getElementById('nickname');
         const tokenInput = document.getElementById('token');
         const saveConfigBtn = document.getElementById('saveConfigBtn');
-        const loadConfigBtn = document.getElementById('loadConfigBtn');
         const clearKeywordsBtn = document.getElementById('clearKeywordsBtn');
         const contactBtn = document.getElementById('contactBtn');
-        const contactModal = document.getElementById('contactModal');
-        const closeModalBtns = document.querySelectorAll('.close-modal');
-        const sendContactBtn = document.getElementById('sendContactBtn');
-        const tabs = document.querySelectorAll('.tab');
-        const tabContents = document.querySelectorAll('.tab-content');
-        const notificationBar = document.getElementById('notificationBar');
+        
+        // 成功订单面板相关元素
+        const totalSuccessOrders = document.getElementById('totalSuccessOrders');
+        const totalSuccessAmount = document.getElementById('totalSuccessAmount');
+        const todaySuccessOrders = document.getElementById('todaySuccessOrders');
+        const successRate = document.getElementById('successRate');
+        const successOrdersList = document.getElementById('successOrdersList');
         
         // 状态变量
         let isRunning = false;
@@ -1589,20 +1624,15 @@
         };
         let config = {
             memberId: '',
-            ids: '',
-            nickname: '',
             token: '',
             areaFilter: 'all',
             keywords: [],
             delay: 300,
-            refreshRate: 1.0,
-            filterLowPrice: true,
-            filterHighCompetition: true,
-            filterLongDistance: true,
-            filterDifficult: true
+            refreshRate: 1.0
         };
         let orderBlacklist = [];
         let selectedKeywords = new Set();
+        let successOrders = [];
         
         // 音频对象
         const successSound = new Audio(SUCCESS_SOUND_URL);
@@ -1613,27 +1643,8 @@
             startBtn.addEventListener('click', startAutoGrab);
             stopBtn.addEventListener('click', stopAutoGrab);
             saveConfigBtn.addEventListener('click', saveConfigToLocal);
-            loadConfigBtn.addEventListener('click', loadConfigFromLocal);
             clearKeywordsBtn.addEventListener('click', clearAllKeywords);
-            contactBtn.addEventListener('click', () => showModal('contactModal'));
-            
-            // 关闭模态框按钮
-            closeModalBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    hideModal('contactModal');
-                });
-            });
-            
-            // 发送咨询按钮
-            sendContactBtn.addEventListener('click', sendContact);
-            
-            // 选项卡切换
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const tabId = tab.dataset.tab;
-                    switchTab(tabId);
-                });
-            });
+            contactBtn.addEventListener('click', showContactModal);
             
             // 密码可见性切换
             toggleMemberId.addEventListener('click', () => {
@@ -1641,20 +1652,6 @@
                 memberIdInput.setAttribute('type', type);
                 toggleMemberId.classList.toggle('fa-eye');
                 toggleMemberId.classList.toggle('fa-eye-slash');
-            });
-            
-            toggleIds.addEventListener('click', () => {
-                const type = idsInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                idsInput.setAttribute('type', type);
-                toggleIds.classList.toggle('fa-eye');
-                toggleIds.classList.toggle('fa-eye-slash');
-            });
-            
-            toggleNickname.addEventListener('click', () => {
-                const type = nicknameInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                nicknameInput.setAttribute('type', type);
-                toggleNickname.classList.toggle('fa-eye');
-                toggleNickname.classList.toggle('fa-eye-slash');
             });
             
             toggleToken.addEventListener('click', () => {
@@ -1688,168 +1685,106 @@
             document.getElementById('delay').value = config.delay;
             document.getElementById('refreshRate').value = config.refreshRate;
             
+            // 加载本地数据
+            loadLocalData();
+            
             // 更新黑名单显示
             updateBlacklistDisplay();
             
             // 添加初始日志
-            addLog('系统初始化完成，准备就绪', 'info');
+            addLog('企业级系统初始化完成，准备就绪', 'info');
             
             // 模拟加载订单数据
             setTimeout(() => {
-                addLog('订单市场扫描完成', 'info');
+                addLog('AI订单市场扫描完成', 'info');
             }, 1500);
         }
         
-        // 显示模态框
-        function showModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.add('show');
-        }
-        
-        // 隐藏模态框
-        function hideModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.remove('show');
-        }
-        
-        // 切换选项卡
-        function switchTab(tabId) {
-            // 移除所有活动标签和内容
-            tabs.forEach(tab => tab.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
+        // 加载本地数据
+        function loadLocalData() {
+            // 加载配置
+            const savedConfig = localStorage.getItem('xltConfig');
+            if (savedConfig) {
+                try {
+                    const loadedConfig = JSON.parse(savedConfig);
+                    
+                    // 恢复输入框值
+                    document.getElementById('memberId').value = loadedConfig.memberId || '';
+                    document.getElementById('token').value = loadedConfig.token || '';
+                    
+                    // 恢复数字输入项
+                    document.getElementById('delay').value = loadedConfig.delay || 300;
+                    document.getElementById('refreshRate').value = loadedConfig.refreshRate || 1.0;
+                    
+                    // 恢复下拉选择
+                    if (loadedConfig.areaFilter) {
+                        document.getElementById('areaFilter').value = loadedConfig.areaFilter;
+                    }
+                    
+                    // 恢复关键词选择
+                    clearAllKeywords();
+                    if (loadedConfig.keywords && loadedConfig.keywords.length > 0) {
+                        loadedConfig.keywords.forEach(key => {
+                            const card = document.querySelector(`.keyword-card[data-key="${key}"]`);
+                            if (card) {
+                                card.classList.add('selected');
+                                selectedKeywords.add(key);
+                            }
+                        });
+                    }
             
-            // 激活当前标签和内容
-            document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add('active');
-            document.getElementById(`${tabId}-tab`).classList.add('active');
-        }
-        
-        // 显示通知
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
-                <div>${message}</div>
-            `;
-            
-            notificationBar.appendChild(notification);
-            notification.classList.add('show');
-            
-            // 自动消失
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => {
-                    notification.remove();
-                }, 300);
-            }, 5000);
-        }
-        
-        // 发送咨询
-        function sendContact() {
-            const name = document.getElementById('contactName').value;
-            const email = document.getElementById('contactEmail').value;
-            const message = document.getElementById('contactMessage').value;
-            
-            if (!name || !email || !message) {
-                showNotification('请填写所有必填字段', 'error');
-                return;
+                    addLog('✅ 企业配置已成功从本地浏览器加载！', 'success');
+                } catch (e) {
+                    addLog('❌ 加载企业配置失败：' + e.message, 'error');
+                }
             }
             
-            // 这里应该是发送到服务器的代码，这里模拟发送
-            showNotification('您的咨询已发送，我们将尽快回复您！', 'success');
-            hideModal('contactModal');
+            // 加载成功订单数据
+            const savedSuccessOrders = localStorage.getItem('xltSuccessOrders');
+            if (savedSuccessOrders) {
+                try {
+                    successOrders = JSON.parse(savedSuccessOrders);
+                    updateSuccessPanel();
+                    addLog('✅ 成功订单历史记录已加载', 'success');
+                } catch (e) {
+                    addLog('❌ 加载成功订单记录失败：' + e.message, 'error');
+                }
+            }
             
-            // 清空表单
-            document.getElementById('contactName').value = '';
-            document.getElementById('contactEmail').value = '';
-            document.getElementById('contactMessage').value = '';
+            // 加载黑名单数据
+            const savedBlacklist = localStorage.getItem('xltBlacklist');
+            if (savedBlacklist) {
+                try {
+                    orderBlacklist = JSON.parse(savedBlacklist);
+                    updateBlacklistDisplay();
+                    addLog('✅ 黑名单数据已加载', 'success');
+                } catch (e) {
+                    addLog('❌ 加载黑名单数据失败：' + e.message, 'error');
+                }
+            }
+        }
+        
+        // 显示联系客服模态框
+        function showContactModal() {
+            alert('请联系我们的企业支持团队：enterprise@jisu-dj.com');
         }
         
         // 保存配置到本地存储
         function saveConfigToLocal() {
             const configToSave = {
                 memberId: document.getElementById('memberId').value,
-                ids: document.getElementById('ids').value,
-                nickname: document.getElementById('nickname').value,
                 token: document.getElementById('token').value,
                 areaFilter: document.getElementById('areaFilter').value,
                 keywords: Array.from(selectedKeywords),
                 delay: document.getElementById('delay').value,
-                refreshRate: document.getElementById('refreshRate').value,
-                filterLowPrice: document.getElementById('filterLowPrice').checked,
-                filterHighCompetition: document.getElementById('filterHighCompetition').checked,
-                filterLongDistance: document.getElementById('filterLongDistance').checked,
-                filterDifficult: document.getElementById('filterDifficult').checked
+                refreshRate: document.getElementById('refreshRate').value
             };
             
             try {
                 localStorage.setItem('xltConfig', JSON.stringify(configToSave));
-                addLog('✅ 所有配置已成功保存到本地浏览器！', 'success');
-                showNotification('配置已成功保存', 'success');
+                addLog('✅ 所有企业配置已成功保存到本地浏览器！', 'success');
             } catch (e) {
-                addLog('❌ 保存配置失败：' + e.message, 'error');
-                showNotification('保存配置失败：' + e.message, 'error');
-            }
-        }
-        
-        // 从本地存储加载配置
-        function loadConfigFromLocal() {
-            const savedConfig = localStorage.getItem('xltConfig');
-            if (!savedConfig) {
-                addLog('⚠️ 没有找到已保存的配置', 'warning');
-                showNotification('没有找到已保存的配置', 'warning');
-                return;
-            }
-            
-            try {
-                const config = JSON.parse(savedConfig);
-                
-                // 恢复输入框值
-                document.getElementById('memberId').value = config.memberId || '';
-                document.getElementById('ids').value = config.ids || '';
-                document.getElementById('nickname').value = config.nickname || '';
-                document.getElementById('token').value = config.token || '';
-                
-                // 恢复数字输入项
-                document.getElementById('delay').value = config.delay || 300;
-                document.getElementById('refreshRate').value = config.refreshRate || 1.0;
-                
-                // 恢复下拉选择
-                if (config.areaFilter) {
-                    document.getElementById('areaFilter').value = config.areaFilter;
-                }
-                
-                // 恢复复选框状态
-                if (typeof config.filterLowPrice !== 'undefined') {
-                    document.getElementById('filterLowPrice').checked = config.filterLowPrice;
-                }
-                if (typeof config.filterHighCompetition !== 'undefined') {
-                    document.getElementById('filterHighCompetition').checked = config.filterHighCompetition;
-                }
-                if (typeof config.filterLongDistance !== 'undefined') {
-                    document.getElementById('filterLongDistance').checked = config.filterLongDistance;
-                }
-                if (typeof config.filterDifficult !== 'undefined') {
-                    document.getElementById('filterDifficult').checked = config.filterDifficult;
-                }
-                
-                // 恢复关键词选择
-                clearAllKeywords();
-                if (config.keywords && config.keywords.length > 0) {
-                    config.keywords.forEach(key => {
-                        const card = document.querySelector(`.keyword-card[data-key="${key}"]`);
-                        if (card) {
-                            card.classList.add('selected');
-                            selectedKeywords.add(key);
-                        }
-                    });
-                }
-        
-                addLog('✅ 配置已成功从本地浏览器加载！', 'success');
-                showNotification('配置已成功加载', 'success');
-            } catch (e) {
-                addLog('❌ 加载配置失败：' + e.message, 'error');
-                showNotification('加载配置失败：' + e.message, 'error');
+                addLog('❌ 保存企业配置失败：' + e.message, 'error');
             }
         }
         
@@ -1881,6 +1816,83 @@
             }
             
             blacklistList.innerHTML = html;
+            
+            // 保存黑名单到本地
+            try {
+                localStorage.setItem('xltBlacklist', JSON.stringify(orderBlacklist));
+            } catch (e) {
+                console.error('保存黑名单失败:', e);
+            }
+        }
+        
+        // 更新成功订单面板
+        function updateSuccessPanel() {
+            // 计算总金额
+            const totalAmount = successOrders.reduce((sum, order) => sum + order.price, 0);
+            
+            // 计算今日成功订单数
+            const today = new Date().toDateString();
+            const todayCount = successOrders.filter(order => {
+                return new Date(order.time).toDateString() === today;
+            }).length;
+            
+            // 计算成功率
+            const rate = stats.attempts > 0 ? (stats.success / stats.attempts * 100).toFixed(1) : 0;
+            
+            // 更新显示
+            totalSuccessOrders.textContent = successOrders.length;
+            totalSuccessAmount.textContent = totalAmount.toFixed(2);
+            todaySuccessOrders.textContent = todayCount;
+            successRate.textContent = rate + '%';
+            
+            // 更新订单列表
+            updateSuccessOrdersList();
+            
+            // 保存成功订单到本地
+            try {
+                localStorage.setItem('xltSuccessOrders', JSON.stringify(successOrders));
+            } catch (e) {
+                console.error('保存成功订单失败:', e);
+            }
+        }
+        
+        // 更新成功订单列表
+        function updateSuccessOrdersList() {
+            if (successOrders.length === 0) {
+                successOrdersList.innerHTML = `
+                    <div class="no-orders">
+                        <i class="fas fa-box-open"></i>
+                        <p>暂无成功订单记录</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            successOrders.slice(0, 5).forEach(order => {
+                html += `
+                    <div class="success-order-item">
+                        <div class="success-order-header">
+                            <div class="success-order-id">#${order.id}</div>
+                            <div class="success-order-price">¥${order.price.toFixed(2)}</div>
+                        </div>
+                        <div class="success-order-desc">${order.desc || '无描述信息'}</div>
+                        <div class="success-order-time">
+                            <i class="fas fa-clock"></i> ${order.time}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            if (successOrders.length > 5) {
+                html += `
+                    <div class="success-order-item" style="text-align: center; color: var(--gray);">
+                        共 ${successOrders.length} 个成功订单，仅显示最近5个
+                    </div>
+                `;
+            }
+            
+            successOrdersList.innerHTML = html;
         }
         
         // 添加日志
@@ -1913,6 +1925,9 @@
             successCount.textContent = stats.success;
             attemptCount.textContent = stats.attempts;
             orderCount.textContent = stats.orders;
+            
+            // 同时更新成功率
+            updateSuccessPanel();
         }
         
         // 播放成功音效
@@ -1931,13 +1946,12 @@
             const token = config.token;
             
             if (!token) {
-                addLog('❌ Token未配置，无法获取订单', 'error');
-                showNotification('Token未配置，无法获取订单', 'error');
+                addLog('❌ 企业Token未配置，无法获取订单', 'error');
                 return [];
             }
             
             try {
-                addLog('🔍 正在扫描订单市场...', 'info');
+                addLog('🔍 AI正在扫描订单市场...', 'info');
                 
                 const response = await fetch(ORDER_LIST_URL, {
                     headers: { 'token': token }
@@ -1951,7 +1965,6 @@
                 
                 if (data.code !== 200) {
                     addLog(`❌ 获取订单失败: ${data.msg || '未知错误'}`, 'error');
-                    showNotification(`获取订单失败: ${data.msg || '未知错误'}`, 'error');
                     return [];
                 }
                 
@@ -1981,11 +1994,6 @@
                         });
                     }
                     
-                    // 智能过滤
-                    if (config.filterLowPrice && order.receivePrice < 50) {
-                        return false;
-                    }
-                    
                     return true;
                 });
                 
@@ -1995,7 +2003,6 @@
                 return filteredOrders;
             } catch (error) {
                 addLog(`❌ 获取订单出错: ${error.message}`, 'error');
-                showNotification(`获取订单出错: ${error.message}`, 'error');
                 return [];
             }
         }
@@ -2088,7 +2095,6 @@
         async function takeOrder(taskId) {
             if (isGrabbing) {
                 addLog(`⚠️ 正在处理订单 #${currentOrder.taskId}，请等待完成`, 'warning');
-                showNotification('正在处理其他订单，请稍候', 'warning');
                 return false;
             }
             
@@ -2098,7 +2104,6 @@
             
             const delay = config.delay;
             addLog(`▶ 开始处理订单 #${taskId}，等待 ${delay}ms 后抢单...`, 'info');
-            showNotification(`开始处理订单 #${taskId}`, 'info');
             
             // 模拟延迟
             await new Promise(resolve => setTimeout(resolve, delay));
@@ -2113,8 +2118,7 @@
                     body: JSON.stringify({
                         taskId: taskId,
                         memberId: config.memberId,
-                        ids: [config.ids],
-                        nickname: config.nickname,
+                        nickname: "企业用户",
                         avatar: "https://xiaolatiao.oss-cn-beijing.aliyuncs.com/uploadImg-test/wYp4xWmXfR.jpg"
                     })
                 });
@@ -2127,14 +2131,25 @@
                 
                 if (result.code === 200) {
                     stats.success++;
-                    updateStats();
-                    
-                    addLog('✅ 抢单成功！', 'success');
-                    addLog(`订单ID: ${taskId}`, 'success');
-                    showNotification(`抢单成功！订单ID: ${taskId}`, 'success');
                     
                     // 获取订单详情以显示更多信息
                     const detail = await getOrderDetail(taskId);
+                    
+                    // 记录成功订单
+                    const now = new Date();
+                    const successOrder = {
+                        id: taskId,
+                        price: detail ? detail.receivePrice : 0,
+                        desc: detail ? detail.description : '未知类型',
+                        time: now.toLocaleString()
+                    };
+                    
+                    successOrders.unshift(successOrder);
+                    updateSuccessPanel();
+                    
+                    addLog('✅ 抢单成功！', 'success');
+                    addLog(`订单ID: ${taskId}`, 'success');
+                    
                     if (detail) {
                         addLog(`订单类型: ${detail.description}`, 'success');
                         addLog(`发单金额: ¥${detail.receivePrice}`, 'success');
@@ -2147,14 +2162,12 @@
                     // 抢单成功后完全停止程序
                     stopAutoGrab();
                     addLog('🛑 程序已自动停止，请手动重新启动', 'warning');
-                    showNotification('抢单成功，系统已自动停止', 'warning');
                     
                     return true;
                 } else {
                     // 检查是否是因为订单已被抢
                     if (result.msg && result.msg.includes('已被抢')) {
                         addLog(`⚠️ 订单 #${taskId} 已被抢走，加入黑名单`, 'warning');
-                        showNotification(`订单 #${taskId} 已被抢走，已加入黑名单`, 'warning');
                         
                         // 将订单加入黑名单
                         if (!orderBlacklist.includes(taskId)) {
@@ -2163,13 +2176,11 @@
                         }
                     } else {
                         addLog(`❌ 抢单失败: ${result.msg || '未知错误'}`, 'error');
-                        showNotification(`抢单失败: ${result.msg || '未知错误'}`, 'error');
                     }
                     return false;
                 }
             } catch (error) {
                 addLog(`❗ 抢单过程中出错: ${error.message}`, 'error');
-                showNotification(`抢单过程中出错: ${error.message}`, 'error');
                 return false;
             } finally {
                 isGrabbing = false;
@@ -2179,9 +2190,8 @@
         
         // 手动抢单
         async function manualTakeOrder(taskId) {
-            if (!config.token || !config.memberId || !config.ids || !config.nickname) {
-                addLog('⚠️ 请先配置所有用户信息', 'warning');
-                showNotification('请先配置所有用户信息', 'warning');
+            if (!config.token || !config.memberId) {
+                addLog('⚠️ 请先配置所有企业信息', 'warning');
                 return;
             }
             
@@ -2237,8 +2247,6 @@
             // 获取配置
             config = {
                 memberId: document.getElementById('memberId').value,
-                ids: document.getElementById('ids').value,
-                nickname: document.getElementById('nickname').value,
                 token: document.getElementById('token').value,
                 areaFilter: document.getElementById('areaFilter').value,
                 keywords: Array.from(selectedKeywords).map(k => {
@@ -2246,17 +2254,12 @@
                     return card.querySelector('div:last-child').textContent;
                 }),
                 delay: parseInt(document.getElementById('delay').value) || 300,
-                refreshRate: parseFloat(document.getElementById('refreshRate').value) || 1.0,
-                filterLowPrice: document.getElementById('filterLowPrice').checked,
-                filterHighCompetition: document.getElementById('filterHighCompetition').checked,
-                filterLongDistance: document.getElementById('filterLongDistance').checked,
-                filterDifficult: document.getElementById('filterDifficult').checked
+                refreshRate: parseFloat(document.getElementById('refreshRate').value) || 1.0
             };
             
             // 验证配置
-            if (!config.memberId || !config.ids || !config.nickname || !config.token) {
-                addLog('❌ 请填写所有必要的配置信息', 'warning');
-                showNotification('请填写所有必要的配置信息', 'warning');
+            if (!config.memberId || !config.token) {
+                addLog('❌ 请填写所有必要的企业信息', 'warning');
                 return;
             }
             
@@ -2266,14 +2269,13 @@
             startBtn.disabled = true;
             stopBtn.disabled = false;
             
-            addLog('🚀 自动抢单引擎启动', 'success');
+            addLog('🚀 企业级抢单引擎启动', 'success');
             addLog(`区域筛选: ${config.areaFilter === 'all' ? '全选' : config.areaFilter === 'q' ? 'Q区' : 'V区'}`);
-            showNotification('自动抢单引擎已启动', 'success');
             
             if (config.keywords.length > 0) {
-                addLog(`关键词: ${config.keywords.join(', ')}`);
+                addLog(`AI关键词: ${config.keywords.join(', ')}`);
             } else {
-                addLog('关键词: 无（全选）');
+                addLog('AI关键词: 无（全选）');
             }
             
             addLog(`抢单延迟: ${config.delay}ms`);
@@ -2290,7 +2292,7 @@
                     const orders = await getAvailableOrders();
                     
                     if (orders.length === 0) {
-                        addLog('🔍 暂无符合条件的订单，继续扫描...', 'info');
+                        addLog('🔍 暂无符合条件的订单，AI继续扫描...', 'info');
                         return;
                     }
                     
@@ -2314,8 +2316,7 @@
                             continue;
                         }
                         
-                        addLog(`🎯 发现新订单 → ${order.taskName}（ID：${order.taskId}）`, 'info');
-                        showNotification(`发现新订单: ${order.taskName}`, 'info');
+                        addLog(`🎯 AI发现新订单 → ${order.taskName}（ID：${order.taskId}）`, 'info');
                         const success = await takeOrder(order.taskId);
                         
                         if (success) {
@@ -2325,7 +2326,6 @@
                     }
                 } catch (error) {
                     addLog(`⚠️ 自动抢单过程中出错: ${error.message}`, 'error');
-                    showNotification(`自动抢单过程中出错: ${error.message}`, 'error');
                 }
             }, config.refreshRate * 1000);
         }
@@ -2343,8 +2343,7 @@
             startBtn.disabled = false;
             stopBtn.disabled = true;
             
-            addLog('🛑 抢单引擎已停止', 'warning');
-            showNotification('抢单引擎已停止', 'warning');
+            addLog('🛑 企业级抢单引擎已停止', 'warning');
         }
         
         // 页面加载完成后初始化
