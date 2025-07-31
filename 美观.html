@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ 电竞抢单系统 ✨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff6b6b;
+            --primary-dark: #ff5252;
+            --primary-light: #ff8787;
+            --secondary: #74b9ff;
+            --secondary-dark: #0984e3;
+            --success: #55efc4;
+            --success-dark: #00b894;
+            --warning: #ffeaa7;
+            --warning-dark: #fdcb6e;
+            --danger: #fd79a8;
+            --danger-dark: #e84393;
+            --purple: #a55eea;
+            --pink: #fd79a8;
+            --dark: #2d3436;
+            --darker: #1e272e;
+            --light: #f8f9fa;
+            --gray: #b2bec3;
+            --panel-bg: rgba(45, 52, 54, 0.95);
+            --card-bg: rgba(55, 62, 64, 0.85);
+            --border-radius: 16px;
+            --box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --gradient: linear-gradient(135deg, #ff6b6b, #a55eea);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --text-primary: #f5f6fa;
+            --text-secondary: #dcdde1;
+            --neon-glow: 0 0 15px rgba(255, 107, 107, 0.7);
+            --rainbow-gradient: linear-gradient(90deg, 
+                #ff6b6b, #ff9e7d, #ffd166, #06d6a0, #118ab2, #073b4c, #7209b7, #f72585);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, var(--darker), #1a1a2e);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 107, 107, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(165, 94, 234, 0.15) 0%, transparent 25%),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M30,10 L50,30 L70,10" stroke="rgba(255,107,107,0.05)" stroke-width="1" fill="none"/></svg>');
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        
+        @media (max-width: 1000px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(to right, rgba(45, 52, 54, 0.9), rgba(55, 62, 64, 0.9));
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 20px;
+            grid-column: 1 / -1;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            animation: pulseBorder 4s infinite alternate;
+        }
+        
+        @keyframes pulseBorder {
+            0% { box-shadow: var(--box-shadow); }
+            100% { box-shadow: 0 0 20px 5px rgba(255, 107, 107, 0.3); }
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+        }
+        
+        header h1 {
+            color: var(--text-primary);
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        header h1::before, header h1::after {
+            content: '⚡';
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.7;
+            animation: sparkle 2s infinite alternate;
+        }
+        
+        header h1::before {
+            left: -25px;
+        }
+        
+        header h1::after {
+            right: -25px;
+        }
+        
+        @keyframes sparkle {
+            0% { opacity: 0.3; transform: scale(0.9); }
+            100% { opacity: 0.8; transform: scale(1.1); }
+        }
+        
+        header h1 i {
+            font-size: 2.5rem;
+        }
+        
+        header p {
+            color: var(--gray);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.8;
+            position: relative;
+        }
+        
+        header p::after {
+            content: '✦✦✦';
+            display: block;
+            letter-spacing: 10px;
+            opacity: 0.3;
+            margin-top: 10px;
+        }
+        
+        .card {
+            background: linear-gradient(135deg, rgba(55, 62, 64, 0.9), rgba(45, 52, 54, 0.9));
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            height: fit-content;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), var(--neon-glow);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+        }
+        
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M0,50 L100,50" stroke="rgba(255,255,255,0.03)" stroke-width="1" stroke-dasharray="5,5"/></svg>');
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            position: relative;
+        }
+        
+        .card-title::after {
+            content: '❖';
+            position: absolute;
+            right: 0;
+            opacity: 0.2;
+        }
+        
+        .card-title i {
+            font-size: 1.8rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .card-title h2 {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+        }
+        
+        .form-group {
+            margin-bottom: 22px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .form-group label i {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(55, 62, 64, 0.7);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.2);
+            background: rgba(55, 62, 64, 0.9);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .keywords-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .keyword-card {
+            padding: 16px;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .keyword-card:hover {
+            background: rgba(255, 107, 107, 0.2);
+            transform: translateY(-3px);
+            border-color: rgba(255, 107, 107, 0.3);
+        }
+        
+        .keyword-card.selected {
+            background: rgba(165, 94, 234, 0.15);
+            border-color: var(--purple);
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px rgba(165, 94, 234, 0.2);
+        }
+        
+        .keyword-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: var(--purple);
+            font-weight: bold;
+        }
+        
+        .key {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 25px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 100%;
+            font-family: 'Noto Sans SC', sans-serif;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:active {
+            transform: translateY(2px);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), var(--success-dark));
+        }
+        
+        .btn-success:hover {
+            background: linear-gradient(135deg, var(--success-dark), #00a884);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning), var(--warning-dark));
+            color: #212529;
+        }
+        
+        .btn-warning:hover {
+            background: linear-gradient(135deg, var(--warning-dark), #f5b647);
+        }
+        
+        .btn-info {
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+        }
+        
+        .btn-info:hover {
+            background: linear-gradient(135deg, var(--secondary-dark), #0877d1);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), var(--danger-dark));
+        }
+        
+        .btn-danger:hover {
+            background: linear-gradient(135deg, var(--danger-dark), #d23369);
+        }
+        
+        .btn-purple {
+            background: linear-gradient(135deg, var(--purple), #8c4bdb);
+        }
+        
+        .btn-purple:hover {
+            background: linear-gradient(135deg, #8c4bdb, #7639c2);
+        }
+        
+        .logs {
+            background: linear-gradient(to bottom right, #2d3436, #3a4345);
+            color: #e2ebe2;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            height: 500px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.6;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        .logs::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(55, 62, 64, 0.8), rgba(55, 62, 64, 0.9));
+            pointer-events: none;
+            border-radius: var(--border-radius);
+        }
+        
+        .log-entry {
+            padding: 12px 15px;
+            margin: 8px 0;
+            border-radius: 8px;
+            background: rgba(55, 62, 64, 0.4);
+            animation: fadeIn 0.3s ease forwards;
+            border-left: 3px solid var(--primary);
+            position: relative;
+        }
+        
+        .log-entry::before {
+            content: '»';
+            position: absolute;
+            left: 5px;
+            opacity: 0.5;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .log-time {
+            color: #b5d6b5;
+            margin-right: 10px;
+            font-weight: 600;
+        }
+        
+        .success {
+            color: var(--success);
+            font-weight: 600;
+        }
+        
+        .info {
+            color: var(--secondary);
+        }
+        
+        .warning {
+            color: var(--warning-dark);
+        }
+        
+        .error {
+            color: var(--danger);
+        }
+        
+        .highlight {
+            background: rgba(255, 107, 107, 0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            background: rgba(55, 62, 64, 0.7);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 15px;
+            backdrop-filter: blur(5px);
+            position: relative;
+        }
+        
+        .stats::after {
+            content: '⚙︎ ⚙︎ ⚙︎';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            opacity: 0.1;
+            font-size: 1.2rem;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 16px;
+            background: rgba(65, 72, 74, 0.8);
+            border-radius: var(--border-radius);
+            flex: 1;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-3px);
+            background: rgba(65, 72, 74, 1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .stat-label {
+            font-size: 0.95rem;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 14px;
+            border-radius: 50px;
+            margin: 25px 0;
+            font-weight: 600;
+            font-size: 1.2rem;
+            background: rgba(55, 62, 64, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+        
+        .indicator-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--gray);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px currentColor;
+        }
+        
+        .indicator-dot.active {
+            background: var(--success);
+            box-shadow: 0 0 15px var(--success);
+            animation: pulse 2s infinite;
+        }
+        
+        .indicator-dot.paused {
+            background: var(--warning-dark);
+            box-shadow: 0 0 15px var(--warning-dark);
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(85, 239, 196, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(85, 239, 196, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(85, 239, 196, 0); }
+        }
+        
+        .order-list {
+            margin-top: 15px;
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+        
+        .order-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .order-list::-webkit-scrollbar-track {
+            background: rgba(55, 62, 64, 0.5);
+            border-radius: 3px;
+        }
+        
+        .order-list::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+        
+        .order-item {
+            padding: 20px;
+            margin-bottom: 18px;
+            background: rgba(65, 72, 74, 0.8);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .order-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            background: rgba(75, 82, 84, 0.9);
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        
+        .order-id {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+        
+        .order-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .status-available {
+            background: rgba(85, 239, 196, 0.15);
+            color: var(--success);
+        }
+        
+        .status-taken {
+            background: rgba(253, 121, 168, 0.15);
+            color: var(--danger);
+        }
+        
+        .status-blacklisted {
+            background: rgba(106, 90, 205, 0.15);
+            color: #6a5acd;
+        }
+        
+        .order-price {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--success);
+            margin: 12px 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .order-area {
+            color: var(--gray);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .order-desc {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin: 8px 0;
+            padding: 8px;
+            background: rgba(55, 62, 64, 0.5);
+            border-radius: 6px;
+        }
+        
+        .order-time {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .grab-btn {
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        
+        .grab-btn:hover {
+            background: linear-gradient(135deg, #ff5252, #a55eea);
+        }
+        
+        .grab-btn:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+        }
+        
+        footer {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: var(--gray);
+            padding: 25px;
+            margin-top: 20px;
+            font-size: 1rem;
+            background: var(--panel-bg);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(5px);
+            position: relative;
+        }
+        
+        footer::before {
+            content: '✦ ✦ ✦';
+            position: absolute;
+            top: -10px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            letter-spacing: 15px;
+            opacity: 0.3;
+        }
+        
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+        
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 12px;
+            background: var(--dark);
+            color: white;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            width: 250px;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .blacklist-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(55, 62, 64, 0.6);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+        
+        .blacklist-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .blacklist-count {
+            background: var(--primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .blacklist-list {
+            max-height: 120px;
+            overflow-y: auto;
+            padding: 10px;
+            background: rgba(45, 52, 54, 0.5);
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .blacklist-item {
+            padding: 5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .blacklist-item:last-child {
+            border-bottom: none;
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--gray);
+        }
+        
+        .no-orders {
+            text-align: center;
+            padding: 40px;
+            color: var(--gray);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .card:hover {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* 新增的UI改进 */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255, 107, 107, 0.5), transparent);
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .section-divider::before, .section-divider::after {
+            content: '❖';
+            position: absolute;
+            top: -10px;
+            color: rgba(255, 107, 107, 0.5);
+            font-size: 1.2rem;
+        }
+        
+        .section-divider::before {
+            left: 0;
+        }
+        
+        .section-divider::after {
+            right: 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .badge-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .badge-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .badge-warning {
+            background: var(--warning-dark);
+            color: #212529;
+        }
+
+        .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(255, 107, 107, 0.2);
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .chip i {
+            margin-right: 5px;
+            font-size: 0.8rem;
+        }
+        
+        /* 新增的炫酷元素 */
+        .floating-icons {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .floating-icon {
+            position: absolute;
+            opacity: 0.05;
+            font-size: 1.5rem;
+            animation: floatAround 15s infinite linear;
+        }
+        
+        @keyframes floatAround {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(50vw, 25vh) rotate(90deg); }
+            50% { transform: translate(25vw, 50vh) rotate(180deg); }
+            75% { transform: translate(75vw, 75vh) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            opacity: 0;
+            z-index: 1000;
+            animation: confettiFall 3s ease-out forwards;
+        }
+        
+        @keyframes confettiFall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        /* 彩虹文字效果 */
+        .rainbow-text {
+            background: var(--rainbow-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow 8s linear infinite;
+            background-size: 400% 100%;
+        }
+        
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        
+        /* 霓虹灯效果 */
+        .neon {
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px var(--primary), 0 0 30px var(--primary), 0 0 40px var(--primary), 0 0 55px var(--primary), 0 0 75px var(--primary);
+            animation: flicker 1.5s infinite alternate;
+        }
+        
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px var(--primary), 0 0 30px var(--primary), 0 0 40px var(--primary), 0 0 55px var(--primary), 0 0 75px var(--primary);
+            }
+            20%, 24%, 55% {        
+                text-shadow: none;
+            }
+        }
+        
+        /* 3D按钮效果 */
+        .btn-3d {
+            position: relative;
+            box-shadow: 0 5px 0 var(--primary-dark), 0 10px 10px rgba(0,0,0,0.2);
+            transition: all 0.1s;
+        }
+        
+        .btn-3d:active {
+            box-shadow: 0 2px 0 var(--primary-dark), 0 5px 5px rgba(0,0,0,0.2);
+            transform: translateY(3px);
+        }
+        
+        /* 悬浮卡片效果 */
+        .hover-card {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .hover-card:hover {
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+            transform: translateY(-5px);
+        }
+        
+        /* 表情符号动画 */
+        .emoji-float {
+            animation: emojiFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes emojiFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(10deg); }
+        }
+        
+        /* 闪烁效果 */
+        .blink {
+            animation: blink 1.5s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 浮动背景图标 -->
+    <div class="floating-icons" id="floatingIcons"></div>
+    
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-gamepad"></i> <span class="rainbow-text">炫彩电竞抢单系统</span> <i class="fas fa-bolt"></i></h1>
+            <p>⚡ 实时监控并抢先获取优质订单 ⚡</p>
+        </header>
+        
+        <div class="card hover-card">
+            <div class="card-title">
+                <i class="fas fa-cog"></i>
+                <h2><span class="neon">配置设置</span></h2>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="memberId"><i class="fas fa-id-card"></i> 会员ID (memberId)</label>
+                    <div class="password-container">
+                        <input type="password" id="memberId" class="form-control" placeholder="请输入您的 memberId">
+                        <i class="fas fa-eye toggle-password" id="toggleMemberId"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="ids"><i class="fas fa-fingerprint"></i> 打手ID (ids)</label>
+                    <div class="password-container">
+                        <input type="password" id="ids" class="form-control" placeholder="请输入您的 ids">
+                        <i class="fas fa-eye toggle-password" id="toggleIds"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nickname"><i class="fas fa-user"></i> 昵称 (nickname)</label>
+                    <div class="password-container">
+                        <input type="password" id="nickname" class="form-control" placeholder="请输入您的昵称">
+                        <i class="fas fa-eye toggle-password" id="toggleNickname"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="token"><i class="fas fa-key"></i> 访问令牌 (token)</label>
+                    <div class="password-container">
+                        <input type="password" id="token" class="form-control" placeholder="请输入您的 token">
+                        <i class="fas fa-eye toggle-password" id="toggleToken"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="areaFilter"><i class="fas fa-map-marker-alt"></i> 区域筛选</label>
+                <select id="areaFilter" class="form-control">
+                    <option value="all">全选</option>
+                    <option value="q">Q区</option>
+                    <option value="v">V区</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-tags"></i> 关键词选择 <span class="badge badge-primary blink">点击选择</span></label>
+                <div class="keywords-grid">
+                    <div class="keyword-card" data-key="1">
+                        <div class="key">1</div>
+                        <div>开荒单</div>
+                    </div>
+                    <div class="keyword-card" data-key="2">
+                        <div class="key">2</div>
+                        <div>暑假快乐单</div>
+                    </div>
+                    <div class="keyword-card" data-key="3">
+                        <div class="key">3</div>
+                        <div>护航加强单</div>
+                    </div>
+                    <div class="keyword-card" data-key="4">
+                        <div class="key">4</div>
+                        <div>实验基地专属</div>
+                    </div>
+                    <div class="keyword-card" data-key="5">
+                        <div class="key">5</div>
+                        <div>烽火荣都专属</div>
+                    </div>
+                    <div class="keyword-card" data-key="6">
+                        <div class="key">6</div>
+                        <div>冰河禁区专属</div>
+                    </div>
+                    
+                    <div class="keyword-card" data-key="8">
+                        <div class="key">8</div>
+                        <div>钻石加强单</div>
+                    </div>
+                    <div class="keyword-card" data-key="9">
+                        <div class="key">9</div>
+                        <div>金色狗牌单</div>
+                    </div>
+                    <div class="keyword-card" data-key="10">
+                        <div class="key">10</div>
+                        <div>保底BOSS金光单</div>
+                    </div>
+                    <div class="keyword-card" data-key="11">
+                        <div class="key">11</div>
+                        <div>大神护航单</div>
+                    </div>
+                    <div class="keyword-card" data-key="12">
+                        <div class="key">12</div>
+                        <div>苏尔南钻石单</div>
+                    </div>
+                    <div class="keyword-card" data-key="13">
+                        <div class="key">13</div>
+                        <div>苏尔南清图单</div>
+                    </div>
+                    
+                    <div class="keyword-card" data-key="14">
+                        <div class="key">14</div>
+                        <div>给打手喝奶茶</div>
+                    </div>
+                    <div class="keyword-card" data-key="16">
+                        <div class="key">15</div>
+                        <div>给打手加鸡腿</div>
+                    </div>
+                    <div class="keyword-card" data-key="17">
+                        <div class="key">17</div>
+                        <div>给打手加汉堡</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="delay"><i class="fas fa-hourglass-half"></i> 抢单延迟 (毫秒)</label>
+                    <input type="number" id="delay" class="form-control" value="300" min="100" max="1000">
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 30%;"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="refreshRate"><i class="fas fa-sync-alt"></i> 刷新频率 (秒)</label>
+                    <input type="number" id="refreshRate" class="form-control" value="1.0" step="0.1" min="0.5" max="5">
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 20%;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <div class="form-row" style="margin-top: 15px;">
+                <button class="btn btn-warning btn-3d" id="saveConfigBtn">
+                    <i class="fas fa-save emoji-float"></i> 一键保存配置
+                </button>
+                <button class="btn btn-info btn-3d" id="loadConfigBtn">
+                    <i class="fas fa-file-import emoji-float"></i> 一键加载配置
+                </button>
+            </div>
+            
+            <div class="status-indicator">
+                <div class="indicator-dot" id="statusDot"></div>
+                <span id="statusText">准备就绪</span>
+            </div>
+            
+            <div class="form-row">
+                <button class="btn btn-success btn-3d" id="startBtn">
+                    <i class="fas fa-play emoji-float"></i> 开始抢单
+                </button>
+                <button class="btn btn-danger btn-3d" id="stopBtn" disabled>
+                    <i class="fas fa-stop emoji-float"></i> 停止抢单
+                </button>
+            </div>
+        </div>
+        
+        <div class="card hover-card">
+            <div class="card-title">
+                <i class="fas fa-list"></i>
+                <h2><span class="neon">抢单日志</span></h2>
+                <span class="badge badge-success" id="logCount">2</span>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-value" id="successCount">0</div>
+                    <div class="stat-label">成功次数</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="attemptCount">0</div>
+                    <div class="stat-label">尝试次数</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="orderCount">0</div>
+                    <div class="stat-label">订单总数</div>
+                </div>
+            </div>
+            
+            <div class="logs" id="logContainer">
+                <div class="log-entry">
+                    <span class="log-time">[系统初始化]</span>
+                    <span class="info">炫彩电竞抢单系统已加载 <i class="fas fa-rocket"></i></span>
+                </div>
+                <div class="log-entry">
+                    <span class="log-time">[系统提示]</span>
+                    <span class="info">请配置您的账户信息并点击"开始抢单"按钮 <i class="fas fa-hand-point-up"></i></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card hover-card">
+            <div class="blacklist-section">
+                <div class="blacklist-title">
+                    <i class="fas fa-ban"></i> 订单黑名单
+                    <span class="blacklist-count" id="blacklistCount">0</span>
+                </div>
+                <div class="blacklist-list" id="blacklistList">
+                    当前无黑名单订单
+                </div>
+            </div>
+            
+            <div class="order-list" id="orderList">
+                <div class="no-orders">
+                    <div class="loading" style="margin: 0 auto;"></div>
+                    <p style="margin-top: 15px;">正在加载订单数据...</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card hover-card">
+            <div class="card-title">
+                <i class="fas fa-info-circle"></i>
+                <h2><span class="neon">使用说明</span></h2>
+            </div>
+            
+            <div class="form-group">
+                <h3><i class="fas fa-book"></i> 配置指南</h3>
+                <ul style="padding-left: 22px; margin: 15px 0 25px;">
+                    <li>填写正确的 <span class="highlight">memberId</span>、<span class="highlight">ids</span>、<span class="highlight">nickname</span> 和 <span class="highlight">token</span></li>
+                    <li>选择您要关注的订单区域（Q区或V区）</li>
+                    <li>选择订单关键词以过滤特定类型的订单</li>
+                    <li>设置合适的抢单延迟（100-1000ms）和刷新频率（0.5-5秒）</li>
+                    <li>点击"开始抢单"按钮启动自动化程序</li>
+                </ul>
+                
+                <div class="section-divider"></div>
+                
+                <h3><i class="fas fa-ban"></i> 订单黑名单功能</h3>
+                <ul style="padding-left: 22px; margin-top: 15px;">
+                    <li>系统会自动检测已被抢走的订单</li>
+                    <li>一旦订单被抢走，系统会将其加入黑名单</li>
+                    <li>黑名单订单将不再出现在订单列表中</li>
+                    <li>系统不会尝试抢黑名单中的订单</li>
+                    <li>黑名单在页面刷新后会重置</li>
+                </ul>
+                
+                <div class="section-divider"></div>
+                
+                <h3><i class="fas fa-save"></i> 一键保存/加载配置</h3>
+                <ul style="padding-left: 22px; margin-top: 15px;">
+                    <li>点击"一键保存配置"将当前所有设置保存到浏览器本地存储</li>
+                    <li>点击"一键加载配置"可恢复上次保存的所有设置</li>
+                    <li>配置信息包括：账号信息、区域筛选、关键词选择、延迟设置等</li>
+                    <li>数据仅保存在您的浏览器中，不会上传到服务器</li>
+                </ul>
+                
+                <div class="section-divider"></div>
+                
+                <div style="margin-top: 20px;">
+                    <h3><i class="fas fa-keyboard"></i> 快捷操作</h3>
+                    <div style="margin-top: 10px;">
+                        <span class="chip"><i class="fas fa-keyboard"></i> Ctrl+S: 保存配置</span>
+                        <span class="chip"><i class="fas fa-keyboard"></i> Ctrl+L: 加载配置</span>
+                        <span class="chip"><i class="fas fa-keyboard"></i> Ctrl+Space: 开始/停止</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p><i class="fas fa-copyright"></i> 2023 炫彩电竞抢单系统 | <span class="rainbow-text">版本 4.2.0</span> | 技术支持: support@xiancai.com</p>
+            <p><i class="fas fa-exclamation-circle"></i> 注意：每次抢单成功后程序将自动停止 <i class="fas fa-hand-peace"></i></p>
+        </footer>
+    </div>
+
+    <script>
+        // API配置
+        const BASE_URL = "https://paidan.xlt666.club/yxdl/api";
+        const ORDER_LIST_URL = `${BASE_URL}/order/list?pageSize=50&pageNum=1&categoryId=0`;
+        const TAKE_ORDER_URL = `${BASE_URL}/order/takeOrder`;
+        const ORDER_DETAIL_URL = `${BASE_URL}/order/getInfo`;
+        const SUCCESS_SOUND_URL = "https://www.soundjay.com/buttons/sounds/button-09.mp3";
+        
+        // DOM元素
+        const logContainer = document.getElementById('logContainer');
+        const successCount = document.getElementById('successCount');
+        const attemptCount = document.getElementById('attemptCount');
+        const orderCount = document.getElementById('orderCount');
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const orderList = document.getElementById('orderList');
+        const blacklistList = document.getElementById('blacklistList');
+        const blacklistCount = document.getElementById('blacklistCount');
+        const toggleMemberId = document.getElementById('toggleMemberId');
+        const toggleToken = document.getElementById('toggleToken');
+        const memberIdInput = document.getElementById('memberId');
+        const tokenInput = document.getElementById('token');
+        const saveConfigBtn = document.getElementById('saveConfigBtn');
+        const loadConfigBtn = document.getElementById('loadConfigBtn');
+        const logCount = document.getElementById('logCount');
+        const delayInput = document.getElementById('delay');
+        const refreshRateInput = document.getElementById('refreshRate');
+        const floatingIcons = document.getElementById('floatingIcons');
+        
+        // 状态变量
+        let isRunning = false;
+        let isGrabbing = false;
+        let currentOrder = null;
+        let intervalId = null;
+        let stats = {
+            success: 0,
+            attempts: 0,
+            orders: 0
+        };
+        let config = {
+            memberId: '',
+            ids: '',
+            nickname: '',
+            token: '',
+            areaFilter: 'all',
+            keywords: [],
+            delay: 300,
+            refreshRate: 1.0
+        };
+        let orderBlacklist = [];
+        let selectedKeywords = new Set();
+        let logEntries = 2; // 初始日志条目数
+        
+        // 音频对象
+        const successSound = new Audio(SUCCESS_SOUND_URL);
+        
+        // 创建浮动背景图标
+        function createFloatingIcons() {
+            const icons = ['⚔️', '🛡️', '🎮', '🏆', '🎯', '💰', '💎', '🔫', '🎲', '🏅'];
+            for (let i = 0; i < 15; i++) {
+                const icon = document.createElement('div');
+                icon.className = 'floating-icon';
+                icon.textContent = icons[Math.floor(Math.random() * icons.length)];
+                icon.style.left = `${Math.random() * 100}%`;
+                icon.style.top = `${Math.random() * 100}%`;
+                icon.style.animationDuration = `${15 + Math.random() * 30}s`;
+                icon.style.animationDelay = `-${Math.random() * 15}s`;
+                floatingIcons.appendChild(icon);
+            }
+        }
+        
+        // 创建彩色纸屑效果
+        function createConfetti() {
+            const colors = ['#ff6b6b', '#ff9e7d', '#ffd166', '#06d6a0', '#118ab2', '#073b4c', '#7209b7', '#f72585'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = `${5 + Math.random() * 10}px`;
+                confetti.style.height = `${5 + Math.random() * 10}px`;
+                document.body.appendChild(confetti);
+                
+                // 动画结束后移除元素
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
+            }
+        }
+        
+        // 切换密码可见性
+        toggleMemberId.addEventListener('click', () => {
+            const type = memberIdInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            memberIdInput.setAttribute('type', type);
+            toggleMemberId.classList.toggle('fa-eye');
+            toggleMemberId.classList.toggle('fa-eye-slash');
+        });
+        
+        toggleToken.addEventListener('click', () => {
+            const type = tokenInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            tokenInput.setAttribute('type', type);
+            toggleToken.classList.toggle('fa-eye');
+            toggleToken.classList.toggle('fa-eye-slash');
+        });
+        
+        // 保存配置到本地存储
+        function saveConfigToLocal() {
+            const configToSave = {
+                memberId: document.getElementById('memberId').value,
+                ids: document.getElementById('ids').value,
+                nickname: document.getElementById('nickname').value,
+                token: document.getElementById('token').value,
+                areaFilter: document.getElementById('areaFilter').value,
+                keywords: Array.from(selectedKeywords),
+                delay: document.getElementById('delay').value,
+                refreshRate: document.getElementById('refreshRate').value
+            };
+            
+            try {
+                localStorage.setItem('xltConfig', JSON.stringify(configToSave));
+                addLog('✅ 所有配置已成功保存到本地浏览器！', 'success');
+                createConfetti();
+            } catch (e) {
+                addLog('❌ 保存配置失败：' + e.message, 'error');
+            }
+        }
+        
+        // 从本地存储加载配置
+        function loadConfigFromLocal() {
+            const savedConfig = localStorage.getItem('xltConfig');
+            if (!savedConfig) {
+                addLog('⚠️ 没有找到已保存的配置', 'warning');
+                return;
+            }
+            
+            try {
+                const config = JSON.parse(savedConfig);
+                
+                // 恢复输入框值
+                document.getElementById('memberId').value = config.memberId || '';
+                document.getElementById('ids').value = config.ids || '';
+                document.getElementById('nickname').value = config.nickname || '';
+                document.getElementById('token').value = config.token || '';
+                
+                // 恢复数字输入项
+                document.getElementById('delay').value = config.delay || 300;
+                document.getElementById('refreshRate').value = config.refreshRate || 1.0;
+                
+                // 恢复下拉选择
+                if (config.areaFilter) {
+                    document.getElementById('areaFilter').value = config.areaFilter;
+                }
+                
+                // 恢复关键词选择
+                clearAllKeywords();
+                if (config.keywords && config.keywords.length > 0) {
+                    config.keywords.forEach(key => {
+                        const card = document.querySelector(`.keyword-card[data-key="${key}"]`);
+                        if (card) {
+                            card.classList.add('selected');
+                            selectedKeywords.add(key);
+                        }
+                    });
+                }
+        
+                addLog('✅ 配置已成功从本地浏览器加载！', 'success');
+            } catch (e) {
+                addLog('❌ 加载配置失败：' + e.message, 'error');
+            }
+        }
+        
+        // 清除所有已选关键词
+        function clearAllKeywords() {
+            document.querySelectorAll('.keyword-card.selected').forEach(card => {
+                card.classList.remove('selected');
+            });
+            selectedKeywords.clear();
+        }
+        
+        // 更新黑名单显示
+        function updateBlacklistDisplay() {
+            blacklistCount.textContent = orderBlacklist.length;
+            
+            if (orderBlacklist.length === 0) {
+                blacklistList.innerHTML = '当前无黑名单订单';
+                return;
+            }
+            
+            let html = '';
+            orderBlacklist.slice(-10).reverse().forEach(id => {
+                html += `<div class="blacklist-item">#${id}</div>`;
+            });
+            
+            if (orderBlacklist.length > 10) {
+                html = `<div class="blacklist-item">... 共${orderBlacklist.length}个订单</div>` + html;
+            }
+            
+            blacklistList.innerHTML = html;
+        }
+        
+        // 添加日志
+        function addLog(message, type = 'info', orderId = null) {
+            if (orderId && orderBlacklist.includes(orderId)) {
+                return;
+            }
+            
+            const now = new Date();
+            const timeString = `[${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}]`;
+            
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            
+            const typeClass = type === 'success' ? 'success' : 
+                             type === 'warning' ? 'warning' : 
+                             type === 'error' ? 'error' : 'info';
+            
+            logEntry.innerHTML = `
+                <span class="log-time">${timeString}</span>
+                <span class="${typeClass}">${message}</span>
+            `;
+            
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+            
+            // 更新日志计数
+            logEntries++;
+            logCount.textContent = logEntries;
+        }
+        
+        // 更新统计
+        function updateStats() {
+            successCount.textContent = stats.success;
+            attemptCount.textContent = stats.attempts;
+            orderCount.textContent = stats.orders;
+        }
+        
+        // 关键词选择
+        const keywordCards = document.querySelectorAll('.keyword-card');
+        
+        keywordCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const key = card.dataset.key;
+                
+                if (selectedKeywords.has(key)) {
+                    selectedKeywords.delete(key);
+                    card.classList.remove('selected');
+                } else {
+                    selectedKeywords.add(key);
+                    card.classList.add('selected');
+                }
+                
+                config.keywords = Array.from(selectedKeywords).map(k => {
+                    const card = document.querySelector(`.keyword-card[data-key="${k}"]`);
+                    return card.querySelector('div:last-child').textContent;
+                });
+            });
+        });
+        
+        // 播放成功音效
+        function playSuccessSound() {
+            successSound.currentTime = 0;
+            successSound.play();
+            
+            setTimeout(() => {
+                successSound.currentTime = 0;
+                successSound.play();
+            }, 1000);
+            
+            // 成功时创建彩色纸屑效果
+            createConfetti();
+        }
+        
+        // 获取可用订单
+        async function getAvailableOrders() {
+            const token = config.token;
+            
+            if (!token) {
+                addLog('❌ Token未配置，无法获取订单', 'error');
+                return [];
+            }
+            
+            try {
+                addLog('🔍 正在获取订单列表...', 'info');
+                
+                const response = await fetch(ORDER_LIST_URL, {
+                    headers: { 'token': token }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP错误! 状态: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.code !== 200) {
+                    addLog(`❌ 获取订单失败: ${data.msg || '未知错误'}`, 'error');
+                    return [];
+                }
+                
+                stats.orders = data.rows.length;
+                updateStats();
+                
+                // 过滤订单
+                let filteredOrders = data.rows.filter(order => {
+                    const categoryName = order.categoryName.toLowerCase();
+                    
+                    // 区域筛选
+                    if (config.areaFilter === 'q' && !categoryName.includes('q区')) {
+                        return false;
+                    }
+                    if (config.areaFilter === 'v' && !categoryName.includes('v区')) {
+                        return false;
+                    }
+                    
+                    // 关键词筛选
+                    if (config.keywords.length > 0) {
+                        const taskName = order.taskName.toLowerCase();
+                        const description = order.description.toLowerCase();
+                        
+                        return config.keywords.some(keyword => {
+                            const kw = keyword.toLowerCase();
+                            return taskName.includes(kw) || description.includes(kw);
+                        });
+                    }
+                    
+                    return true;
+                });
+                
+                // 更新界面上的订单列表
+                updateOrderList(filteredOrders);
+                
+                return filteredOrders;
+            } catch (error) {
+                addLog(`❌ 获取订单出错: ${error.message}`, 'error');
+                return [];
+            }
+        }
+        
+        // 更新订单列表显示
+        async function updateOrderList(orders) {
+            orderList.innerHTML = '';
+            
+            if (orders.length === 0) {
+                orderList.innerHTML = `
+                    <div class="no-orders">
+                        <i class="fas fa-box-open" style="font-size: 2rem;"></i>
+                        <p style="margin-top: 15px;">当前没有可抢订单</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            let availableCount = 0;
+            
+            // 并行获取订单详情
+            const orderDetails = await Promise.all(orders.map(async order => {
+                const isBlacklisted = orderBlacklist.includes(order.taskId);
+                const detail = isBlacklisted ? null : await getOrderDetail(order.taskId);
+                return {
+                    ...order,
+                    isBlacklisted,
+                    isTaken: detail ? detail.isTaken : true
+                };
+            }));
+            
+            // 生成订单列表HTML
+            orderDetails.forEach(order => {
+                if (!order.isBlacklisted && !order.isTaken) {
+                    availableCount++;
+                    html += `
+                        <div class="order-item">
+                            <div class="order-header">
+                                <div class="order-id">#${order.taskId}</div>
+                                <div class="order-status status-available">可抢</div>
+                            </div>
+                            <div class="order-price">¥${order.receivePrice.toFixed(2)}</div>
+                            <div class="order-area">${order.categoryName}</div>
+                            <div class="order-desc">${order.taskName || '无描述信息'}</div>
+                            <div class="order-time">发布时间: ${formatDateTime(order.createTime)}</div>
+                            <button class="grab-btn" data-id="${order.taskId}">
+                                <i class="fas fa-hand-paper"></i> 立即抢单
+                            </button>
+                        </div>
+                    `;
+                }
+            });
+            
+            stats.orders = availableCount;
+            updateStats();
+            
+            if (availableCount === 0) {
+                html = `
+                    <div class="no-orders">
+                        <i class="fas fa-clock" style="font-size: 2rem;"></i>
+                        <p style="margin-top: 15px;">当前没有可抢订单，请稍后再试</p>
+                    </div>
+                `;
+            }
+            
+            orderList.innerHTML = html;
+            
+            // 绑定抢单按钮事件
+            document.querySelectorAll('.grab-btn').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    const taskId = this.getAttribute('data-id');
+                    const order = orders.find(o => o.taskId == taskId);
+                    if (order) {
+                        await manualTakeOrder(order);
+                    }
+                });
+            });
+        }
+        
+        // 格式化日期时间
+        function formatDateTime(timestamp) {
+            if (!timestamp) return '未知时间';
+            
+            const date = new Date(timestamp);
+            return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+        }
+        
+        // 抢单功能
+        async function takeOrder(taskId) {
+            if (isGrabbing) {
+                addLog(`⚠️ 正在处理订单 #${currentOrder.taskId}，请等待完成`, 'warning');
+                return false;
+            }
+            
+            isGrabbing = true;
+            stats.attempts++;
+            updateStats();
+            
+            const delay = config.delay;
+            addLog(`▶ 开始处理订单 #${taskId}，等待 ${delay}ms 后抢单...`, 'info');
+            
+            // 模拟延迟
+            await new Promise(resolve => setTimeout(resolve, delay));
+            
+            try {
+                const response = await fetch(TAKE_ORDER_URL, {
+                    method: 'POST',
+                    headers: {
+                        'token': config.token,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        taskId: taskId,
+                        memberId: config.memberId,
+                        ids: [config.ids],
+                        nickname: config.nickname,
+                        avatar: "https://xiaolatiao.oss-cn-beijing.aliyuncs.com/uploadImg-test/wYp4xWmXfR.jpg"
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP错误! 状态: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.code === 200) {
+                    stats.success++;
+                    updateStats();
+                    
+                    addLog('✅ 抢单成功！', 'success');
+                    addLog(`订单ID: ${taskId}`, 'success');
+                    
+                    // 获取订单详情以显示更多信息
+                    const detail = await getOrderDetail(taskId);
+                    if (detail) {
+                        addLog(`订单类型: ${detail.description}`, 'success');
+                        addLog(`发单金额: ¥${detail.receivePrice}`, 'success');
+                        addLog(`下单时间: ${detail.createTime}`, 'success');
+                    }
+                    
+                    // 播放成功音效
+                    playSuccessSound();
+                    
+                    // 抢单成功后完全停止程序
+                    stopAutoGrab();
+                    addLog('🛑 程序已自动停止，请手动重新启动', 'warning');
+                    
+                    return true;
+                } else {
+                    // 检查是否是因为订单已被抢
+                    if (result.msg && result.msg.includes('已被抢')) {
+                        addLog(`⚠️ 订单 #${taskId} 已被抢走，加入黑名单`, 'warning');
+                        
+                        // 将订单加入黑名单
+                        if (!orderBlacklist.includes(taskId)) {
+                            orderBlacklist.push(taskId);
+                            updateBlacklistDisplay();
+                        }
+                    } else {
+                        addLog(`❌ 抢单失败: ${result.msg || '未知错误'}`, 'error');
+                    }
+                    return false;
+                }
+            } catch (error) {
+                addLog(`❗ 抢单过程中出错: ${error.message}`, 'error');
+                return false;
+            } finally {
+                isGrabbing = false;
+                currentOrder = null;
+            }
+        }
+        
+        // 手动抢单
+        async function manualTakeOrder(taskId) {
+            if (!config.token || !config.memberId || !config.ids || !config.nickname) {
+                addLog('⚠️ 请先配置所有用户信息', 'warning');
+                return;
+            }
+            
+            // 停止自动抢单（如果正在运行）
+            if (isRunning) {
+                stopAutoGrab();
+            }
+            
+            const success = await takeOrder(taskId);
+            if (success) {
+                // 成功后刷新订单列表
+                getAvailableOrders();
+            }
+        }
+        
+        // 获取订单详情
+        async function getOrderDetail(taskId) {
+            const detailUrl = `${ORDER_DETAIL_URL}?taskId=${taskId}`;
+            
+            try {
+                const response = await fetch(detailUrl, {
+                    headers: { 'token': config.token }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP错误! 状态: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.code === 200 && result.data) {
+                    // 判断订单是否已被抢
+                    const isTaken = result.data.isTake === 1;
+                    
+                    return {
+                        isTaken: isTaken,
+                        description: result.data.taskName || '未知类型',
+                        receivePrice: result.data.receivePrice || '未知发单金额',
+                        createTime: result.data.createTime || '未知发单时间'
+                    };
+                }
+            } catch (error) {
+                addLog(`⚠️ 获取订单详情失败: ${error.message}`, 'warning', taskId);
+            }
+            
+            return null;
+        }
+        
+        // 开始自动抢单
+        async function startAutoGrab() {
+            if (isRunning) return;
+            
+            // 获取配置
+            config = {
+                memberId: document.getElementById('memberId').value,
+                ids: document.getElementById('ids').value,
+                nickname: document.getElementById('nickname').value,
+                token: document.getElementById('token').value,
+                areaFilter: document.getElementById('areaFilter').value,
+                keywords: Array.from(selectedKeywords).map(k => {
+                    const card = document.querySelector(`.keyword-card[data-key="${k}"]`);
+                    return card.querySelector('div:last-child').textContent;
+                }),
+                delay: parseInt(document.getElementById('delay').value) || 300,
+                refreshRate: parseFloat(document.getElementById('refreshRate').value) || 1.0
+            };
+            
+            // 验证配置
+            if (!config.memberId || !config.ids || !config.nickname || !config.token) {
+                addLog('❌ 请填写所有必要的配置信息', 'warning');
+                return;
+            }
+            
+            isRunning = true;
+            statusDot.classList.add('active');
+            statusText.textContent = '运行中...';
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+            
+            addLog('🚀 自动抢单程序启动', 'success');
+            addLog(`区域筛选: ${config.areaFilter === 'all' ? '全选' : config.areaFilter === 'q' ? 'Q区' : 'V区'}`);
+            
+            if (config.keywords.length > 0) {
+                addLog(`关键词: ${config.keywords.join(', ')}`);
+            } else {
+                addLog('关键词: 无（全选）');
+            }
+            
+            addLog(`抢单延迟: ${config.delay}ms`);
+            addLog(`刷新频率: ${config.refreshRate}秒`);
+            
+            // 自动抢单循环
+            intervalId = setInterval(async () => {
+                try {
+                    if (isGrabbing) {
+                        addLog('⏳ 当前有订单正在处理中，等待处理完成...', 'info');
+                        return;
+                    }
+                    
+                    const orders = await getAvailableOrders();
+                    
+                    if (orders.length === 0) {
+                        addLog('🔍 暂无符合条件的订单，继续扫描...', 'info');
+                        return;
+                    }
+                    
+                    // 尝试抢单每个符合条件的订单
+                    for (const order of orders) {
+                        if (!isRunning) break; // 如果已停止则退出
+                        
+                        // 检查订单是否在黑名单中
+                        if (orderBlacklist.includes(order.taskId)) {
+                            continue;
+                        }
+                        
+                        // 检查订单是否已被抢
+                        const detail = await getOrderDetail(order.taskId);
+                        if (detail && detail.isTaken) {
+                            // 将订单加入黑名单
+                            if (!orderBlacklist.includes(order.taskId)) {
+                                orderBlacklist.push(order.taskId);
+                                updateBlacklistDisplay();
+                            }
+                            continue;
+                        }
+                        
+                        addLog(`🎯 发现新订单 → ${order.taskName}（ID：${order.taskId}）`, 'info');
+                        const success = await takeOrder(order.taskId);
+                        
+                        if (success) {
+                            // 成功后退出循环（程序会自动停止）
+                            break;
+                        }
+                    }
+                } catch (error) {
+                    addLog(`⚠️ 自动抢单过程中出错: ${error.message}`, 'error');
+                }
+            }, config.refreshRate * 1000);
+        }
+        
+        // 停止自动抢单
+        function stopAutoGrab() {
+            if (!isRunning) return;
+            
+            clearInterval(intervalId);
+            isRunning = false;
+            isGrabbing = false;
+            currentOrder = null;
+            statusDot.classList.remove('active');
+            statusText.textContent = '已停止';
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+            
+            addLog('🛑 抢单程序已停止', 'warning');
+        }
+        
+        // 初始化进度条
+        function initProgressBars() {
+            delayInput.addEventListener('input', function() {
+                const value = parseInt(this.value);
+                const percentage = ((value - 100) / (1000 - 100)) * 100;
+                this.nextElementSibling.querySelector('.progress').style.width = `${percentage}%`;
+            });
+            
+            refreshRateInput.addEventListener('input', function() {
+                const value = parseFloat(this.value);
+                const percentage = ((value - 0.5) / (5 - 0.5)) * 100;
+                this.nextElementSibling.querySelector('.progress').style.width = `${percentage}%`;
+            });
+            
+            // 初始设置
+            delayInput.dispatchEvent(new Event('input'));
+            refreshRateInput.dispatchEvent(new Event('input'));
+        }
+        
+        // 初始化快捷键
+        function initShortcuts() {
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey) {
+                    switch(e.key.toLowerCase()) {
+                        case 's':
+                            e.preventDefault();
+                            saveConfigToLocal();
+                            break;
+                        case 'l':
+                            e.preventDefault();
+                            loadConfigFromLocal();
+                            break;
+                        case ' ':
+                            e.preventDefault();
+                            if (isRunning) {
+                                stopAutoGrab();
+                            } else {
+                                startAutoGrab();
+                            }
+                            break;
+                    }
+                }
+            });
+        }
+        
+        // 初始化
+        function init() {
+            // 创建浮动背景图标
+            createFloatingIcons();
+            
+            // 绑定按钮事件
+            startBtn.addEventListener('click', startAutoGrab);
+            stopBtn.addEventListener('click', stopAutoGrab);
+            saveConfigBtn.addEventListener('click', saveConfigToLocal);
+            loadConfigBtn.addEventListener('click', loadConfigFromLocal);
+            
+            // 设置默认配置
+            document.getElementById('delay').value = config.delay;
+            document.getElementById('refreshRate').value = config.refreshRate;
+            
+            // 初始化UI组件
+            initProgressBars();
+            initShortcuts();
+            
+            // 更新黑名单显示
+            updateBlacklistDisplay();
+            
+            // 添加初始日志
+            addLog('系统初始化完成，准备就绪', 'info');
+            
+            // 预加载音效
+            successSound.load();
+        }
+        
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
